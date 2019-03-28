@@ -19,7 +19,7 @@ def readme():
 
 ns = os.environ.get('CI_PROJECT_NAMESPACE', 'idaf')
 
-setup(name='yapic-cli',
+setup(name='yapic',
       version='0.0.0',
       description='Yet another Pixel Classifier (based on deep learning)',
       long_description=readme(),
@@ -27,8 +27,7 @@ setup(name='yapic-cli',
       author_email='manuel.schoelling@gmx.de, christoph.moehl@dzne.de',
       packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
       dependency_links=[
-          'git+http://animate-x3.dzne.ds/{}/yapic.git@master#egg=yapic-0.0.0'.format(ns),
-          'git+http://animate-x3.dzne.ds/{}/yapic_io.git@master#egg=yapic_io-0.1.0'.format(ns),
+          'git+http://animate-x3.dzne.ds/idaf/yapic_io.git@master#egg=yapic_io-0.1.0',
       ],
       zip_safe=False,
       install_requires=reqs,
