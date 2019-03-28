@@ -3,7 +3,7 @@ run_cpu_tests:
   stage: test
 
   script:
-    - apt-get install git
+    - apt-get --yes install git
     - pip install Cython --user
     - pip install nose --user
     - pip install -e ${CI_PROJECT_DIR} --user
