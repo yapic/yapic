@@ -1,5 +1,5 @@
 run_cpu_tests:
-  image: datmo/python-base:py35-cpu
+  image: tensorflow/tensorflow:latest-py3
   stage: test
 
   script:
