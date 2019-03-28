@@ -2,6 +2,7 @@ from unittest import TestCase
 from yapic_io.training_batch import TrainingBatch
 from yapic_io.ilastik_connector import IlastikConnector
 from yapic_io.dataset import Dataset
+from yapic.training_project import TrainingProject
 import os
 
 base_path = os.path.dirname(__file__)
@@ -19,7 +20,14 @@ class TestTrainingProject(TestCase):
         c = IlastikConnector(img_path, label_path)
         d = Dataset(c)
 
-        size = (1, 50, 50)
+        size = (1, 5, 5)
         pad = (0, 0, 0)
 
         m = TrainingBatch(d, size, padding_zxy=pad)
+
+        t = TrainingProject(m, valfraction=0.3)
+
+        print(t.data)
+        print(t.data_val)
+
+        assert False

@@ -20,7 +20,7 @@ class TrainingProject(object):
     Pixel data is cached in memory for repeated requests.
     '''
 
-    def __init__(data, valfraction=0):
+    def __init__(self, data, valfraction=0):
 
         self.data = data
         if valfraction > 0:
