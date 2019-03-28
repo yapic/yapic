@@ -1,14 +1,9 @@
-before_script:
-  - mkdir ~/.pip
-  - echo -e '[install]\nprocess-dependency-links = yes' > ~/.pip/pip.conf
-
-
 run_cpu_tests:
   image: tensorflow/tensorflow:latest-py3
   stage: test
 
   script:
-    - pip install Cython
+    - pip install Cython --user
     - pip install nose --user
     - pip install -e ${CI_PROJECT_DIR} --user
     - cd ${CI_PROJECT_DIR}
