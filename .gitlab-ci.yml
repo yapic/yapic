@@ -1,0 +1,10 @@
+run_cpu_tests:
+  image: datmo/python-base:py35-cpu
+  stage: test
+
+  script:
+    - pip install Cython
+    - pip install nose --user
+    - pip install -e ${CI_PROJECT_DIR} --user
+    - cd ${CI_PROJECT_DIR}
+    - nosetests
