@@ -37,6 +37,7 @@ class TrainingProject(object):
         self.model = None
         self.data = None
         self.data_val = None
+        self.history = None
 
     def make_model(self, model_name, input_tile_size_zxy):
 
@@ -73,24 +74,25 @@ class TrainingProject(object):
     def train(self, max_epochs=3000, workers=0):
 
         training_data = ((mb.pixels(), mb.weights()) for mb in self.data)
-        history = self.model.fit_generator(training_data,
+        self.history = self.model.fit_generator(training_data,
                                            validation_data=None,
                                            epochs=max_epochs,
                                            validation_steps=None,
-                                           steps_per_epoch=2,
+                                           steps_per_epoch=12,
                                            callbacks=[],
                                            workers=workers)
 
-        val_loss = history.history['val_loss'][-1]
-        N_epochs = len(history.history['val_loss'])
-
-        val_channel_accs = [history.history[key][-1]
-                            for key in history.history.keys()
-                            if key.startswith('val_') and key.endswith(
-                                                             '_accuracy')]
-        val_accuracy = np.mean(val_channel_accs)
-
-        return val_loss, val_accuracy, N_epochs
+        # val_loss = history.history['val_loss'][-1]
+        # N_epochs = len(history.history['val_loss'])
+        #
+        # val_channel_accs = [history.history[key][-1]
+        #                     for key in history.history.keys()
+        #                     if key.startswith('val_') and key.endswith(
+        #                                                      '_accuracy')]
+        # val_accuracy = np.mean(val_channel_accs)
+        #
+        # return val_loss, val_accuracy, N_epochs
+        return self.history
 
 
 

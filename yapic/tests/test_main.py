@@ -7,7 +7,7 @@ from yapic_io.dataset import Dataset
 from yapic.training_project import TrainingProject
 import yapic.network as netw
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+# os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 import tensorflow as tf
 
 

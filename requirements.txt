@@ -2,5 +2,6 @@ yapic_io @ git+http://animate-x3.dzne.ds/idaf/yapic_io.git@master
 docopt>=0.6.2
 numpy>=1.15.4
 Keras>=2.2.4
-tensorflow>=1.12.0
+tensorflow==1.8.0
+tensorflow-gpu==1.8.0
 nose>=1.3.7
