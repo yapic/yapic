@@ -1,3 +1,5 @@
+.cache/
+
 # compiled python files
 *.pyc
 *.npz
