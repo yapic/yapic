@@ -26,14 +26,26 @@ def setup_network(network_name, N_classes, input_size_czxy):
     return network
 
 
-def compile_model(network, learning_rate=1e-2, momentum=0.9):
+def count_labels(y):
+    return K.sum(K.cast(K.any(K.not_equal(y, 0), axis=-1), dtype=K.floatx()))
+
+
+
+def correct_mean(y):
+    return K.prod(K.cast(K.shape(y)[:-1], dtype=K.floatx())) / count_labels(y)
+
+
+
+
+def corrected_categorical_crossentropy(y_true, y_pred):
+    return keras.losses.categorical_crossentropy(y_true,
+                                                 y_pred) * correct_mean(y_true)
+
+def compile_model(network, learning_rate=1e-3, momentum=0.9):
     '''
     Compiles the network
     '''
-    count_labels = lambda y: K.sum(K.cast(K.any(K.not_equal(y, 0), axis=-1),
-                                   dtype=K.floatx()))
-    correct_mean = lambda y: K.prod(K.cast(K.shape(y)[:-1],
-                                    dtype=K.floatx())) / count_labels(y)
+
 
     def accuracy(y_true, y_pred):
         return metrics.categorical_accuracy(y_true,
@@ -43,14 +55,14 @@ def compile_model(network, learning_rate=1e-2, momentum=0.9):
                                     momentum=momentum,
                                     nesterov=True)
     network.compile(optimizer=optimize,
-                    loss='categorical_crossentropy',
+                    loss=corrected_categorical_crossentropy,
                     metrics=[accuracy])
 
     return network
 
 
 def make_model(network_name, N_classes, input_size_czxy,
-               learning_rate=1e-2, momentum=0.9):
+               learning_rate=1e-3, momentum=0.9):
     logger.info(
         'Building network "{}" with input size {} (czxy) and {} classes...'
         .format(network_name, input_size_czxy, N_classes))
