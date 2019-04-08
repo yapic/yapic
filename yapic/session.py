@@ -11,8 +11,8 @@ from time import localtime, strftime
 import keras
 from keras.callbacks import TensorBoard
 
-tensorboard = TensorBoard(log_dir='./logs', histogram_freq=0,
-                          write_graph=True, write_images=False)
+# tensorboard = TensorBoard(log_dir='./logs', histogram_freq=0,
+#                           write_graph=True, write_images=False)
 
 logger = logging.getLogger(os.path.basename(__file__))
 logger.setLevel(logging.INFO)
@@ -90,7 +90,7 @@ class Session(object):
     def train(self, max_epochs=3000, steps_per_epoch=24, log_filename=None):
 
         callbacks = []
-        callbacks.append(tensorboard)
+
         if log_filename:
             callbacks.append(keras.callbacks.CSVLogger(log_filename,
                                                    separator=',',
