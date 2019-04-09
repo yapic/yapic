@@ -1,5 +1,5 @@
 run_cpu_tests:
-  image: python:3.6
+  image: tensorflow/tensorflow:latest
   stage: test
 
   script:
@@ -7,7 +7,6 @@ run_cpu_tests:
     - apt-get --yes install git
     - pip install Cython
     - pip install -e ${CI_PROJECT_DIR}
-    - pip install tensorflow
     - pip install nose
     - cd ${CI_PROJECT_DIR}
     - nosetests yapic/
