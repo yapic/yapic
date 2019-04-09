@@ -9,5 +9,5 @@ run_cpu_tests:
     - pip install -e ${CI_PROJECT_DIR}
     - pip install nose
     - cd ${CI_PROJECT_DIR}
-    - nosetests yapic/
+    - nosetests -v
   tags: [docker]
