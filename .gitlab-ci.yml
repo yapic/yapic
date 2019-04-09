@@ -1,5 +1,5 @@
 run_cpu_tests:
-  image: tensorflow/tensorflow:latest
+  image: tensorflow/tensorflow:latest-py3
   stage: test
 
   script:
