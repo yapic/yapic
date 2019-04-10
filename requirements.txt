@@ -1,4 +1,4 @@
-yapic_io @ git+http://animate-x3.dzne.ds/idaf/yapic_io.git@master
+yapic_io @ git+https://gitlab.dzne.de/idaf/yapic_io.git@master
 docopt>=0.6.2
 numpy>=1.15.4
 Keras>=2.2.4
