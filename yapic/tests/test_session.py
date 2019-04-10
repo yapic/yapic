@@ -5,12 +5,14 @@ from yapic.session import Session
 import os
 import skimage
 import numpy as np
+import pytest
 
 base_path = os.path.dirname(__file__)
 
 
 class TestEnd2End(TestCase):
 
+    @pytest.mark.slow
     def test_shape_data(self):
 
         # train a classifier and predict training data
@@ -38,14 +40,13 @@ class TestEnd2End(TestCase):
         t.make_model('unet_2d', (1, 572, 572))
 
         t.train(max_epochs=15,
-                steps_per_epoch=3,
+                steps_per_epoch=6,
                 log_filename=os.path.join(savepath, 'log.csv'))
         t.predict()
 
 
 
         # read prediction images and compare with validation data
-
         def read_images(image_nr, class_nr):
             if class_nr == 1:
                 shape = 'circles'
@@ -70,19 +71,19 @@ class TestEnd2End(TestCase):
         prediction_img, val_img = read_images(1, 1)
         accuracy = np.mean(prediction_img[val_img>0][:])
         print(accuracy)
-        self.assertTrue(accuracy > 0.65)
+        self.assertTrue(accuracy > 0.6)
 
         prediction_img, val_img = read_images(1, 2)
         accuracy = np.mean(prediction_img[val_img>0][:])
         print(accuracy)
-        self.assertTrue(accuracy > 0.65)
+        self.assertTrue(accuracy > 0.6)
 
         prediction_img, val_img = read_images(2, 1)
         accuracy = np.mean(prediction_img[val_img>0][:])
         print(accuracy)
-        self.assertTrue(accuracy > 0.65)
+        self.assertTrue(accuracy > 0.6)
 
         prediction_img, val_img = read_images(2, 2)
         accuracy = np.mean(prediction_img[val_img>0][:])
         print(accuracy)
-        self.assertTrue(accuracy > 0.65)
+        self.assertTrue(accuracy > 0.6)

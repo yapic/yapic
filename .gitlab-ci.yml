@@ -1,4 +1,4 @@
-run_cpu_tests:
+run_fast_tests:
   image: tensorflow/tensorflow:latest-py3
   stage: test
 
@@ -9,5 +9,19 @@ run_cpu_tests:
     - pip install -e ${CI_PROJECT_DIR}
     - cd ${CI_PROJECT_DIR}
     - pip install -U pytest
-    - pytest -s
+    - pytest -v -m "not slow"
+  tags: [docker]
+
+run_slow_tests:
+  image: tensorflow/tensorflow:latest-py3
+  stage: test
+
+  script:
+    - apt-get update
+    - apt-get --yes install git
+    - pip install Cython
+    - pip install -e ${CI_PROJECT_DIR}
+    - cd ${CI_PROJECT_DIR}
+    - pip install -U pytest
+    - pytest -s -v -m "slow"
   tags: [docker]
