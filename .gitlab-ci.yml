@@ -8,5 +8,6 @@ run_cpu_tests:
     - pip install Cython
     - pip install -e ${CI_PROJECT_DIR}
     - cd ${CI_PROJECT_DIR}
+    - pip install -U pytest
     - pytest -s
   tags: [docker]
