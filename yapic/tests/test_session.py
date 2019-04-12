@@ -10,6 +10,56 @@ import pytest
 base_path = os.path.dirname(__file__)
 
 
+class TestSessionMethods(TestCase):
+
+    def test_set_augmentation(self):
+
+        img_path = os.path.join(
+            base_path,
+            '../test_data/shapes/pixels/*')
+        label_path = os.path.join(
+            base_path,
+            '../test_data/shapes/labels.ilp')
+
+        t = Session()
+        t.load_training_data(img_path, label_path)
+        t.make_model('unet_2d', (1, 572, 572))
+
+        t.set_augmentation('flip+rotate')
+        self.assertEqual(t.data.augmentation, {'rotate', 'flip'})
+        t.set_augmentation('flip+rotate+shear')
+        self.assertEqual(t.data.augmentation, {'rotate', 'flip', 'shear'})
+        t.set_augmentation('flip')
+        self.assertEqual(t.data.augmentation, {'flip'})
+
+    def test_set_normalization(self):
+
+        img_path = os.path.join(
+            base_path,
+            '../test_data/shapes/pixels/*')
+        label_path = os.path.join(
+            base_path,
+            '../test_data/shapes/labels.ilp')
+
+        t = Session()
+        t.load_training_data(img_path, label_path)
+        t.make_model('unet_2d', (1, 572, 572))
+
+        t.set_normalization('local')
+        assert t.data.normalize_mode == 'local'
+        assert t.data.global_norm_minmax is None
+
+        t.set_normalization('global_0+255')
+        assert t.data.normalize_mode == 'global'
+        assert t.data.global_norm_minmax == (0, 255)
+
+
+
+
+
+
+
+
 class TestEnd2End(TestCase):
 
     @pytest.mark.slow

@@ -1,6 +1,7 @@
 import logging
 import os
 from yapic.network import make_model
+import yapic.utils as ut
 import numpy as np
 from yapic_io.training_batch import TrainingBatch
 from yapic_io.prediction_batch import PredictionBatch
@@ -46,7 +47,6 @@ class Session(object):
         self.output_tile_size_zxy = None
         self.padding_zxy = None
 
-
     def load_training_data(self, image_path, label_path):
         '''
         Connect to a training dataset.
@@ -76,7 +76,7 @@ class Session(object):
 
         self.dataset = Dataset(io_connector(image_path,
                                             '/tmp/this_should_not_exist',
-                                            savepath =save_path))
+                                            savepath=save_path))
 
     def make_model(self, model_name, input_tile_size_zxy):
         '''
@@ -192,16 +192,41 @@ class Session(object):
             result = self.model.predict(item.pixels())
             item.put_probmap_data(result)
 
+    def set_augmentation(self, augment_string):
+        '''
+        Define data augmentation settings for model training.
 
+        Parameters
+        ----------
+        augment_string : string
+            Choose 'flip' and/or 'rotate' and/or 'shear'.
+            Use '+' to specify multiple augmentations (e.g. flip+rotate).
+        '''
 
+        if self.data is None:
+            logger.warning(
+                'could not set augmentation to {}. Run make_model() first')
+            return
 
-def load_shape_dataset():
-    base_path = os.path.dirname(__file__)
-    img_path = os.path.join(
-        base_path,
-        'test_data/shapes/pixels/*')
-    label_path = os.path.join(
-        base_path,
-        'test_data/shapes/labels.ilp')
-    c = IlastikConnector(img_path, label_path)
-    return Dataset(c)
+        ut.handle_augmentation_setting(self.data, augment_string)
+
+    def set_normalization(self, norm_string):
+        '''
+        Set pixel normalization scope.
+
+        Parameters
+        ----------
+        norm_string : string
+            For minibatch-wise normalization choose 'local_z_score' or 'local'.
+            For global normalization use global_<min>+<max>
+            (e.g. 'global_0+255' for 8-bit images and 'global_0+65535' for
+            16-bit images).
+            Choose 'off' to deactivate.
+        '''
+
+        if self.data is None:
+            logger.warning(
+                'could not set normalizarion to {}. Run make_model() first')
+            return
+
+        ut.handle_normalization_setting(self.data, norm_string)
