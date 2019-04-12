@@ -5,6 +5,7 @@ run_fast_tests:
   script:
     - apt-get update
     - apt-get --yes install git
+    - export GIT_SSL_NO_VERIFY=1
     - pip install Cython
     - pip install -e ${CI_PROJECT_DIR}
     - cd ${CI_PROJECT_DIR}
@@ -19,6 +20,7 @@ run_slow_tests:
   script:
     - apt-get update
     - apt-get --yes install git
+    - export GIT_SSL_NO_VERIFY=1
     - pip install Cython
     - pip install -e ${CI_PROJECT_DIR}
     - cd ${CI_PROJECT_DIR}
