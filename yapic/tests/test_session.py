@@ -31,17 +31,14 @@ class TestEnd2End(TestCase):
 
         os.makedirs(savepath, exist_ok=True)
 
-        c = IlastikConnector(img_path,
-                             label_path,
-                             savepath=os.path.abspath(savepath))
-        d = Dataset(c)
-        t = Session(d)
-
+        t = Session()
+        t.load_training_data(img_path, label_path)
         t.make_model('unet_2d', (1, 572, 572))
 
         t.train(max_epochs=15,
                 steps_per_epoch=6,
                 log_filename=os.path.join(savepath, 'log.csv'))
+        t.load_prediction_data(img_path, savepath)
         t.predict()
 
 
