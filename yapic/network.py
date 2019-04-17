@@ -12,9 +12,8 @@ def setup_network(network_name, N_classes, input_size_czxy):
     Builds up the network named `network_name` with `N_channels` input channels
     and `N_class_list` output classes.
     '''
-
+    module_path = 'yapic.networks.{}'.format(network_name)
     try:
-        module_path = 'yapic.networks.{}'.format(network_name)
         root_mod = __import__(module_path)
     except ImportError:
         msg = 'Could not import network "{name}" (file networks/{name}.py)'

@@ -40,7 +40,7 @@ from docopt import docopt
 
 import os
 import sys
-from session import Session
+from yapic.session import Session
 
 import logging
 logger = logging.getLogger(__name__)
