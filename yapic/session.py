@@ -7,10 +7,7 @@ from yapic_io.training_batch import TrainingBatch
 from yapic_io.prediction_batch import PredictionBatch
 from yapic_io.connector import io_connector
 from yapic_io.dataset import Dataset
-import csv
-from time import localtime, strftime
 import keras
-from keras.callbacks import TensorBoard
 
 # tensorboard = TensorBoard(log_dir='./logs', histogram_freq=0,
 #                           write_graph=True, write_images=False)
@@ -133,7 +130,8 @@ class Session(object):
         self.data.remove_unlabeled_tiles()
         self.data_val = self.data.split(valfraction)
 
-    def train(self, max_epochs=3000, steps_per_epoch=24, log_filename=None):
+    def train(self, max_epochs=3000, steps_per_epoch=24, log_filename=None,
+              model_filename='model.h5'):
         '''
         Starts a training run.
 
@@ -144,7 +142,9 @@ class Session(object):
         steps_per_epoch : int
             Number of training steps per epoch.
         log_filename : string
-           path to the csv file for logging loss and accuracy.
+           Path to the csv file for logging loss and accuracy.
+        model_filename : string
+           Path to h5 keras model file
 
 
         Notes
@@ -154,6 +154,20 @@ class Session(object):
         '''
 
         callbacks = []
+
+        if self.data_val:
+            save_model_callback = keras.callbacks.ModelCheckpoint(
+                                        model_filename,
+                                        monitor='val_loss',
+                                        verbose=0,
+                                        save_best_only=True)
+        else:
+            save_model_callback = keras.callbacks.ModelCheckpoint(
+                                        model_filename,
+                                        monitor='loss',
+                                        verbose=0,
+                                        save_best_only=True)
+        callbacks.append(save_model_callback)
 
         if log_filename:
             callbacks.append(keras.callbacks.CSVLogger(log_filename,

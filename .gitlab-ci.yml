@@ -10,7 +10,7 @@ run_fast_tests:
     - pip install -e ${CI_PROJECT_DIR}
     - cd ${CI_PROJECT_DIR}
     - pip install -U pytest
-    - pytest -v -m "not slow"
+    - pytest -s -v -m "not slow"
   tags: [docker]
 
 run_slow_tests:

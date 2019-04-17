@@ -38,12 +38,8 @@ def expand(net, to_concat, n_filters):
     net = convolve(net, n_filters, (2, 2))
 
     shape_diff = to_concat.shape[-2] - net.shape[-2]
-    print('net: {}'.format(net.shape))
-    print('to_concat: {}'.format(to_concat.shape))
-
-    print('d: {}'.format(shape_diff))
     cropping = int(math.floor(int(shape_diff)/2.))
-    print('crop: {}'.format(cropping))
+
     cropped = keras.layers.Cropping2D(cropping=cropping,
                                       data_format='channels_last')(to_concat)
 
@@ -89,14 +85,10 @@ def build_network(N_classes, input_size_czxy):
                               (1, 1),
                               activation='softmax',
                               data_format='channels_last')(net)
-    print('net: {}'.format(net.shape))
-
 
     size_xy_out = net.shape[-2].value
-    print('net: {}'.format(net.shape))
-    net = keras.layers.Reshape((1, size_xy_out, size_xy_out, N_classes))(net)
-    print('net: {}'.format(net.shape))
-    model = keras.models.Model(inputs=input_net, outputs=net)
 
+    net = keras.layers.Reshape((1, size_xy_out, size_xy_out, N_classes))(net)
+    model = keras.models.Model(inputs=input_net, outputs=net)
 
     return model
