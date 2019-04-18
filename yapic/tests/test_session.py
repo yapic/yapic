@@ -7,6 +7,7 @@ import skimage
 import numpy as np
 import pytest
 import shutil
+import logging
 
 base_path = os.path.dirname(__file__)
 
@@ -116,10 +117,11 @@ class TestEnd2End(TestCase):
 
         t = Session()
         t.load_training_data(img_path, label_path)
-        t.make_model('unet_2d', (1, 572, 572))
+        #t.make_model('unet_2d', (1, 572, 572))
+        t.make_model('convnet_for_unittest', (1, 100, 100))
 
-        t.train(max_epochs=15,
-                steps_per_epoch=6,
+        t.train(max_epochs=90,
+                steps_per_epoch=50,
                 log_filename=os.path.join(savepath, 'log.csv'),
                 model_filename=os.path.join(savepath, 'model.h5'))
         t.load_prediction_data(img_path, savepath)

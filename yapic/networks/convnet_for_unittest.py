@@ -21,8 +21,8 @@ def build_network(N_classes, input_size_czxy):
 
     net = keras.layers.Reshape((size_xy, size_xy, N_channels))(net)
 
-    n_convolutions = 2
-    n_filters = 3
+    n_convolutions = 6
+    n_filters = 50
     filter_size = (3, 3)
     for _ in range(n_convolutions):
         net = keras.layers.Conv2D(n_filters,

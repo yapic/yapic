@@ -1,5 +1,3 @@
-import logging
-import os
 from yapic.network import make_model
 import yapic.utils as ut
 import numpy as np
@@ -8,12 +6,6 @@ from yapic_io.prediction_batch import PredictionBatch
 from yapic_io.connector import io_connector
 from yapic_io.dataset import Dataset
 import keras
-
-# tensorboard = TensorBoard(log_dir='./logs', histogram_freq=0,
-#                           write_graph=True, write_images=False)
-
-logger = logging.getLogger(os.path.basename(__file__))
-logger.setLevel(logging.INFO)
 
 
 class Session(object):
