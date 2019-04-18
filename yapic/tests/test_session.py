@@ -79,8 +79,8 @@ class TestEnd2End(TestCase):
         t.load_training_data(img_path, label_path)
         t.make_model('convnet_for_unittest', (1, 100, 100))
 
-        t.train(max_epochs=5,
-                steps_per_epoch=20,
+        t.train(max_epochs=3,
+                steps_per_epoch=4,
                 log_filename=os.path.join(savepath, 'log.csv'),
                 model_filename=os.path.join(savepath, 'model.h5'))
         t.load_prediction_data(img_path, savepath)
@@ -117,10 +117,10 @@ class TestEnd2End(TestCase):
 
         t = Session()
         t.load_training_data(img_path, label_path)
-        #t.make_model('unet_2d', (1, 572, 572))
+
         t.make_model('convnet_for_unittest', (1, 100, 100))
 
-        t.train(max_epochs=90,
+        t.train(max_epochs=50,
                 steps_per_epoch=50,
                 log_filename=os.path.join(savepath, 'log.csv'),
                 model_filename=os.path.join(savepath, 'model.h5'))

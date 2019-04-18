@@ -34,4 +34,4 @@ class TestNetwork(TestCase):
                                    size_czxy)
 
         self.assertEqual(model.input_shape, (None, 1, 150, 150, 3))
-        self.assertEqual(model.output_shape, (None, 1, 146, 146, 2))
+        self.assertEqual(model.output_shape, (None, 1, 138, 138, 2))
