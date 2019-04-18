@@ -36,7 +36,7 @@ def correct_mean(y):
 
 
 
-def corrected_categorical_crossentropy(y_true, y_pred):
+def corr_categ_crsentropy(y_true, y_pred):
     return keras.losses.categorical_crossentropy(y_true,
                                                  y_pred) * correct_mean(y_true)
 
@@ -54,7 +54,7 @@ def compile_model(network, learning_rate=1e-3, momentum=0.9):
                                     momentum=momentum,
                                     nesterov=True)
     network.compile(optimizer=optimize,
-                    loss=corrected_categorical_crossentropy,
+                    loss=corr_categ_crsentropy,
                     metrics=[accuracy])
 
     return network
@@ -71,3 +71,12 @@ def make_model(network_name, N_classes, input_size_czxy,
     logger.debug('Network built with output size {}.'
                  .format(net.output_shape))
     return net
+
+
+def load_keras_model(filepath):
+
+    model = keras.models.load_model(
+        filepath,
+        custom_objects={'corr_categ_crsentropy': corr_categ_crsentropy})
+
+    return model

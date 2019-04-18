@@ -55,6 +55,45 @@ class TestSessionMethods(TestCase):
         assert t.data.normalize_mode == 'global'
         assert t.data.global_norm_minmax == (0, 255)
 
+    def test_load_model(self):
+
+
+        os.environ['CUDA_VISIBLE_DEVICES'] = ''
+        img_path = os.path.join(
+            base_path,
+            '../test_data/shapes/pixels/*')
+        label_path = os.path.join(
+            base_path,
+            '../test_data/shapes/labels.ilp')
+        savepath = os.path.join(
+            base_path,
+            '../test_data/tmp')
+
+        os.makedirs(savepath, exist_ok=True)
+
+        # train initial model and save it
+        t = Session()
+        t.load_training_data(img_path, label_path)
+        t.make_model('convnet_for_unittest', (1, 100, 100))
+        t.train(max_epochs=3,
+                steps_per_epoch=2,
+                log_filename=os.path.join(savepath, 'log.csv'),
+                model_filename=os.path.join(savepath, 'model.h5'))
+
+        # initialize new sassion and load pretrained model
+        t2 = Session()
+        t2.load_training_data(img_path, label_path)
+
+        assert t2.model is None
+        t2.load_model(os.path.join(savepath, 'model.h5'))
+        assert t2.model is not None
+
+        # train model further
+        t2.train(max_epochs=3,
+                 steps_per_epoch=2,
+                 log_filename=os.path.join(savepath, 'log.csv'),
+                 model_filename=os.path.join(savepath, 'model_continued.h5'))
+
 
 class TestEnd2End(TestCase):
 

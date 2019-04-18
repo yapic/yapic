@@ -30,6 +30,6 @@ setup(name='yapic',
       install_requires=reqs,
       test_suite='nose.collector',
       entry_points={
-          'console_scripts': ['yapic=yapic_cli.main:entry_point'],
+          'console_scripts': ['yapic=yapic.main:entry_point'],
       },
       tests_require=['nose', 'coverage', 'nose-timer', 'nose-deadline'])

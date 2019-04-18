@@ -1,4 +1,4 @@
-from yapic.network import make_model
+from yapic.network import make_model, load_keras_model
 import yapic.utils as ut
 import numpy as np
 from yapic_io.training_batch import TrainingBatch
@@ -6,6 +6,7 @@ from yapic_io.prediction_batch import PredictionBatch
 from yapic_io.connector import io_connector
 from yapic_io.dataset import Dataset
 import keras
+import os
 
 
 class Session(object):
@@ -49,6 +50,9 @@ class Session(object):
             file (.ilp file).
         '''
 
+        print(image_path)
+        print(label_path)
+
         self.dataset = Dataset(io_connector(image_path, label_path))
 
     def load_prediction_data(self, image_path, save_path):
@@ -90,6 +94,46 @@ class Session(object):
         self.model = make_model(model_name, n_classes, input_size_czxy)
 
         output_tile_size_zxy = self.model.output_shape[-4:-1]
+
+        self._configure_minibatch_data(input_tile_size_zxy,
+                                       output_tile_size_zxy)
+
+    def load_model(self, model_filepath):
+        '''
+        Import a Keras model in hfd5 format.
+
+        Parameters
+        ----------
+        model_filepath : string
+            Path to .h5 model file
+        '''
+
+        model = load_keras_model(model_filepath)
+
+        n_classes_model = model.output_shape[-1]
+        output_tile_size_zxy = model.output_shape[-4:-1]
+        n_channels_model = model.input_shape[-1]
+        input_tile_size_zxy = model.input_shape[-4:-1]
+
+        n_classes_data = len(self.dataset.label_values())
+        n_channels_data = self.dataset.image_dimensions(0)[0]
+
+        msg = ('nr of model classes ({}) and data classes ({}) '
+               'is not equal').format(n_classes_model, n_classes_data)
+        if n_classes_data > 0:
+            assert n_classes_data == n_classes_model, msg
+
+        msg = ('nr of model channels ({}) and iamge channels ({}) '
+               'is not equal').format(n_channels_model, n_channels_data)
+        assert n_channels_data == n_channels_model, msg
+
+        self._configure_minibatch_data(input_tile_size_zxy,
+                                       output_tile_size_zxy)
+        self.model = model
+
+    def _configure_minibatch_data(self,
+                                  input_tile_size_zxy,
+                                  output_tile_size_zxy):
         padding_zxy = tuple(((np.array(input_tile_size_zxy) -
                             np.array(output_tile_size_zxy))/2).astype(np.int))
 
