@@ -84,7 +84,7 @@ class Session(object):
             Input shape of the model. Large input shapes require large memory
             for used GPU hardware. For 'unet_2d', nr_zslices has to be 1.
         '''
-
+        print('tile size zxy: {}'.format(input_tile_size_zxy))
         assert len(input_tile_size_zxy) == 3
         nr_channels = self.dataset.image_dimensions(0)[0]
         print('nr_channels: {}'.format(nr_channels))
@@ -223,7 +223,7 @@ class Session(object):
                             training_data,
                             validation_data=validation_data,
                             epochs=max_epochs,
-                            validation_steps=2,
+                            validation_steps=steps_per_epoch,
                             steps_per_epoch=steps_per_epoch,
                             callbacks=callbacks,
                             workers=0)

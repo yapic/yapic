@@ -90,9 +90,11 @@ def main(args):
             size_xy = 572
             if model_name == 'unet_2d' or model_name == 'convnet_for_unittest':
                 size_z = 1
-                size_xy = 100
             if model_name == 'unet_multi_z':
                 size_z = 5
+            if model_name == 'convnet_for_unittest':
+                size_xy = 100
+
             s.make_model(model_name, (size_z, size_xy, size_xy))
 
         s.set_normalization(norm_string)

@@ -74,9 +74,13 @@ def make_model(network_name, N_classes, input_size_czxy,
 
 
 def load_keras_model(filepath):
-
-    model = keras.models.load_model(
-        filepath,
-        custom_objects={'corr_categ_crsentropy': corr_categ_crsentropy})
+    try:
+        model = keras.models.load_model(
+            filepath,
+            custom_objects={'corr_categ_crsentropy': corr_categ_crsentropy})
+    except ValueError:
+            model = keras.models.load_model(
+                filepath,
+                custom_objects={'corrected_categorical_crossentropy': corr_categ_crsentropy})
 
     return model
