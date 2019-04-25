@@ -1,5 +1,5 @@
 run_fast_tests:
-  image: tensorflow/tensorflow:latest-py3
+  image: python:3.6
   stage: test
 
   script:
@@ -7,23 +7,25 @@ run_fast_tests:
     - apt-get --yes install git
     - export GIT_SSL_NO_VERIFY=1
     - pip install Cython
-    - pip install -e ${CI_PROJECT_DIR}
     - cd ${CI_PROJECT_DIR}
+    - pip install -e .
+    - pip uninstall -y tensorflow-gpu
+    - pip install tensorflow
     - pip install -U pytest
     - pytest -s -v -m "not slow"
   tags: [docker]
 
-run_slow_tests:
-  image: tensorflow/tensorflow:latest-py3
-  stage: test
-
-  script:
-    - apt-get update
-    - apt-get --yes install git
-    - export GIT_SSL_NO_VERIFY=1
-    - pip install Cython
-    - pip install -e ${CI_PROJECT_DIR}
-    - cd ${CI_PROJECT_DIR}
-    - pip install -U pytest
-    - pytest -s -v -m "slow"
-  tags: [docker]
+# run_slow_tests:
+#   image: tensorflow/tensorflow:latest-py3
+#   stage: test
+#
+#   script:
+#     - apt-get update
+#     - apt-get --yes install git
+#     - export GIT_SSL_NO_VERIFY=1
+#     - pip install Cython
+#     - cd ${CI_PROJECT_DIR}
+#     - pip install -e .
+#     - pip install -U pytest
+#     - pytest -s -v -m "slow"
+#   tags: [docker]

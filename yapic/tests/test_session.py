@@ -10,6 +10,7 @@ import shutil
 import logging
 
 base_path = os.path.dirname(__file__)
+os.environ['CUDA_VISIBLE_DEVICES'] = ''
 
 
 class TestSessionMethods(TestCase):
