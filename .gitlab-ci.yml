@@ -9,7 +9,6 @@ run_fast_tests:
     - pip install Cython
     - cd ${CI_PROJECT_DIR}
     - pip install -e .
-    - pip uninstall -y tensorflow-gpu
     - pip install tensorflow
     - pip install -U pytest
     - pytest -s -v -m "not slow"
