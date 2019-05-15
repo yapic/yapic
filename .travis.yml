@@ -1,0 +1,12 @@
+language: python
+python:
+  - "3.6"
+
+# command to install dependencies
+install:
+  - pip install Cython tensorflow
+  - pip install .
+  - pip install -U pytest
+# command to run tests
+script:
+  - pytest -s -v -m "not slow"
