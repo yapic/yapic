@@ -2,8 +2,6 @@
 layout: default
 ---
 
-# YAPiC - Yet Another Pixel Classifier (based on deep learning)
-
 ## What is YAPiC for?
 
 With YAPiC you can make your own customzied filter (we call it *model* or *classifier*) to enhance a certain structure of your choice.
@@ -52,19 +50,11 @@ However, YAPiC is a very generally applicable tool and can be applied to very di
 
 * Install [Python 3.6.](https://www.python.org/downloads/)
 
-* Install [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
-
-* Install Cython
-
-```
-pip install Cython
-```
-
 * Install Tensorflow
     * if you want to use GPU processing (recommended)
 
     ```
-    pip install tensorflow-gpu
+    pip install tensorflow-gpu==1.8.0
     ```
 
     * For CPU processing (just for testing, do not use it in production)
@@ -79,18 +69,6 @@ pip install Cython
 pip install yapic
 ```
 
-* Run unit tests to check if everything works
-
-```
-pip install pytest
-pytest -s -v -m "not slow"
-```
-
-If you get following error ```ImportError: cannot import name 'abs'```
-you may downgrade tensorflow-gpu to version 1.8.0:
-```
-pip install tensorflow-gpu==1.8.0
-```
 
 ### Windows and Mac
 
