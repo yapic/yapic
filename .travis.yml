@@ -5,6 +5,10 @@ python:
 # command to install dependencies
 install:
   - pip install Cython tensorflow
+  - pip install git+http://github.com/yapic/lzw-decompressor.git@master
+  - pip install git+http://github.com/yapic/bigtiff.git@master
+  - pip install git+http://github.com/yapic/pyilastik.git@master
+  - pip install git+http://github.com/yapic/yapic_io.git@master
   - pip install .
   - pip install -U pytest
 # command to run tests
