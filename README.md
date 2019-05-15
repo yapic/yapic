@@ -1,4 +1,5 @@
-![pipeline status](https://gitlab.dzne.de/idaf/yapic/badges/master/pipeline.svg)
+[![Build Status](https://travis-ci.com/yapic/yapic.svg?branch=master)](https://travis-ci.com/yapic/yapic)
+
 
 # YAPiC - Yet Another Pixel Classifier (based on deep learning)
 
