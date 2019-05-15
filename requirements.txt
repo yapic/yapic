@@ -1,5 +1,0 @@
-yapic_io @ git+http://github.com/yapic/yapic_io.git@master
-docopt>=0.6.2
-numpy>=1.15.4
-Keras>=2.2.4
-nose>=1.3.7
