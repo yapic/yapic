@@ -1,14 +1,11 @@
 import os
 
 from setuptools import setup, find_packages
-try:  # for pip >= 10
-    from pip._internal.req import parse_requirements
-except ImportError:  # for pip <= 9.0.3
-    from pip.req import parse_requirements
 
-requirements_txt = os.path.join(os.path.dirname(__file__), 'requirements.txt')
-install_reqs = parse_requirements(requirements_txt, session=False)
-reqs = [str(ir.req) for ir in install_reqs]
+reqs = ['yapic_io>=0.1.0',
+        'docopt>=0.6.2',
+        'numpy>=1.15.4',
+        'Keras>=2.2.4']
 
 
 def readme():

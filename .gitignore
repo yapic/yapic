@@ -13,6 +13,8 @@
 
 # Setuptools distribution folder.
 
+/build/
+/dist/
 yapic/tests/__pycache__/
 
 # Python egg metadata, regenerated from source files by setuptools.

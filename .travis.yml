@@ -1,23 +1,17 @@
 language: python
 python:
-  - "3.6"
-
-# command to install dependencies
+- '3.6'
 install:
-  - pip install Cython tensorflow
-  - pip install git+http://github.com/yapic/lzw-decompressor.git@master
-  - pip install git+http://github.com/yapic/bigtiff.git@master
-  - pip install git+http://github.com/yapic/pyilastik.git@master
-  - pip install git+http://github.com/yapic/yapic_io.git@master
-  - pip install .
-  - pip install -U pytest
-# command to run tests
+- pip install tensorflow
+- pip install .
+- pip install -U pytest
 script:
-  - pytest -s -v -m "not slow"
-
+- pytest -s -v -m "not slow"
 deploy:
   provider: pypi
-  user: "cmohl2013"
-  password:
-    secure: "e5U+JMObEMoveTHsKkne2J4WXIUU61WL79J7mLe7r2p8WWwDWFkzd2VG7CYT7UQWcGAIIjOu0cb2eXSxt34auMYOTmNvZGTi3/y+TBb6PGnXYz8cCpmQcXmrd+rZ+6f9hTyPAzQPqj87gRp4PT+X+Q1rvJAMvDsE1qKUSJfV8XSxHddSPvTX1629bHO96z1lIpBVFKowyj92iVX1QnRn8uMmxb/xIEu7oydpkXjUz6GcbZ+BYz5QfgHUkYLDMe25yWW0y/xRL6EgDWCL6sMP+V/6bZvwmUcU/2q2jX/kCpNisbvZENNjPz8BCFcSqFIpfUayfgQAlUI8mpNUMVKH7XmoWpf2kXEemK8TaXUzz85EYajuiHhh0c3P9wtC9piLzf92oqdg51Qox2MDHy+QGOmm5//pavdBP6nIp21HqhycaxHEumlv7vrv3furgfI5aLNECPPQPIjddz0EV9JPw5GEdBBPgEpquUGLRLqKpAqi7oB4cLsi9MHQXQVHclDyT4lYIf0NkAVPmpn7wN0GCGSd4DTGiqsOg5KSjDj9V0E2KcWoKMXvt+ZW8Y64GwUf+vHB6ut+BmzkExTgjyud/NsORk6yt5HYp/spO8QB41iB9TeJq4ykc6rbXqwJQbQ2DRtBJZLGBuV6n+c3yExVrxQsECp6kkyt8GFV46J1npc="
+  user: cmohl
   skip_cleanup: true
+  on:
+    tags: true
+  password:
+    secure: XljNsLwJPOrz3eZpN5CtYbAmc1rpzqKW+o1M1Sne/yUlZxQInIJxCyuuDCJbEQsORWFmLp90Bd1JsEjRgsJmPdV0SnsX138uNpV01k9KLTSYdcdCibkntkKx+ZjJ5doFecRB8SEmYQW7KES3yQAFaUNzRZQ4Y29H3h+xyGli0wdcM9RKNHx6kYs4HRKqiI8nsxNDJ6HQk/Zn5GaUzYigvnDE1kNO1tjKPuezNkLsdFo6AQJdio/l9PSS3EVqBCh7QucmdN7+gKxKUMeewjhLBzeN72WEjjEXEf1OsPuLjvAgASThPOdgMMMInB7b7vfJFaOC6l0qlTRF4//KKWQgNGRXzKaKD0bK688IEo/JqTW73WqB/FSSr5lpzgy5nY/Hzf7OoOwYKU+jrTNUGEnrktoL1vdmPinAGmZ0JlRsK79UgYTvkieK+tWzfGA3JbHovJYED/OEOLMMQZHe1vGwx8iGp7qBwmBAdVoGH00JH9GoTe+QxkaUYCEg4vNIcJ+tJy9swN+7SZQ/5jk79eCzySXklIS78LIbBIhW+yb5Xu5PWsYO6Hjv6Nrnz6l7sY03vBkdv2EqqXgJvA5Ff/0f9q/iJOo9oALgQKqn/w0VSng2PkJSldCjNPktO351MmTSI5Bu+NSvJmVzv+gzUikLGWJhHVH5Xw4M9NYQqdfczYM=
