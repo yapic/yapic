@@ -20,7 +20,7 @@ def readme():
 ns = os.environ.get('CI_PROJECT_NAMESPACE', 'idaf')
 
 setup(name='yapic',
-      version='0.0.0',
+      version='1.0.0',
       description='Yet another Pixel Classifier (based on deep learning)',
       long_description=readme(),
       author='Manuel Schoelling, Christoph Moehl',
