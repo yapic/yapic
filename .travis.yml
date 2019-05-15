@@ -12,6 +12,6 @@ deploy:
   user: cmohl
   skip_cleanup: true
   on:
-    all_branches: true
+    tags: true
   password:
     secure: XljNsLwJPOrz3eZpN5CtYbAmc1rpzqKW+o1M1Sne/yUlZxQInIJxCyuuDCJbEQsORWFmLp90Bd1JsEjRgsJmPdV0SnsX138uNpV01k9KLTSYdcdCibkntkKx+ZjJ5doFecRB8SEmYQW7KES3yQAFaUNzRZQ4Y29H3h+xyGli0wdcM9RKNHx6kYs4HRKqiI8nsxNDJ6HQk/Zn5GaUzYigvnDE1kNO1tjKPuezNkLsdFo6AQJdio/l9PSS3EVqBCh7QucmdN7+gKxKUMeewjhLBzeN72WEjjEXEf1OsPuLjvAgASThPOdgMMMInB7b7vfJFaOC6l0qlTRF4//KKWQgNGRXzKaKD0bK688IEo/JqTW73WqB/FSSr5lpzgy5nY/Hzf7OoOwYKU+jrTNUGEnrktoL1vdmPinAGmZ0JlRsK79UgYTvkieK+tWzfGA3JbHovJYED/OEOLMMQZHe1vGwx8iGp7qBwmBAdVoGH00JH9GoTe+QxkaUYCEg4vNIcJ+tJy9swN+7SZQ/5jk79eCzySXklIS78LIbBIhW+yb5Xu5PWsYO6Hjv6Nrnz6l7sY03vBkdv2EqqXgJvA5Ff/0f9q/iJOo9oALgQKqn/w0VSng2PkJSldCjNPktO351MmTSI5Bu+NSvJmVzv+gzUikLGWJhHVH5Xw4M9NYQqdfczYM=
