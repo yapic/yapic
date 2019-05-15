@@ -5,6 +5,7 @@ python:
 # command to install dependencies
 install:
   - pip install Cython tensorflow
+  - pip install git+http://github.com/yapic/yapic_io.git@master
   - pip install .
   - pip install -U pytest
 # command to run tests
