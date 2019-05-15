@@ -31,9 +31,9 @@ However, YAPiC is a very generally applicable tool and can be applied to very di
 
 * [Live cell imaging](example_neurite.html): Detection of neurites in
   label-free time lapse imaging.
-* [Digital Pathology](docs/example_histo.html): Detection of specific cell types
+* [Digital Pathology](example_histo.html): Detection of specific cell types
   in histological micrographs.
-* [Electron Microscopy](docs/example_actin_em.html): Detection of actin filaments in
+* [Electron Microscopy](example_actin_em.html): Detection of actin filaments in
   transmission electron micrographs.
 
 
@@ -127,6 +127,6 @@ background on your notebook while e.g. writing E-Mails is not feasible. Moreover
 
 
 ## About us
-![DZNE](docs/img/DZNE_CMYK_E.png)<!-- .element height="50%" width="50%" -->
+![DZNE](img/DZNE_CMYK_E.png)<!-- .element height="50%" width="50%" -->
 
 YAPiC is developed by the [Core Reseach Facilities](https://www.dzne.de/forschung/core-facilities/) of the [DZNE](https://www.dzne.de/en) (German Center for Neurodegenerative Diseases).
