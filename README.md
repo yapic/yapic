@@ -84,6 +84,11 @@ pip install pytest
 pytest -s -v -m "not slow"
 ```
 
+If you get following error ```ImportError: cannot import name 'abs'```
+you may downgrade tensorflow-gpu to version 1.8.0:
+```
+pip install tensorflow-gpu==1.8.0
+```
 
 ### Windows and Mac
 
