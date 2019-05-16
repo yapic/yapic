@@ -1,8 +1,8 @@
 """Yet Another Pixel Classifier.
 
 Usage:
-  yapic.py train <network> <image_path> <label_path> [options]
-  yapic.py predict <network> <image_path> <output_path> [options]
+  yapic train <network> <image_path> <label_path> [options]
+  yapic predict <network> <image_path> <output_path> [options]
 
   <network>               Either a model file in h5 format to use a pretrained
                           model or specific string to initialize a new model.

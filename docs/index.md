@@ -42,6 +42,17 @@ However, YAPiC is a very generally applicable tool and can be applied to very di
 
 ### Command line interface
 
+#### Model training
+```
+yapic train unet_2d "path/to/my/images/*.tif" path/to/my/labels.ilp
+```
+#### Prediction
+```
+yapic predict my_trained_model.h5 path/to/results/
+```
+
+Go to [CLI Documentation](doc_cli.html) for more details.
+
 ### Python API
 
 ## How to install
@@ -107,4 +118,8 @@ background on your notebook while e.g. writing E-Mails is not feasible. Moreover
 ## About us
 ![DZNE](img/DZNE_CMYK_E.png)<!-- .element height="50%" width="50%" -->
 
-YAPiC is developed by the [Core Reseach Facilities](https://www.dzne.de/forschung/core-facilities/) of the [DZNE](https://www.dzne.de/en) (German Center for Neurodegenerative Diseases).
+YAPiC is developed by the
+[Image and Data Analysis Facility](https://www.dzne.de/forschung/core-facilities/image-and-data-analysisfacility/),
+[Core Reseach Facilities](https://www.dzne.de/forschung/core-facilities/)
+of the [DZNE](https://www.dzne.de/en)
+(German Center for Neurodegenerative Diseases).
