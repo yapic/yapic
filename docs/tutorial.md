@@ -58,15 +58,15 @@
    yapic train unet_2d "path/to/leaves_example_data/*.tif" path/to/leaves_example_data/leaf_labels.ilp -e 500 --gpu=0
    ```   
 
-   * *unet_2d* defines the type of deep learning model to train. We choose the
+   * ```unet_2d``` defines the type of deep learning model to train. We choose the
     original U-Net architecture as described in [this paper](https://arxiv.org/pdf/1505.04597.pdf).
    * Next, we define the pixel data source with a wildcard
      With wildcards you have to use quotation marks.
    * Next, we have to define the label data source. In our case the ilastik project file ```path/to/leaves_example_data/leaf_labels.ilp```    
-   * The optional argument *e* defines the number of training epochs, i.e. the
+   * The optional argument ```e``` defines the number of training epochs, i.e. the
      length of the training process.
    * If you have multiple GPU cards available, you can select a specific GPU
-     with the optional *--gpu* argument.
+     with the optional ```--gpu``` argument.
    * Use ```yapic --help``` to get an overview about all arguments.  
 
 1. Training progress can be observed via command line output. Training 2500
