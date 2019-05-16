@@ -35,12 +35,34 @@ However, YAPiC is a very generally applicable tool and can be applied to very di
   transmission electron micrographs.
 
 
-## How does it work?
+## Why YAPiC?
+
+Pixel classification in YAPiC is based on deep learning with
+*fully convolutional neural networks*.
+Development of YAPiC started in 2015, when Ronneberger et al. presented a
+[U-shaped fully convolutional neural network](https://arxiv.org/pdf/1505.04597.pdf) that was capable of solving
+highly challenging pixel classification tasks in bio images, such as
+tumor classification in histological slides or cell segmentation in brightfield
+DIC images.
+
+>YAPiC was designed to make this new kind of AI powered pixel
+>classification simply applicable,
+>i.e **feasible to use for a PhD student** in his imaging project.
+
+*Simply applicable* means here in detail:
+
+* Easy to install.
+* Working out of the box with 3D multichannel images saved with
+  [Fiji](https://fiji.sc).
+* Easy collection of label data by utilizing the great
+  [Ilastik](https://ilastik.org) user interface.
+* Support of sparse labels. From our experience, labels can be collected within
+  a few hours by one single person.  
+* Simple command line and programming interface (Python).
+
 
 
 ## How to use it
-
-
 
 ### Command line interface
 
