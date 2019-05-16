@@ -35,14 +35,92 @@ However, YAPiC is a very generally applicable tool and can be applied to very di
   transmission electron micrographs.
 
 
-## How does it work?
+## Why YAPiC?
+
+Pixel classification in YAPiC is based on deep learning with
+*fully convolutional neural networks*.
+Development of YAPiC started in 2015, when Ronneberger et al. presented a
+[U-shaped fully convolutional neural network](https://arxiv.org/pdf/1505.04597.pdf) that was capable of solving
+highly challenging pixel classification tasks in bio images, such as
+tumor classification in histological slides or cell segmentation in brightfield
+DIC images.
+
+>YAPiC was designed to make this new kind of AI powered pixel
+>classification simply applicable,
+>i.e **feasible to use for a PhD student** in his imaging project.
+
+*Simply applicable* means here in detail:
+
+* Easy to install.
+* Working out of the box with 3D multichannel images saved with
+  [Fiji](https://fiji.sc).
+* Easy collection of label data by utilizing the great
+  [Ilastik](https://ilastik.org) user interface.
+* Support of sparse labels. From our experience, labels can be collected within
+  a few hours by one single person.  
+* Simple command line and programming interface (Python).
+
 
 
 ## How to use it
 
 ### Command line interface
 
+#### Model training
+```
+yapic train unet_2d "path/to/my/images/*.tif" path/to/my/labels.ilp
+```
+#### Prediction
+```
+yapic predict my_trained_model.h5 path/to/results/
+```
+
+> Get hands on YAPiC with the **[tutorial](tutorial.html)**.
+
+> Go to [CLI Documentation](doc_cli.html) for more details.
+
+
 ### Python API
+
+#### Model training
+```python
+from yapic.session import Session
+
+img_path = 'path/to/my/images/*.tif'
+label_path = 'path/to/my/labels.ilp'
+
+model_size_zxy = (5, 572, 572)
+
+t = Session()
+t.load_training_data(img_path, label_path)
+t.make_model('unet_multi_z', model_size_zxy)
+
+t.define_validation_data(0.2) # 80% training data, 20% validation data
+
+t.train(max_epochs=5000,
+        steps_per_epoch=48,
+        log_filename='log.csv')
+
+t.model.save('my_model.h5')
+```
+
+
+#### Prediction
+```python
+from yapic.session import Session
+
+img_path = 'path/to/my/images/*.tif'
+results_path = 'path/to/my/results/'
+
+t = Session()
+t.load_prediction_data(img_path, results_path)
+t.load_model('my_model.h5')
+
+t.predict() # applies the classfier to all images in img_path
+```
+
+> Try it out with the [leaves example dataset](example_data/leaves_example_data.zip)
+
 
 ## How to install
 
@@ -107,4 +185,8 @@ background on your notebook while e.g. writing E-Mails is not feasible. Moreover
 ## About us
 ![DZNE](img/DZNE_CMYK_E.png)<!-- .element height="50%" width="50%" -->
 
-YAPiC is developed by the [Core Reseach Facilities](https://www.dzne.de/forschung/core-facilities/) of the [DZNE](https://www.dzne.de/en) (German Center for Neurodegenerative Diseases).
+YAPiC is developed by the
+[Image and Data Analysis Facility](https://www.dzne.de/forschung/core-facilities/image-and-data-analysisfacility/),
+[Core Reseach Facilities](https://www.dzne.de/forschung/core-facilities/)
+of the [DZNE](https://www.dzne.de/en)
+(German Center for Neurodegenerative Diseases).
