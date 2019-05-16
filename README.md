@@ -33,4 +33,8 @@ However, YAPiC is a very generally applicable tool and can be applied to very di
 ## About us
 ![DZNE](docs/img/DZNE_CMYK_E.png)<!-- .element height="50%" width="50%" -->
 
-YAPiC is developed by the [Core Reseach Facilities](https://www.dzne.de/forschung/core-facilities/) of the [DZNE](https://www.dzne.de/en) (German Center for Neurodegenerative Diseases).
+YAPiC is developed by the
+[Image and Data Analysis Facility](https://www.dzne.de/forschung/core-facilities/image-and-data-analysisfacility/),
+[Core Reseach Facilities](https://www.dzne.de/forschung/core-facilities/)
+of the [DZNE](https://www.dzne.de/en)
+(German Center for Neurodegenerative Diseases).

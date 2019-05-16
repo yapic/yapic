@@ -40,6 +40,8 @@ However, YAPiC is a very generally applicable tool and can be applied to very di
 
 ## How to use it
 
+
+
 ### Command line interface
 
 #### Model training
@@ -51,7 +53,10 @@ yapic train unet_2d "path/to/my/images/*.tif" path/to/my/labels.ilp
 yapic predict my_trained_model.h5 path/to/results/
 ```
 
-Go to [CLI Documentation](doc_cli.html) for more details.
+> Get hands on YAPiC with the **[tutorial](tutorial.html)**.
+
+> Go to [CLI Documentation](doc_cli.html) for more details.
+
 
 ### Python API
 
@@ -90,6 +95,10 @@ t.load_prediction_data(img_path, results_path)
 t.load_model('my_model.h5')
 
 t.predict() # applies the classfier to all images in img_path
+```
+
+> Try it out with the [leaves example dataset](example_data/leaves_example_data.zip)
+
 
 ## How to install
 
