@@ -55,7 +55,7 @@
 
 1. Now you can start a training session with *YAPiC* command line tool:
    ```
-   yapic train unet_2d "path/to/leaves_example_data/*.tif" path/to/leaves_example_data/leaf_labels.ilp -e 2500 --gpu=0
+   yapic train unet_2d "path/to/leaves_example_data/*.tif" path/to/leaves_example_data/leaf_labels.ilp -e 500 --gpu=0
    ```   
 
    * *unet_2d* defines the type of deep learning model to train. We choose the
@@ -72,13 +72,20 @@
 1. Training progress can be observed via command line output. Training 2500
    epochs will take several hours.
    ```
-   Epoch 5/2500
+   Epoch 5/500
    50/50 [==============================] - 63s 1s/step - loss: 1.7317 - accuracy:    5.3919 - val_loss: 1.6949 - val_accuracy: 3.7496
-   Epoch 6/2500
+   Epoch 6/500
    50/50 [==============================] - 64s 1s/step - loss: 1.7241 - accuracy:    5.0915 - val_loss: 1.6836 - val_accuracy: 3.8097
-   Epoch 7/2500
+   Epoch 7/500
    50/50 [==============================] - 64s 1s/step - loss: 1.7246 - accuracy:    5.4757 - val_loss: 1.6919 - val_accuracy: 3.6405
-   Epoch 8/2500
+   Epoch 8/500
    17/50 [=========>....................] - ETA: 27s - loss: 1.7165 - accuracy:    5.5103
    ```
-   Training progress is also logged to *loss.csv*.
+   * Training progress is also logged to *loss.csv*.
+   * The best performing model (the model with the lowest validation loss)
+     is repeatedly saved as *model.h5*.  
+
+1. Apply your model to the images
+   ```
+   yapic predict model.h5 "path/to/leaves_example_data/*.tif" path/to/results
+   ```   

@@ -55,6 +55,42 @@ Go to [CLI Documentation](doc_cli.html) for more details.
 
 ### Python API
 
+#### Model training
+```python
+from yapic.session import Session
+
+img_path = 'path/to/my/images/*.tif'
+label_path = 'path/to/my/labels.ilp'
+
+model_size_zxy = (5, 572, 572)
+
+t = Session()
+t.load_training_data(img_path, label_path)
+t.make_model('unet_multi_z', model_size_zxy)
+
+t.define_validation_data(0.2) # 80% training data, 20% validation data
+
+t.train(max_epochs=5000,
+        steps_per_epoch=48,
+        log_filename='log.csv')
+
+t.model.save('my_model.h5')
+```
+
+
+#### Prediction
+```python
+from yapic.session import Session
+
+img_path = 'path/to/my/images/*.tif'
+results_path = 'path/to/my/results/'
+
+t = Session()
+t.load_prediction_data(img_path, results_path)
+t.load_model('my_model.h5')
+
+t.predict() # applies the classfier to all images in img_path
+
 ## How to install
 
 ### Linux
