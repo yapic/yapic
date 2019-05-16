@@ -32,12 +32,14 @@ Either a model file in h5 format to use a pretrained model or specific string to
 ### image_path
 
 Define a folder with *tiff* or *tif* images
-
-```path/to/my/images```
+```
+path/to/my/images
+```
 
 or a wildcard
-
-```"path/to/my/images/*.tif"```
+```
+"path/to/my/images/*.tif"
+```
 
 Don't forget double quotes in case of wildcards!
 
@@ -55,14 +57,17 @@ Large amounts of image data can be conveniently converted with Fiji by using
 ### label_path
 
 Define a path to an *Ilastik Project File (.ilp)*
-
-```path/to/my/ilastik_project.ilp```
+```
+path/to/my/ilastik_project.ilp
+```
 
 or to label masks in *tif* format.
-
-```path/to/my/labelfiles/```
-
-```"path/to/my/labelsfiles/*.tif"```
+```
+path/to/my/labelfiles/
+```
+```
+"path/to/my/labelsfiles/*.tif"
+```
 
 ##### Ilastik Project Files
 The images in associated with your Ilastik project have to be identical with
