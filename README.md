@@ -1,5 +1,13 @@
 [![Build Status](https://travis-ci.com/yapic/yapic.svg?branch=master)](https://travis-ci.com/yapic/yapic)
 
+![DZNE](docs/img/DZNE_CMYK_E.png)<!-- .element height="50%" width="50%" -->
+
+YAPiC is developed by the
+[Image and Data Analysis Facility](https://www.dzne.de/forschung/core-facilities/image-and-data-analysisfacility/),
+[Core Reseach Facilities](https://www.dzne.de/forschung/core-facilities/)
+of the [DZNE](https://www.dzne.de/en)
+(German Center for Neurodegenerative Diseases).
+
 
 # YAPiC - Yet Another Pixel Classifier (based on deep learning)
 
@@ -28,13 +36,3 @@ You can train a model for almost any structure you are interested in, for exampl
 
 We have used YAPiC for analyzing various microscopy image data. Our experiments are mainly related to neurobiology, cell biology, histopathology  and drug discovery (high content screening).
 However, YAPiC is a very generally applicable tool and can be applied to very different domains. It could be used for detecting e.g. forest regions in satellite images, clouds in landscape photographs or fried eggs in food photography.
-
-
-## About us
-![DZNE](docs/img/DZNE_CMYK_E.png)<!-- .element height="50%" width="50%" -->
-
-YAPiC is developed by the
-[Image and Data Analysis Facility](https://www.dzne.de/forschung/core-facilities/image-and-data-analysisfacility/),
-[Core Reseach Facilities](https://www.dzne.de/forschung/core-facilities/)
-of the [DZNE](https://www.dzne.de/en)
-(German Center for Neurodegenerative Diseases).

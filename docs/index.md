@@ -1,6 +1,15 @@
 ---
 layout: default
 ---
+![DZNE](img/DZNE_CMYK_E.png)<!-- .element height="40%" width="40%" -->
+
+YAPiC is developed by the
+[Image and Data Analysis Facility](https://www.dzne.de/forschung/core-facilities/image-and-data-analysisfacility/),
+[Core Reseach Facilities](https://www.dzne.de/forschung/core-facilities/)
+of the [DZNE](https://www.dzne.de/en)
+(German Center for Neurodegenerative Diseases).
+[CLI Documentation](doc_cli.html)
+[CLI Documentation](tutorial.html)
 
 ## What is YAPiC for?
 
@@ -47,7 +56,7 @@ DIC images.
 
 >YAPiC was designed to make this new kind of AI powered pixel
 >classification simply applicable,
->i.e **feasible to use for a PhD student** in his imaging project.
+>i.e **feasible to use for a PhD student** in his/her imaging project.
 
 *Simply applicable* means here in detail:
 
@@ -179,14 +188,3 @@ background on your notebook while e.g. writing E-Mails is not feasible. Moreover
     RAM on your GPU is sufficient.
   * For training a *unet_multi_z* with five z-layers and two classes, 11 GB RAM
     on GPU is sufficient.
-
-
-
-## About us
-![DZNE](img/DZNE_CMYK_E.png)<!-- .element height="50%" width="50%" -->
-
-YAPiC is developed by the
-[Image and Data Analysis Facility](https://www.dzne.de/forschung/core-facilities/image-and-data-analysisfacility/),
-[Core Reseach Facilities](https://www.dzne.de/forschung/core-facilities/)
-of the [DZNE](https://www.dzne.de/en)
-(German Center for Neurodegenerative Diseases).
