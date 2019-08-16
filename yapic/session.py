@@ -8,6 +8,8 @@ from yapic_io.dataset import Dataset
 import keras
 import os
 
+import logging
+logger = logging.getLogger(__name__)
 
 class Session(object):
     '''

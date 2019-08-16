@@ -2,8 +2,8 @@ import logging
 import re
 import os
 
-logger = logging.getLogger(os.path.basename(__file__))
-logger.setLevel(logging.INFO)
+logger = logging.getLogger(__name__)
+
 
 
 def handle_augmentation_setting(mbatch, augment):

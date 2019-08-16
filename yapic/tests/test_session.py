@@ -56,6 +56,19 @@ class TestSessionMethods(TestCase):
         assert t.data.normalize_mode == 'global'
         assert t.data.global_norm_minmax == (0, 255)
 
+    def test_set_normalization_if_no_data(self):
+        img_path = os.path.join(
+            base_path,
+            '../test_data/shapes/pixels/*')
+        label_path = os.path.join(
+            base_path,
+            '../test_data/shapes/labels.ilp')
+
+        t = Session()
+        # t.load_training_data(img_path, label_path)
+
+        t.set_normalization('local')
+
     def test_load_model(self):
 
 
@@ -136,6 +149,7 @@ class TestEnd2End(TestCase):
         assert 'pixels_2_class_3.tif' in artifacts
 
         shutil.rmtree(savepath)
+
 
     @pytest.mark.slow
     def test_shape_data(self):
