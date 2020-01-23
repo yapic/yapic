@@ -137,19 +137,6 @@ t.predict() # applies the classfier to all images in img_path
 
 * Install [Python 3.6.](https://www.python.org/downloads/)
 
-* Install Tensorflow
-    * if you want to use GPU processing (recommended)
-
-    ```
-    pip install tensorflow-gpu==1.8.0
-    ```
-
-    * For CPU processing (just for testing, do not use it in production)
-
-    ```
-    pip install tensorflow
-    ```
-
 * Install YAPiC
 
 ```
