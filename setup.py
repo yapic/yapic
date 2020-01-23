@@ -5,7 +5,8 @@ from setuptools import setup, find_packages
 reqs = ['yapic_io>=0.1.0',
         'docopt>=0.6.2',
         'numpy>=1.15.4',
-        'Keras>=2.2.4']
+        'Keras>=2.3.1',
+        'tensorflow>=2.1.0']
 
 
 def readme():

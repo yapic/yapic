@@ -36,7 +36,8 @@ def build_network(N_classes, input_size_czxy):
                               activation='softmax',
                               data_format='channels_last')(net)
 
-    size_xy_out = net.shape[-2].value
+    
+    size_xy_out = net.shape[-2]
 
     net = keras.layers.Reshape((1, size_xy_out, size_xy_out, N_classes))(net)
     model = keras.models.Model(inputs=input_net, outputs=net)
