@@ -7,6 +7,7 @@ from yapic_io.connector import io_connector
 from yapic_io.dataset import Dataset
 import keras
 import os
+from tensorflow.python.framework.tensor_shape import Dimension
 
 import logging
 logger = logging.getLogger(__name__)
@@ -96,6 +97,25 @@ class Session(object):
         self.model = make_model(model_name, n_classes, input_size_czxy)
 
         output_tile_size_zxy = self.model.output_shape[-4:-1]
+
+        output_tile_size_zxy = [v.value if isinstance(v, Dimension)
+                                        else v
+                                        for v in output_tile_size_zxy]
+        # vv = []
+        # for v in output_tile_size_zxy:
+        #     try:
+        #         vv.append(v.value)
+        #     except AttributeError:
+        #         vv.append(v)
+        # print(vv)
+
+
+
+        print('output')
+        print(output_tile_size_zxy)
+        print(type(output_tile_size_zxy[-1]))
+        print('input')
+        print(input_tile_size_zxy)
 
         self._configure_minibatch_data(input_tile_size_zxy,
                                        output_tile_size_zxy)

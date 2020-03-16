@@ -20,6 +20,9 @@ def setup_network(network_name, N_classes, input_size_czxy):
         raise ImportError(msg.format(name=network_name))
 
     network_module = getattr(root_mod.networks, network_name)
+
+    print('input size czxy')
+    print(input_size_czxy)
     network = network_module.build_network(N_classes, input_size_czxy)
 
     return network
