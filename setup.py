@@ -5,8 +5,7 @@ from setuptools import setup, find_packages
 reqs = ['yapic_io>=0.1.0',
         'docopt>=0.6.2',
         'numpy>=1.15.4',
-        'Keras>=2.3.1',
-        'tensorflow>=2.1.0']
+        'Keras>=2.3.0']
 
 
 def readme():
@@ -18,7 +17,7 @@ def readme():
 ns = os.environ.get('CI_PROJECT_NAMESPACE', 'idaf')
 
 setup(name='yapic',
-      version='1.0.1',
+      version='1.0.2',
       description='Yet another Pixel Classifier (based on deep learning)',
       long_description=readme(),
       author='Manuel Schoelling, Christoph Moehl',

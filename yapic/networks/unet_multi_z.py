@@ -28,6 +28,8 @@ def build_network(N_classes, input_size_czxy):
                                         data_format='channels_last')(input)
         models_single_z_layer.append(z_layer(input_single_z_layer))
 
+    print('mod single z')
+    print(models_single_z_layer)
     net = keras.layers.Concatenate(axis=1)(models_single_z_layer)
 
     net = keras.layers.Conv3D(25,
