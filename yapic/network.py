@@ -1,8 +1,8 @@
-import numpy as np
 import keras.optimizers
 from keras import backend as K
 from keras import metrics
 import logging
+
 
 logger = logging.getLogger(__name__)
 
@@ -77,6 +77,7 @@ def make_model(network_name, N_classes, input_size_czxy,
 
 
 def load_keras_model(filepath):
+
     try:
         model = keras.models.load_model(
             filepath,
