@@ -90,6 +90,42 @@ class TestDeepimagejExporter(TestCase):
 
         assert exp.is_model_unet_2d()
 
+    def test_reshape_unet_2d(self):
+
+        example_image_path = os.path.abspath(os.path.join(
+            base_path,
+            '../test_data/shapes/pixels/pixels_1.tiff'))
+
+        save_path = os.path.abspath(os.path.join(
+            base_path,
+            '../test_data/tmp/exported_model'))
+
+        model_path = os.path.join(
+            base_path,
+            '../test_data/tmp/model_unet_2d.h5')
+
+        print('model_path: {}'.format(model_path))
+
+        exp = DeepimagejExporter(model_path,
+                                 save_path,
+                                 example_image_path)
+
+        exp.reshape_unet_2d()
+        assert exp.model_reshaped.input_shape == (None, 224, 224, 1)
+        assert exp.model_reshaped.output_shape == (None, 224, 224, 3)
+
+        exp.reshape_unet_2d(size='small')
+        assert exp.model_reshaped.input_shape == (None, 112, 112, 1)
+        assert exp.model_reshaped.output_shape == (None, 112, 112, 3)
+
+        exp.reshape_unet_2d(size='large')
+        assert exp.model_reshaped.input_shape == (None, 448, 448, 1)
+        assert exp.model_reshaped.output_shape == (None, 448, 448, 3)
+
+
+
+
+
     # def test_is_model_unet_2d_2(self):
     #
     #     example_image_path = os.path.abspath(os.path.join(
