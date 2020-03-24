@@ -2,6 +2,8 @@ language: python
 python:
 - '3.6'
 install:
+- pip install --upgrade pip setuptools  
+- pip install tensorflow==1.15
 - pip install .
 - pip install -U pytest
 script:
