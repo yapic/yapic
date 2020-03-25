@@ -2,9 +2,9 @@ language: python
 python:
   - '3.6'
 env:
-  - TENSORFLOW_VERSION=2.1
-  - TENSORFLOW_VERSION=1.12
-  - TENSORFOW_VERSION=1.15
+  - TENSORFLOW_VERSION=2.1.0
+  - TENSORFLOW_VERSION=1.12.0
+  - TENSORFOW_VERSION=1.15.2
 install:
   - pip install --upgrade pip setuptools
   - pip install tensorflow==$TENSORFLOW_VERSION
