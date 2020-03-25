@@ -2,6 +2,7 @@ from unittest import TestCase
 from yapic.deepimagej_exporter import DeepimagejExporter
 from yapic.session import Session
 import os
+import shutil
 
 base_path = os.path.dirname(__file__)
 
@@ -62,6 +63,13 @@ class TestDeepimagejExporter(TestCase):
 
     @classmethod
     def setUpClass(cls):
+
+        # delete test artifacts
+        savepath = os.path.join(
+            base_path,
+            '../test_data/tmp')
+        shutil.rmtree(savepath, ignore_errors=True)
+
         model_path = train_test_model_unet_2d()
         print('saved unet_2d as {}'.format(model_path))
 
@@ -88,7 +96,7 @@ class TestDeepimagejExporter(TestCase):
                                  save_path,
                                  example_image_path)
 
-        assert exp.is_model_unet_2d()
+        assert exp._is_model_unet_2d()
 
     def test_reshape_unet_2d(self):
 
@@ -110,17 +118,44 @@ class TestDeepimagejExporter(TestCase):
                                  save_path,
                                  example_image_path)
 
-        exp.reshape_unet_2d()
+        exp._reshape_unet_2d()
         assert exp.model_reshaped.input_shape == (None, 224, 224, 1)
         assert exp.model_reshaped.output_shape == (None, 224, 224, 3)
 
-        exp.reshape_unet_2d(size='small')
+        exp._reshape_unet_2d(size='small')
         assert exp.model_reshaped.input_shape == (None, 112, 112, 1)
         assert exp.model_reshaped.output_shape == (None, 112, 112, 3)
 
-        exp.reshape_unet_2d(size='large')
-        assert exp.model_reshaped.input_shape == (None, 448, 448, 1)
-        assert exp.model_reshaped.output_shape == (None, 448, 448, 3)
+        exp._reshape_unet_2d(size='large')
+        assert exp.model_reshaped.input_shape == (None, 368, 368, 1)
+        assert exp.model_reshaped.output_shape == (None, 368, 368, 3)
+
+    def test_export_as_tensorflow_model(self):
+
+        example_image_path = os.path.abspath(os.path.join(
+            base_path,
+            '../test_data/shapes/pixels/pixels_1.tiff'))
+
+        save_path = os.path.abspath(os.path.join(
+            base_path,
+            '../test_data/tmp/exported_model'))
+
+        model_path = os.path.join(
+            base_path,
+            '../test_data/tmp/model_unet_2d.h5')
+
+        print('model_path: {}'.format(model_path))
+
+        exp = DeepimagejExporter(model_path,
+                                 save_path,
+                                 example_image_path)
+
+        exp._reshape_unet_2d(size='large')
+        exp._export_as_tensorflow_model()
+
+
+
+
 
 
 
