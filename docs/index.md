@@ -147,12 +147,13 @@ t.predict() # applies the classfier to all images in img_path
   * We strongly recommend to install a Tensorflow version with GPU support.  
     CPU is too slow for model training.
   * Please read [Tensorflow installation instructions](https://www.tensorflow.org/install/gpu) to set up CUDA drivers, cuDNN etc. correctly.
+  * Supported tensorflow versions are **1.12**, **1.15** and **2.1**.
   * To be able to deploy YAPiC models to
     [DeepImageJ](https://deepimagej.github.io/deepimagej/), you have install
     Tensorflow version 1.12
     ```
     pip install tensorflow-gpu==1.12
-    ```    
+    ```      
 
 
 * Install YAPiC
