@@ -3,6 +3,7 @@ from yapic.deepimagej_exporter import DeepimagejExporter
 from yapic.session import Session
 import os
 import shutil
+import tensorflow as tf
 
 base_path = os.path.dirname(__file__)
 
@@ -131,6 +132,12 @@ class TestDeepimagejExporter(TestCase):
         assert exp.model_reshaped.output_shape == (None, 368, 368, 3)
 
     def test_export_as_tensorflow_model(self):
+
+        tf_version = [int(num) for num in tf.__version__.split('.')]
+
+        if tf_version[0] != 1:
+            # deepimagej supports only tensorflow version 1
+            return
 
         example_image_path = os.path.abspath(os.path.join(
             base_path,
