@@ -1,0 +1,4 @@
+include README.md
+include templates/deepimagej101/config.xml
+include templates/deepimagej101/preprocessing.txt
+include templates/deepimagej101/postprocessing.txt
