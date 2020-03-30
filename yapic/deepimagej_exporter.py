@@ -3,7 +3,8 @@ from yapic.networks import unet_2d
 import os
 import tensorflow as tf
 from keras import backend as K
-#from tensorflow.keras import backend as K
+# from tensorflow.keras import backend as K
+
 
 class DeepimagejExporter(object):
     '''
@@ -37,7 +38,8 @@ class DeepimagejExporter(object):
         self.model_reshaped = None
 
     def _is_model_unet_2d(self):
-        return self.s.model.count_params() == 32424323
+        return self.s.model.name == 'unet_2d'
+        # return self.s.model.count_params() == 32424323
 
     def _reshape_unet_2d(self, size='middle'):
 
