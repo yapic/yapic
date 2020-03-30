@@ -96,6 +96,6 @@ def build_network(N_classes, input_size_czxy, squeeze=False, padding='valid'):
                                     size_xy_out,
                                     size_xy_out,
                                     N_classes))(net)
-    model = keras.models.Model(inputs=input_net, outputs=net)
+    model = keras.models.Model(inputs=input_net, outputs=net, name='unet_2d')
 
     return model
