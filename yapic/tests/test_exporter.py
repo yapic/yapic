@@ -178,104 +178,80 @@ class TestDeepimagejExporter(TestCase):
                                  example_image_path)
         assert exp._is_model_unet_2d()
 
-    def test_reshape_unet_2d_1channel_3classes(self):
+    # def test_reshape_unet_2d_1channel_3classes(self):
+    #
+    #     example_image_path = os.path.abspath(os.path.join(
+    #         base_path,
+    #         '../test_data/shapes/pixels/pixels_1.tiff'))
+    #
+    #     save_path = os.path.abspath(os.path.join(
+    #         base_path,
+    #         '../test_data/tmp/exported_model'))
+    #
+    #     model_path = os.path.join(
+    #         base_path,
+    #         '../test_data/tmp/model_unet_2d_1channel_3classes.h5')
+    #
+    #     print('model_path: {}'.format(model_path))
+    #
+    #     exp = DeepimagejExporter(model_path,
+    #                              save_path,
+    #                              example_image_path)
+    #
+    #     exp._reshape_unet_2d(size='small')
+    #     assert exp.model_reshaped.input_shape == (None, 112, 112, 1)
+    #     assert exp.model_reshaped.output_shape == (None, 112, 112, 3)
+    #
+    # def test_reshape_unet_2d_1channel_2classes(self):
+    #
+    #     example_image_path = os.path.abspath(os.path.join(
+    #         base_path,
+    #         '../test_data/shapes/pixels/pixels_1.tiff'))
+    #
+    #     save_path = os.path.abspath(os.path.join(
+    #         base_path,
+    #         '../test_data/tmp/exported_model'))
+    #
+    #     model_path = os.path.join(
+    #         base_path,
+    #         '../test_data/tmp/model_unet_2d_1channel_2classes.h5')
+    #
+    #     print('model_path: {}'.format(model_path))
+    #
+    #     exp = DeepimagejExporter(model_path,
+    #                              save_path,
+    #                              example_image_path)
+    #
+    #     exp._reshape_unet_2d(size='small')
+    #     assert exp.model_reshaped.input_shape == (None, 112, 112, 1)
+    #     assert exp.model_reshaped.output_shape == (None, 112, 112, 2)
+    #
+    # def test_reshape_unet_2d_3channels_2classes(self):
+    #
+    #     example_image_path = os.path.abspath(os.path.join(
+    #         base_path,
+    #         '../test_data/shapes/pixels_rgb/pixels_1.tif'))
+    #
+    #     save_path = os.path.abspath(os.path.join(
+    #         base_path,
+    #         '../test_data/tmp/exported_model'))
+    #
+    #     model_path = os.path.join(
+    #         base_path,
+    #         '../test_data/tmp/model_unet_2d_3channels_2classes.h5')
+    #
+    #     print('model_path: {}'.format(model_path))
+    #
+    #     exp = DeepimagejExporter(model_path,
+    #                              save_path,
+    #                              example_image_path)
+    #
+    #     exp._reshape_unet_2d(size='small')
+    #     assert exp.model_reshaped.input_shape == (None, 112, 112, 3)
+    #     assert exp.model_reshaped.output_shape == (None, 112, 112, 2)
 
-        example_image_path = os.path.abspath(os.path.join(
-            base_path,
-            '../test_data/shapes/pixels/pixels_1.tiff'))
-
-        save_path = os.path.abspath(os.path.join(
-            base_path,
-            '../test_data/tmp/exported_model'))
-
-        model_path = os.path.join(
-            base_path,
-            '../test_data/tmp/model_unet_2d_1channel_3classes.h5')
-
-        print('model_path: {}'.format(model_path))
-
-        exp = DeepimagejExporter(model_path,
-                                 save_path,
-                                 example_image_path)
-
-        exp._reshape_unet_2d()
-        assert exp.model_reshaped.input_shape == (None, 224, 224, 1)
-        assert exp.model_reshaped.output_shape == (None, 224, 224, 3)
-
-        exp._reshape_unet_2d(size='small')
-        assert exp.model_reshaped.input_shape == (None, 112, 112, 1)
-        assert exp.model_reshaped.output_shape == (None, 112, 112, 3)
-
-        exp._reshape_unet_2d(size='large')
-        assert exp.model_reshaped.input_shape == (None, 368, 368, 1)
-        assert exp.model_reshaped.output_shape == (None, 368, 368, 3)
-
-
-    def test_reshape_unet_2d_1channel_2classes(self):
-
-        example_image_path = os.path.abspath(os.path.join(
-            base_path,
-            '../test_data/shapes/pixels/pixels_1.tiff'))
-
-        save_path = os.path.abspath(os.path.join(
-            base_path,
-            '../test_data/tmp/exported_model'))
-
-        model_path = os.path.join(
-            base_path,
-            '../test_data/tmp/model_unet_2d_1channel_2classes.h5')
-
-        print('model_path: {}'.format(model_path))
-
-        exp = DeepimagejExporter(model_path,
-                                 save_path,
-                                 example_image_path)
-
-        exp._reshape_unet_2d()
-        assert exp.model_reshaped.input_shape == (None, 224, 224, 1)
-        assert exp.model_reshaped.output_shape == (None, 224, 224, 2)
-
-        exp._reshape_unet_2d(size='small')
-        assert exp.model_reshaped.input_shape == (None, 112, 112, 1)
-        assert exp.model_reshaped.output_shape == (None, 112, 112, 2)
-
-        exp._reshape_unet_2d(size='large')
-        assert exp.model_reshaped.input_shape == (None, 368, 368, 1)
-        assert exp.model_reshaped.output_shape == (None, 368, 368, 2)
-
-    def test_reshape_unet_2d_3channels_2classes(self):
-
-        example_image_path = os.path.abspath(os.path.join(
-            base_path,
-            '../test_data/shapes/pixels_rgb/pixels_1.tif'))
-
-        save_path = os.path.abspath(os.path.join(
-            base_path,
-            '../test_data/tmp/exported_model'))
-
-        model_path = os.path.join(
-            base_path,
-            '../test_data/tmp/model_unet_2d_3channels_2classes.h5')
-
-        print('model_path: {}'.format(model_path))
-
-        exp = DeepimagejExporter(model_path,
-                                 save_path,
-                                 example_image_path)
-
-        exp._reshape_unet_2d()
-        assert exp.model_reshaped.input_shape == (None, 224, 224, 3)
-        assert exp.model_reshaped.output_shape == (None, 224, 224, 2)
-
-        exp._reshape_unet_2d(size='small')
-        assert exp.model_reshaped.input_shape == (None, 112, 112, 3)
-        assert exp.model_reshaped.output_shape == (None, 112, 112, 2)
-
-        exp._reshape_unet_2d(size='large')
-        assert exp.model_reshaped.input_shape == (None, 368, 368, 3)
-        assert exp.model_reshaped.output_shape == (None, 368, 368, 2)
-
-    def test_export_as_tensorflow_model(self):
+    def test_export_as_tensorflow_model_1(self):
+        # 1 channel 3 classes
 
         tf_version = [int(num) for num in tf.__version__.split('.')]
 
@@ -286,8 +262,6 @@ class TestDeepimagejExporter(TestCase):
         example_image_path = os.path.abspath(os.path.join(
             base_path,
             '../test_data/shapes/pixels/pixels_1.tiff'))
-
-        # 1 channel 3 classes
         save_path = os.path.abspath(os.path.join(
             base_path,
             '../test_data/tmp/exported_model_1channel_3classes'))
@@ -298,10 +272,21 @@ class TestDeepimagejExporter(TestCase):
         exp = DeepimagejExporter(model_path,
                                  save_path,
                                  example_image_path)
-        exp._reshape_unet_2d(size='middle')
+        exp._reshape_unet_2d(size='small')
         exp._export_as_tensorflow_model()
 
+    def test_export_as_tensorflow_model_2(self):
         # 1 channel 2 classes
+
+        tf_version = [int(num) for num in tf.__version__.split('.')]
+
+        if tf_version[0] != 1:
+            # deepimagej supports only tensorflow version 1
+            return
+
+        example_image_path = os.path.abspath(os.path.join(
+            base_path,
+            '../test_data/shapes/pixels/pixels_1.tiff'))
         save_path = os.path.abspath(os.path.join(
             base_path,
             '../test_data/tmp/exported_model_1channel_2classes'))
@@ -312,10 +297,18 @@ class TestDeepimagejExporter(TestCase):
         exp = DeepimagejExporter(model_path,
                                  save_path,
                                  example_image_path)
-        exp._reshape_unet_2d(size='middle')
+        exp._reshape_unet_2d(size='small')
         exp._export_as_tensorflow_model()
 
+    def test_export_as_tensorflow_model_3(self):
         # 3 channels 2 classes
+
+        tf_version = [int(num) for num in tf.__version__.split('.')]
+
+        if tf_version[0] != 1:
+            # deepimagej supports only tensorflow version 1
+            return
+
         example_image_path = os.path.abspath(os.path.join(
             base_path,
             '../test_data/shapes/pixels_rgb/pixels_1.tif'))
@@ -329,35 +322,5 @@ class TestDeepimagejExporter(TestCase):
         exp = DeepimagejExporter(model_path,
                                  save_path,
                                  example_image_path)
-        exp._reshape_unet_2d(size='middle')
+        exp._reshape_unet_2d(size='small')
         exp._export_as_tensorflow_model()
-
-
-
-
-
-
-
-
-
-    # def test_is_model_unet_2d_2(self):
-    #
-    #     example_image_path = os.path.abspath(os.path.join(
-    #         base_path,
-    #         '../test_data/shapes/pixels/pixels_1.tiff'))
-    #
-    #     save_path = os.path.abspath(os.path.join(
-    #         base_path,
-    #         '../test_data/tmp/exported_model'))
-    #
-    #     model_path = os.path.join(
-    #         base_path,
-    #         '../test_data/tmp/model_convnet.h5')
-    #
-    #     print('model_path: {}'.format(model_path))
-    #
-    #     exp = DeepimagejExporter(model_path,
-    #                              save_path,
-    #                              example_image_path)
-    #
-    #     assert exp.is_model_unet_2d() is False

@@ -1,0 +1,6 @@
+// convert to float image stack with values between 0 and 1
+if (bitDepth()==24){
+	run("RGB Stack");
+}
+run("32-bit");
+run("Enhance Contrast...", "saturated=0. normalize process_all");
