@@ -3,6 +3,7 @@ from yapic.networks import unet_2d
 import os
 import tensorflow as tf
 from keras import backend as K
+import time
 # from tensorflow.keras import backend as K
 
 
@@ -36,6 +37,7 @@ class DeepimagejExporter(object):
         assert self._is_model_unet_2d(), msg
 
         self.model_reshaped = None
+        self.metadata = None
 
     def _is_model_unet_2d(self):
         return self.s.model.name == 'unet_2d'
@@ -62,6 +64,51 @@ class DeepimagejExporter(object):
                              padding='same')
 
         self.model_reshaped.set_weights(self.s.model.get_weights())
+
+    def _update_metadata(self,
+                         name='my_model',
+                         author='n/a',
+                         url='http://',
+                         credit='n.a',
+                         version='n.a',
+                         reference='n/a'):
+
+        if self.model_reshaped is None:
+            return
+        if self.metadata is None:
+            self.metadata = {}
+
+        self.metadata['name'] = name
+        self.metadata['author'] = author
+        self.metadata['url'] = url
+        self.metadata['credit'] = credit
+        self.metadata['version'] = version
+        self.metadata['reference'] = reference
+
+        date_format = '%a %b %d %H:%M:%S %Z %Y'
+        self.metadata['date'] = time.strftime(date_format, time.localtime())
+
+        N_channels = self.model_reshaped.input_shape[-1]
+        size_xy = self.model_reshaped.input_shape[2]
+
+        self.metadata['input_tensor_dimensions'] = (-1,
+                                                    size_xy,
+                                                    size_xy,
+                                                    N_channels)
+        self.metadata['patch_size'] = size_xy
+        self.metadata['padding'] = 10 # fixme
+
+        # metadata = {'name': 'my_model',
+        #             'author': 'n/a',
+        #             'url': 'http://',
+        #             'credit': 'n/a',
+        #             'version': 'n/a',
+        #             'reference': 'n/a',
+        #             'date': 'Tue Mar 31 17:18:06 CEST 2020',
+        #             'test_image_size_xy': (512, 512),
+        #             'input_tensor_dimensions': (-1, 112, 112, 3),
+        #             'patch_size': (112),
+        #             'padding': 10}
 
     def _export_as_tensorflow_model(self):
 
