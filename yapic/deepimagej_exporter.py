@@ -4,6 +4,7 @@ import os
 import tensorflow as tf
 from keras import backend as K
 import time
+import xml.etree.ElementTree as ET
 # from tensorflow.keras import backend as K
 
 
@@ -96,7 +97,7 @@ class DeepimagejExporter(object):
                                                     size_xy,
                                                     N_channels)
         self.metadata['patch_size'] = size_xy
-        self.metadata['padding'] = 10 # fixme
+        self.metadata['padding'] = int(size_xy * 0.19)
 
         # metadata = {'name': 'my_model',
         #             'author': 'n/a',
@@ -109,6 +110,27 @@ class DeepimagejExporter(object):
         #             'input_tensor_dimensions': (-1, 112, 112, 3),
         #             'patch_size': (112),
         #             'padding': 10}
+
+    def format_xml(self):
+
+        if self.metadata is None:
+            return
+
+        base_path = os.path.dirname(__file__)
+        xml_path = os.path.join(
+            base_path,
+            '../templates/deepimagej101/config.xml')
+
+        tree = ET.parse(xml_path)
+
+        tree.find('ModelCharacteristics').find('PatchSize').text = \
+            str(self.metadata['patch_size'])
+
+        tree.find('ModelCharacteristics').find('Padding').text = \
+            str(self.metadata['padding'])
+
+        save_path = os.path.join(self.save_path, 'config.xml')
+        tree.write(save_path)
 
     def _export_as_tensorflow_model(self):
 

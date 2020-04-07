@@ -121,7 +121,7 @@ class TestDeepimagejExporter(TestCase):
     @classmethod
     def setUpClass(cls):
 
-        # delete test artifacts
+        #delete test artifacts
         savepath = os.path.join(
             base_path,
             '../test_data/tmp')
@@ -135,8 +135,6 @@ class TestDeepimagejExporter(TestCase):
 
         model_path = train_test_model_unet_2d_3channels_2classes()
         print('saved unet_2d as {}'.format(model_path))
-
-
 
     def test_is_model_unet_2d(self):
 
@@ -177,7 +175,6 @@ class TestDeepimagejExporter(TestCase):
                                  save_path,
                                  example_image_path)
         assert exp._is_model_unet_2d()
-
 
     def test_reshape_unet_2d_1channel_3classes(self):
 
@@ -352,3 +349,51 @@ class TestDeepimagejExporter(TestCase):
         assert exp.metadata['input_tensor_dimensions'] == (-1, 112, 112, 1)
         assert exp.metadata['patch_size'] == 112
         assert exp.metadata['author'] == 'Some Name'
+
+    def test_format_xml(self):
+
+        example_image_path = os.path.abspath(os.path.join(
+            base_path,
+            '../test_data/shapes/pixels/pixels_1.tiff'))
+        save_path = os.path.abspath(os.path.join(
+            base_path,
+            '../test_data/tmp/exported_model_cpl'))
+        model_path = os.path.join(
+            base_path,
+            '../test_data/tmp/model_unet_2d_1channel_2classes.h5')
+        print('model_path: {}'.format(model_path))
+        exp = DeepimagejExporter(model_path,
+                                 save_path,
+                                 example_image_path)
+        exp._reshape_unet_2d(size='small')
+
+        exp._update_metadata(author='Some Name')
+
+        os.makedirs(save_path, exist_ok=True)
+        exp.format_xml()
+
+        # xml_path = os.path.join(
+        #     base_path,
+        #     '../../templates/deepimagej101/config.xml')
+        #
+        # xml_save_path = os.path.join(
+        #     base_path,
+        #     '../test_data/tmp/tst.xml')
+        #
+        # tree = ET.parse(xml_path)
+        #
+        # root = tree.getroot()
+        #
+        # for child in root:
+        #     print(child.tag, child.attrib)
+        #
+        # ps = tree.find('ModelCharacteristics').find('Padding')
+        # ps.text = '512'
+        # print('ps')
+        # print(ps.text)
+        #
+        # tree.write(xml_save_path)
+        # #print(ET.tostring(tree))
+
+
+        assert False
