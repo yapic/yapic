@@ -121,6 +121,7 @@ class DeepimagejExporter(object):
         N_channels = self.model_reshaped.input_shape[-1]
         size_xy = self.model_reshaped.input_shape[2]
 
+        self.metadata['channels'] = N_channels
         self.metadata['input_tensor_dimensions'] = (-1,
                                                     size_xy,
                                                     size_xy,
@@ -166,6 +167,8 @@ class DeepimagejExporter(object):
                         'date'),
                        (('ModelInformation', 'Reference'),
                         'reference'),
+                       (('ModelCharacteristics', 'Channels'),
+                        'channels'),
                        (('ModelCharacteristics', 'InputTensorDimensions'),
                         'input_tensor_dimensions'),
                        (('ModelCharacteristics', 'PatchSize'),
@@ -175,9 +178,12 @@ class DeepimagejExporter(object):
                        )
 
         for item in key_mapping:
-            tree.find(item[0][0]).find(item[0][1]).text = \
-                str(self.metadata[item[1]])
-
+            value = str(self.metadata[item[1]])
+            if item[1] == 'input_tensor_dimensions':
+                value = value.replace('(', ',')\
+                             .replace(')', ',')\
+                             .replace(' ', '')
+            tree.find(item[0][0]).find(item[0][1]).text = value
 
         save_path = os.path.join(self.save_path, 'config.xml')
         tree.write(save_path)
