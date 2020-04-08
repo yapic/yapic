@@ -5,6 +5,7 @@ import tensorflow as tf
 from keras import backend as K
 import time
 import xml.etree.ElementTree as ET
+import shutil
 # from tensorflow.keras import backend as K
 
 
@@ -40,6 +41,34 @@ class DeepimagejExporter(object):
         self.model_reshaped = None
         self.metadata = None
 
+        self.template_dir = os.path.join(
+            os.path.dirname(__file__),
+            '../templates/deepimagej101')
+
+    def export_as_deepimagej(self,
+                             model_name,
+                             author='n/a',
+                             url='http://',
+                             credit='n.a',
+                             version='n.a',
+                             reference='n/a',
+                             size='small'):
+
+        self._reshape_unet_2d(size=size)
+        self._update_metadata(model_name,
+                              author=author,
+                              version=version,
+                              url=url,
+                              credit=credit,
+                              reference=reference)
+        self._export_as_tensorflow_model()
+        self._format_xml()
+
+        shutil.copyfile(os.path.join(self.template_dir, 'postprocessing.txt'),
+                        os.path.join(self.save_path, 'postprocessing.txt'))
+        shutil.copyfile(os.path.join(self.template_dir, 'preprocessing.txt'),
+                        os.path.join(self.save_path, 'preprocessing.txt'))
+
     def _is_model_unet_2d(self):
         return self.s.model.name == 'unet_2d'
         # return self.s.model.count_params() == 32424323
@@ -67,7 +96,7 @@ class DeepimagejExporter(object):
         self.model_reshaped.set_weights(self.s.model.get_weights())
 
     def _update_metadata(self,
-                         name='my_model',
+                         name,
                          author='n/a',
                          url='http://',
                          credit='n.a',
@@ -111,23 +140,44 @@ class DeepimagejExporter(object):
         #             'patch_size': (112),
         #             'padding': 10}
 
-    def format_xml(self):
+    def _format_xml(self):
 
         if self.metadata is None:
             return
 
-        base_path = os.path.dirname(__file__)
         xml_path = os.path.join(
-            base_path,
-            '../templates/deepimagej101/config.xml')
+            self.template_dir,
+            'config.xml')
 
         tree = ET.parse(xml_path)
 
-        tree.find('ModelCharacteristics').find('PatchSize').text = \
-            str(self.metadata['patch_size'])
+        key_mapping = (
+                       (('ModelInformation', 'Name'),
+                        'name'),
+                       (('ModelInformation', 'Author'),
+                        'author'),
+                       (('ModelInformation', 'URL'),
+                        'url'),
+                       (('ModelInformation', 'Credit'),
+                        'credit'),
+                       (('ModelInformation', 'Version'),
+                        'version'),
+                       (('ModelInformation', 'Date'),
+                        'date'),
+                       (('ModelInformation', 'Reference'),
+                        'reference'),
+                       (('ModelCharacteristics', 'InputTensorDimensions'),
+                        'input_tensor_dimensions'),
+                       (('ModelCharacteristics', 'PatchSize'),
+                        'patch_size'),
+                       (('ModelCharacteristics', 'Padding'),
+                        'padding'),
+                       )
 
-        tree.find('ModelCharacteristics').find('Padding').text = \
-            str(self.metadata['padding'])
+        for item in key_mapping:
+            tree.find(item[0][0]).find(item[0][1]).text = \
+                str(self.metadata[item[1]])
+
 
         save_path = os.path.join(self.save_path, 'config.xml')
         tree.write(save_path)
