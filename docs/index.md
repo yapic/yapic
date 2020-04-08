@@ -147,13 +147,15 @@ t.predict() # applies the classfier to all images in img_path
   * We strongly recommend to install a Tensorflow version with GPU support.  
     CPU is too slow for model training.
   * Please read [Tensorflow installation instructions](https://www.tensorflow.org/install/gpu) to set up CUDA drivers, cuDNN etc. correctly.
-  * Supported tensorflow versions are **1.12**, **1.15** and **2.1**.
-  * To be able to deploy YAPiC models to
-    [DeepImageJ](https://deepimagej.github.io/deepimagej/), you have install
-    Tensorflow version 1.12
+  * Supported **Tensorflow versions** are **1.12, 1.13, 1.14, 1.15** and **2.1**.
+  * To be able to **export YAPiC models to ImageJ** ([DeepImageJ Plugin version 1.0.1](https://deepimagej.github.io/deepimagej/)), you have install
+    Tensorflow version **1.13.1**.
     ```
-    pip install tensorflow-gpu==1.12
-    ```      
+    pip install tensorflow-gpu==1.13.1
+    ```
+    **Hint**: You can make different [virtual environments](https://docs.python.org/3.6/library/venv.html) with different Tensorflow versions for model training and ImageJ export.
+    * You can train your model with an environment where```tensorflow-gpu==2.1``` is installed. If you have a very recent GPU, this may increase training speed compared to older Tensorflow versions.
+    * For exporting the model to ImageJ, you can switch to an environment with ```tensorflow==1.13.1``` (GPU support is not necessary for just exporting the model).     
 
 
 * Install YAPiC
