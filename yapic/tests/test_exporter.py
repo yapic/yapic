@@ -344,7 +344,7 @@ class TestDeepimagejExporter(TestCase):
                                  example_image_path)
         exp._reshape_unet_2d(size='small')
 
-        exp._update_metadata(author='Some Name')
+        exp._update_metadata('my_personal_unet', author='Some Name')
         print(exp.metadata)
         assert exp.metadata['input_tensor_dimensions'] == (-1, 112, 112, 1)
         assert exp.metadata['patch_size'] == 112
@@ -367,33 +367,46 @@ class TestDeepimagejExporter(TestCase):
                                  example_image_path)
         exp._reshape_unet_2d(size='small')
 
-        exp._update_metadata(author='Some Name')
+        exp._update_metadata('my_personal_unet',
+                             author='Some Name',
+                             version='1.0.0',
+                             url='https://my-site.org',
+                             credit='some other names',
+                             reference='Name et al. 2020'
+                             )
 
         os.makedirs(save_path, exist_ok=True)
-        exp.format_xml()
-
-        # xml_path = os.path.join(
-        #     base_path,
-        #     '../../templates/deepimagej101/config.xml')
-        #
-        # xml_save_path = os.path.join(
-        #     base_path,
-        #     '../test_data/tmp/tst.xml')
-        #
-        # tree = ET.parse(xml_path)
-        #
-        # root = tree.getroot()
-        #
-        # for child in root:
-        #     print(child.tag, child.attrib)
-        #
-        # ps = tree.find('ModelCharacteristics').find('Padding')
-        # ps.text = '512'
-        # print('ps')
-        # print(ps.text)
-        #
-        # tree.write(xml_save_path)
-        # #print(ET.tostring(tree))
+        exp._format_xml()
 
 
-        assert False
+    def test_export_as_deepimagej(self):
+        # 1 channel 2 classes
+
+        tf_version = [int(num) for num in tf.__version__.split('.')]
+
+        if tf_version[0] != 1:
+            # deepimagej supports only tensorflow version 1
+            return
+
+        example_image_path = os.path.abspath(os.path.join(
+            base_path,
+            '../test_data/shapes/pixels/pixels_1.tiff'))
+        save_path = os.path.abspath(os.path.join(
+            base_path,
+            '../test_data/tmp/my_packaged_u_net'))
+        model_path = os.path.join(
+            base_path,
+            '../test_data/tmp/model_unet_2d_1channel_2classes.h5')
+        print('model_path: {}'.format(model_path))
+        exp = DeepimagejExporter(model_path,
+                                 save_path,
+                                 example_image_path)
+
+        exp.export_as_deepimagej(
+            'my_packaged_unet',
+            author='Some Name',
+            version='1.0.0',
+            url='https://my-site.org',
+            credit='some other names',
+            reference='Name et al. 2020',
+            size='small')
