@@ -6,7 +6,7 @@ from yapic_io.prediction_batch import PredictionBatch
 from yapic_io.connector import io_connector
 from yapic_io.dataset import Dataset
 import keras
-import os
+import sys
 from tensorflow.python.framework.tensor_shape import Dimension
 
 import logging
@@ -40,6 +40,7 @@ class Session(object):
         self.output_tile_size_zxy = None
         self.padding_zxy = None
 
+
     def load_training_data(self, image_path, label_path):
         '''
         Connect to a training dataset.
@@ -53,10 +54,13 @@ class Session(object):
             file (.ilp file).
         '''
 
-        print(image_path)
-        print(label_path)
-
         self.dataset = Dataset(io_connector(image_path, label_path))
+
+        msg = '\n\nImport taining dataset:\n{}\n'.format(
+            self.dataset.pixel_connector.__repr__())
+        sys.stdout.write(msg)
+
+
 
     def load_prediction_data(self, image_path, save_path):
         '''
@@ -73,6 +77,9 @@ class Session(object):
         self.dataset = Dataset(io_connector(image_path,
                                             '/tmp/this_should_not_exist',
                                             savepath=save_path))
+        msg = '\n\nImport dataset for prediction:\n{}\n'.format(
+            self.dataset.pixel_connector.__repr__())
+        sys.stdout.write(msg)
 
     def make_model(self, model_name, input_tile_size_zxy):
         '''
@@ -87,10 +94,10 @@ class Session(object):
             Input shape of the model. Large input shapes require large memory
             for used GPU hardware. For 'unet_2d', nr_zslices has to be 1.
         '''
-        print('tile size zxy: {}'.format(input_tile_size_zxy))
+
+        sys.stdout.write('\n\nInitialize model {}\n'.format(model_name))
         assert len(input_tile_size_zxy) == 3
         nr_channels = self.dataset.image_dimensions(0)[0]
-        print('nr_channels: {}'.format(nr_channels))
         input_size_czxy = [nr_channels] + list(input_tile_size_zxy)
         n_classes = len(self.dataset.label_values())
 
@@ -98,24 +105,9 @@ class Session(object):
 
         output_tile_size_zxy = self.model.output_shape[-4:-1]
 
-        output_tile_size_zxy = [v.value if isinstance(v, Dimension)
-                                        else v
-                                        for v in output_tile_size_zxy]
-        # vv = []
-        # for v in output_tile_size_zxy:
-        #     try:
-        #         vv.append(v.value)
-        #     except AttributeError:
-        #         vv.append(v)
-        # print(vv)
-
-
-
-        print('output')
-        print(output_tile_size_zxy)
-        print(type(output_tile_size_zxy[-1]))
-        print('input')
-        print(input_tile_size_zxy)
+        output_tile_size_zxy = [v.value
+                                if isinstance(v, Dimension) else v
+                                for v in output_tile_size_zxy]
 
         self._configure_minibatch_data(input_tile_size_zxy,
                                        output_tile_size_zxy)
@@ -178,6 +170,11 @@ class Session(object):
         valfraction : float
             Approximate fraction of validation data. Has to be between 0 and 1.
         '''
+        msg = ('\nConfiuring validation dataset '
+               '({} validation data, {} training data)').format(
+                   valfraction,
+                   1 - valfraction)
+        sys.stdout.write(msg)
         if self.data_val is not None:
             logger.warning('skipping define_validation_data: already defined')
             return None
@@ -260,9 +257,16 @@ class Session(object):
         data_predict.set_normalize_mode('local')
         data_predict.set_pixel_dimension_order('bzxyc')
 
-        for item in data_predict:
+        for item_nr, item in enumerate(data_predict):
+            msg = ('Writing probability map tile for '
+                   'image {} of {}...\n'.format(item_nr+1,
+                                                len(data_predict)))
+            sys.stdout.write(msg)
+            sys.stdout.flush()
             result = self.model.predict(item.pixels())
             item.put_probmap_data(result)
+
+        sys.stdout.write('Writing probability maps finished.\n')
 
     def set_augmentation(self, augment_string):
         '''
