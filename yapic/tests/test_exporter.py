@@ -118,23 +118,23 @@ def train_test_model_convnet():
 
 class TestDeepimagejExporter(TestCase):
 
-    @classmethod
-    def setUpClass(cls):
-
-        #delete test artifacts
-        savepath = os.path.join(
-            base_path,
-            '../test_data/tmp')
-        shutil.rmtree(savepath, ignore_errors=True)
-
-        model_path = train_test_model_unet_2d_1channel_3classes()
-        print('saved unet_2d as {}'.format(model_path))
-
-        model_path = train_test_model_unet_2d_1channel_2classes()
-        print('saved unet_2d as {}'.format(model_path))
-
-        model_path = train_test_model_unet_2d_3channels_2classes()
-        print('saved unet_2d as {}'.format(model_path))
+    # @classmethod
+    # def setUpClass(cls):
+    #
+    #     #delete test artifacts
+    #     savepath = os.path.join(
+    #         base_path,
+    #         '../test_data/tmp')
+    #     shutil.rmtree(savepath, ignore_errors=True)
+    #
+    #     model_path = train_test_model_unet_2d_1channel_3classes()
+    #     print('saved unet_2d as {}'.format(model_path))
+    #
+    #     model_path = train_test_model_unet_2d_1channel_2classes()
+    #     print('saved unet_2d as {}'.format(model_path))
+    #
+    #     model_path = train_test_model_unet_2d_3channels_2classes()
+    #     print('saved unet_2d as {}'.format(model_path))
 
     def test_is_model_unet_2d(self):
 
@@ -344,8 +344,9 @@ class TestDeepimagejExporter(TestCase):
                                  example_image_path)
         exp._reshape_unet_2d(size='small')
 
-        exp._update_metadata('my_personal_unet', author='Some Name')
+        exp._update_metadata(author='Some Name')
         print(exp.metadata)
+        assert exp.metadata['name'] == 'exported_model_1channel_2classes'
         assert exp.metadata['input_tensor_dimensions'] == (-1, 112, 112, 1)
         assert exp.metadata['patch_size'] == 112
         assert exp.metadata['author'] == 'Some Name'
@@ -367,8 +368,7 @@ class TestDeepimagejExporter(TestCase):
                                  example_image_path)
         exp._reshape_unet_2d(size='small')
 
-        exp._update_metadata('my_personal_unet',
-                             author='Some Name',
+        exp._update_metadata(author='Some Name',
                              version='1.0.0',
                              url='https://my-site.org',
                              credit='some other names',
@@ -398,15 +398,45 @@ class TestDeepimagejExporter(TestCase):
             base_path,
             '../test_data/tmp/model_unet_2d_1channel_2classes.h5')
         print('model_path: {}'.format(model_path))
+
         exp = DeepimagejExporter(model_path,
                                  save_path,
                                  example_image_path)
 
+        shutil.rmtree(save_path, ignore_errors=True)
         exp.export_as_deepimagej(
-            'my_packaged_unet',
             author='Some Name',
             version='1.0.0',
             url='https://my-site.org',
             credit='some other names',
             reference='Name et al. 2020',
             size='small')
+
+    def test_apply_model(self):
+
+        example_image_path = os.path.abspath(os.path.join(
+            base_path,
+            '../test_data/shapes/pixels_small/pixels_1.tif'))
+        save_path = os.path.abspath(os.path.join(
+            base_path,
+            '../test_data/tmp/my_packaged_u_net'))
+        temp_dir = os.path.abspath(os.path.join(
+            base_path,
+            '../test_data/tmp/temp_dir'))
+        model_path = os.path.join(
+            base_path,
+            '../test_data/tmp/model_unet_2d_1channel_2classes.h5')
+        print('model_path: {}'.format(model_path))
+        exp = DeepimagejExporter(model_path,
+                                 save_path,
+                                 example_image_path)
+
+        os.makedirs(save_path, exist_ok=True)
+        os.makedirs(temp_dir, exist_ok=True)
+
+        exp.apply_model(normalization_mode='local')
+
+
+
+
+        assert False

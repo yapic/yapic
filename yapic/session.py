@@ -249,7 +249,7 @@ class Session(object):
 
         return self.history
 
-    def predict(self):
+    def predict(self, multichannel=False):
         data_predict = PredictionBatch(self.dataset,
                                        2,
                                        self.output_tile_size_zxy,
@@ -257,10 +257,13 @@ class Session(object):
         data_predict.set_normalize_mode('local')
         data_predict.set_pixel_dimension_order('bzxyc')
 
+        if multichannel:
+            data_predict.multichannel_output_on()
+
         for item_nr, item in enumerate(data_predict):
-            msg = ('Writing probability map tile for '
-                   'image {} of {}...\n'.format(item_nr+1,
-                                                len(data_predict)))
+            msg = ('Writing probability map tile'
+                   ' {} of {}...\n'.format(item_nr+1,
+                                           len(data_predict)))
             sys.stdout.write(msg)
             sys.stdout.flush()
             result = self.model.predict(item.pixels())
