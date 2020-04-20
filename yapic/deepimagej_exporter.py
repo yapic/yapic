@@ -32,8 +32,11 @@ class DeepimagejExporter(object):
         self.save_path = save_path
 
         self.s = Session()
-        self.s.load_prediction_data(example_image_path, 'some/path')
+        self.s.load_prediction_data(example_image_path, self.save_path)
         self.s.load_model(model_path)
+
+        self.model_path = model_path
+        self.example_image_path = example_image_path
 
         msg = 'model is not unet_2d, cannot be exported to deepimagej'
         assert self._is_model_unet_2d(), msg
@@ -46,7 +49,6 @@ class DeepimagejExporter(object):
             '../templates/deepimagej101')
 
     def export_as_deepimagej(self,
-                             model_name,
                              author='n/a',
                              url='http://',
                              credit='n.a',
@@ -55,8 +57,7 @@ class DeepimagejExporter(object):
                              size='small'):
 
         self._reshape_unet_2d(size=size)
-        self._update_metadata(model_name,
-                              author=author,
+        self._update_metadata(author=author,
                               version=version,
                               url=url,
                               credit=credit,
@@ -68,6 +69,24 @@ class DeepimagejExporter(object):
                         os.path.join(self.save_path, 'postprocessing.txt'))
         shutil.copyfile(os.path.join(self.template_dir, 'preprocessing.txt'),
                         os.path.join(self.save_path, 'preprocessing.txt'))
+
+        self.apply_model('local')                
+
+    def apply_model(self, normalization_mode):
+
+        self.s.set_normalization(normalization_mode)
+        self.s.predict(multichannel=True)
+
+        result_img_name =  os.path.basename(self.example_image_path)
+        save_path = os.path.join(self.save_path,
+                                 result_img_name)
+        new_save_path = save_path.replace(result_img_name, 'resultImage.tiff')
+        os.rename(save_path, new_save_path)
+        shutil.copyfile(self.example_image_path,
+                        os.path.join(self.save_path, 'exampleImage.tiff'))
+
+
+
 
     def _is_model_unet_2d(self):
         return self.s.model.name == 'unet_2d'
@@ -96,7 +115,6 @@ class DeepimagejExporter(object):
         self.model_reshaped.set_weights(self.s.model.get_weights())
 
     def _update_metadata(self,
-                         name,
                          author='n/a',
                          url='http://',
                          credit='n.a',
@@ -108,7 +126,7 @@ class DeepimagejExporter(object):
         if self.metadata is None:
             self.metadata = {}
 
-        self.metadata['name'] = name
+        self.metadata['name'] = os.path.basename(self.save_path)
         self.metadata['author'] = author
         self.metadata['url'] = url
         self.metadata['credit'] = credit
