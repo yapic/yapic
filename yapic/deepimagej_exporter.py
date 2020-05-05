@@ -27,6 +27,8 @@ class DeepimagejExporter(object):
     def __init__(self, model_path, save_path, example_image_path):
 
         save_dir = os.path.dirname(save_path)
+        if len(save_dir) == 0:
+            save_dir = './'
         msg = '{} does not exist'.format(save_dir)
         assert os.path.isdir(save_dir), msg
         self.save_path = save_path
@@ -70,7 +72,7 @@ class DeepimagejExporter(object):
         shutil.copyfile(os.path.join(self.template_dir, 'preprocessing.txt'),
                         os.path.join(self.save_path, 'preprocessing.txt'))
 
-        self.apply_model('local')                
+        self.apply_model('local')
 
     def apply_model(self, normalization_mode):
 
@@ -103,6 +105,7 @@ class DeepimagejExporter(object):
         else:
             shape_xy = 112
 
+        print('reshape to {}'.format(shape_xy))
         N_classes = self.s.model.output_shape[-1]
         N_channels = self.s.model.input_shape[-1]
 

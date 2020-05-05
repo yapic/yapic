@@ -3,18 +3,25 @@
 Usage:
   yapic train <network> <image_path> <label_path> [options]
   yapic predict <network> <image_path> <output_path> [options]
+  yapic deploy <network> <image_path> <output_path> [options]
 
   <network>               Either a model file in h5 format to use a pretrained
                           model or specific string to initialize a new model.
                           Choose 'unet_2d' or 'unet_multi_z' to initialize a
                           new model. Use path/to/my/pretrained_model.h5 to
-                          continue training of a pretrained keras model.
+                          continue training of a pretrained keras model
+                          (train mode), to apply a trained model to a set of
+                          images (predict mode), or to export a model to
+                          DeepImageJ (deploy mode).
   <image_path>            Path to image files. You can use wildcards, e.g.
-                          "my_data/*.tif".
+                          "my_data/*.tif". In deploy mode, define one specific
+                          tif image file (as example image).
   <label_path>            Path to label files. Either tif or ilp (Ilastik project file).
                           Wildcards are supported.
                           Examples: "path/to/my_ilastik_project.ilp",
                                     "path/to/my_label_images/*.tif"
+  <output_path>           Path to directory to store prediction resuts
+                          (prediction mode) or exported model (deplot mode).
 
 Options:
   -n --normalize=NORM     Set pixel normalization scope [default: local]
@@ -40,6 +47,23 @@ Train Options:
   --equalize              Equalize label weights to promote less frequent labels.
   --csvfile=LOSSDATA      Path to csv file for training loss data [default: loss.csv].
 
+Predict Options:
+  --split                 Save prediction images of different classes into
+                          separate images. By default, predictions are saved
+                          as ImageJ multichannel images.
+
+Deploy Options:
+  -s --size=MODELSIZE     Size of the network to be exported. Large networks
+                          are applied faster in DeepImageJ, but consume more
+                          RAM. There are three options:
+                          'small' (112 x 112 pixels), 'middle' (224 x 224 pixels),
+                          'large' (368 x 368 pixels) [default: middle]
+  --author=AUTHOR         Name of the model's authors [default: n/a]
+  --url=URL               Url to model publication [default: http://]
+  --credit=CREDIT         [default: n/a]
+  --mdversion=MDVERSION   Model version [default: n/a]
+  --reference=REFERENCE   Publication reference of model [default: n/a]
+
 
 """
 from docopt import docopt
@@ -47,14 +71,13 @@ from docopt import docopt
 import os
 import sys
 from yapic.session import Session
+from yapic.deepimagej_exporter import DeepimagejExporter
 
 import logging
 logger = logging.getLogger(__name__)
 
 
 def main(args):
-
-    s = Session()
 
     if args['--cpu']:
         # deactivate gpu for tensorflow
@@ -65,8 +88,26 @@ def main(args):
 
     image_path = os.path.abspath(os.path.expanduser(args['<image_path>']))
     model_name = args['<network>']
-    norm_string = args['--normalize']
 
+    if args['deploy']:
+        output_path = args['<output_path>']
+        
+        assert os.path.isfile(model_name)
+
+        exp = DeepimagejExporter(model_name,
+                                 output_path,
+                                 image_path)
+        exp.export_as_deepimagej(
+            author=args['--author'],
+            version=args['--version'],
+            url=args['--url'],
+            credit=args['--credit'],
+            reference=args['--reference'],
+            size=args['--size'])
+        return
+
+    norm_string = args['--normalize']
+    s = Session()
 
     if args['train']:
 
@@ -111,10 +152,13 @@ def main(args):
     if args['predict']:
         output_path = args['<output_path>']
         assert os.path.isfile(model_name), '<network> must be a h5 model file'
+
+        multichannel = not(args['--split'])
+
         s.load_prediction_data(image_path, output_path)
         s.load_model(model_name)
         s.set_normalization(norm_string)
-        s.predict()
+        s.predict(multichannel=multichannel)
 
 
 def entry_point():
