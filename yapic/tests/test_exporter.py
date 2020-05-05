@@ -118,23 +118,24 @@ def train_test_model_convnet():
 
 class TestDeepimagejExporter(TestCase):
 
-    # @classmethod
-    # def setUpClass(cls):
-    #
-    #     #delete test artifacts
-    #     savepath = os.path.join(
-    #         base_path,
-    #         '../test_data/tmp')
-    #     shutil.rmtree(savepath, ignore_errors=True)
-    #
-    #     model_path = train_test_model_unet_2d_1channel_3classes()
-    #     print('saved unet_2d as {}'.format(model_path))
-    #
-    #     model_path = train_test_model_unet_2d_1channel_2classes()
-    #     print('saved unet_2d as {}'.format(model_path))
-    #
-    #     model_path = train_test_model_unet_2d_3channels_2classes()
-    #     print('saved unet_2d as {}'.format(model_path))
+    @classmethod
+    @pytest.mark.slow
+    def setUpClass(cls):
+
+        #delete test artifacts
+        savepath = os.path.join(
+            base_path,
+            '../test_data/tmp')
+        shutil.rmtree(savepath, ignore_errors=True)
+
+        model_path = train_test_model_unet_2d_1channel_3classes()
+        print('saved unet_2d as {}'.format(model_path))
+
+        model_path = train_test_model_unet_2d_1channel_2classes()
+        print('saved unet_2d as {}'.format(model_path))
+
+        model_path = train_test_model_unet_2d_3channels_2classes()
+        print('saved unet_2d as {}'.format(model_path))
 
     def test_is_model_unet_2d(self):
 
@@ -176,6 +177,7 @@ class TestDeepimagejExporter(TestCase):
                                  example_image_path)
         assert exp._is_model_unet_2d()
 
+    @pytest.mark.slow
     def test_reshape_unet_2d_1channel_3classes(self):
 
         example_image_path = os.path.abspath(os.path.join(
@@ -276,6 +278,7 @@ class TestDeepimagejExporter(TestCase):
         exp._reshape_unet_2d(size='small')
         exp._export_as_tensorflow_model()
 
+    @pytest.mark.slow
     def test_export_as_tensorflow_model_2(self):
         # 1 channel 2 classes
 
@@ -327,6 +330,7 @@ class TestDeepimagejExporter(TestCase):
         exp._reshape_unet_2d(size='small')
         exp._export_as_tensorflow_model()
 
+    @pytest.mark.slow
     def test_update_metadata(self):
 
         example_image_path = os.path.abspath(os.path.join(
@@ -378,7 +382,7 @@ class TestDeepimagejExporter(TestCase):
         os.makedirs(save_path, exist_ok=True)
         exp._format_xml()
 
-
+    @pytest.mark.slow
     def test_export_as_deepimagej(self):
         # 1 channel 2 classes
 
@@ -412,6 +416,7 @@ class TestDeepimagejExporter(TestCase):
             reference='Name et al. 2020',
             size='small')
 
+    @pytest.mark.slow
     def test_apply_model(self):
 
         example_image_path = os.path.abspath(os.path.join(
@@ -433,10 +438,4 @@ class TestDeepimagejExporter(TestCase):
 
         os.makedirs(save_path, exist_ok=True)
         os.makedirs(temp_dir, exist_ok=True)
-
         exp.apply_model(normalization_mode='local')
-
-
-
-
-        assert False

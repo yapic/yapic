@@ -259,6 +259,10 @@ class Session(object):
 
         if multichannel:
             data_predict.multichannel_output_on()
+        else:
+            data_predict.multichannel_output_off()
+        print('multichannel {}'.format(data_predict.multichannel))    
+
 
         for item_nr, item in enumerate(data_predict):
             msg = ('Writing probability map tile'
