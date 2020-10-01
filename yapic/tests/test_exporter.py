@@ -19,15 +19,16 @@ def train_test_model_unet_2d_1channel_3classes():
     savepath = os.path.join(
         base_path,
         '../test_data/tmp')
+    model_filename = os.path.join(savepath,
+                                  'model_unet_2d_1channel_3classes.h5')
+    if os.path.isfile(model_filename):
+        return model_filename
 
     os.makedirs(savepath, exist_ok=True)
 
     t = Session()
     t.load_training_data(img_path, label_path)
     t.make_model('unet_2d', (1, 220, 220))
-
-    model_filename = os.path.join(savepath,
-                                  'model_unet_2d_1channel_3classes.h5')
     t.train(max_epochs=2,
             steps_per_epoch=2,
             log_filename=os.path.join(savepath, 'log.csv'),
@@ -46,15 +47,16 @@ def train_test_model_unet_2d_1channel_2classes():
     savepath = os.path.join(
         base_path,
         '../test_data/tmp')
+    model_filename = os.path.join(savepath,
+                                  'model_unet_2d_1channel_2classes.h5')
+    if os.path.isfile(model_filename):
+        return model_filename
 
     os.makedirs(savepath, exist_ok=True)
 
     t = Session()
     t.load_training_data(img_path, label_path)
     t.make_model('unet_2d', (1, 220, 220))
-
-    model_filename = os.path.join(savepath,
-                                  'model_unet_2d_1channel_2classes.h5')
     t.train(max_epochs=2,
             steps_per_epoch=2,
             log_filename=os.path.join(savepath, 'log.csv'),
@@ -73,15 +75,16 @@ def train_test_model_unet_2d_3channels_2classes():
     savepath = os.path.join(
         base_path,
         '../test_data/tmp')
+    model_filename = os.path.join(savepath,
+                                  'model_unet_2d_3channels_2classes.h5')
+    if os.path.isfile(model_filename):
+        return model_filename
 
     os.makedirs(savepath, exist_ok=True)
 
     t = Session()
     t.load_training_data(img_path, label_path)
     t.make_model('unet_2d', (1, 220, 220))
-
-    model_filename = os.path.join(savepath,
-                                  'model_unet_2d_3channels_2classes.h5')
     t.train(max_epochs=2,
             steps_per_epoch=2,
             log_filename=os.path.join(savepath, 'log.csv'),
@@ -100,14 +103,15 @@ def train_test_model_convnet():
     savepath = os.path.join(
         base_path,
         '../test_data/tmp')
+    model_filename = os.path.join(savepath, 'model_convnet.h5')
+    if os.path.isfile(model_filename):
+        return model_filename
 
     os.makedirs(savepath, exist_ok=True)
 
     t = Session()
     t.load_training_data(img_path, label_path)
     t.make_model('convnet_for_unittest', (1, 100, 100))
-
-    model_filename = os.path.join(savepath, 'model_convnet.h5')
     t.train(max_epochs=2,
             steps_per_epoch=2,
             log_filename=os.path.join(savepath, 'log.csv'),
@@ -118,15 +122,15 @@ def train_test_model_convnet():
 
 class TestDeepimagejExporter(TestCase):
 
-    @classmethod
-    @pytest.mark.slow
-    def setUpClass(cls):
+
+    #@pytest.mark.slow
+    def setUp(self):
 
         #delete test artifacts
-        savepath = os.path.join(
-            base_path,
-            '../test_data/tmp')
-        shutil.rmtree(savepath, ignore_errors=True)
+        # savepath = os.path.join(
+        #     base_path,
+        #     '../test_data/tmp')
+        # shutil.rmtree(savepath, ignore_errors=True)
 
         model_path = train_test_model_unet_2d_1channel_3classes()
         print('saved unet_2d as {}'.format(model_path))

@@ -1,5 +1,5 @@
 from yapic.networks import unet_2d
-import keras
+from tensorflow import keras
 
 
 def build_network(N_classes, input_size_czxy):
