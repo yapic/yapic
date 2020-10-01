@@ -5,7 +5,7 @@ from yapic_io.training_batch import TrainingBatch
 from yapic_io.prediction_batch import PredictionBatch
 from yapic_io.connector import io_connector
 from yapic_io.dataset import Dataset
-import keras
+import tensorflow.keras as keras
 import sys
 from tensorflow.python.framework.tensor_shape import Dimension
 
@@ -232,17 +232,19 @@ class Session(object):
         training_data = ((mb.pixels(), mb.weights())
                          for mb in self.data)
 
+        validation_steps_per_epoch = steps_per_epoch
         if self.data_val:
             validation_data = ((mb.pixels(), mb.weights())
                                for mb in self.data_val)
         else:
             validation_data = None
+            validation_steps_per_epoch = None
 
         self.history = self.model.fit_generator(
                             training_data,
                             validation_data=validation_data,
                             epochs=max_epochs,
-                            validation_steps=steps_per_epoch,
+                            validation_steps=validation_steps_per_epoch,
                             steps_per_epoch=steps_per_epoch,
                             callbacks=callbacks,
                             workers=0)
@@ -261,7 +263,7 @@ class Session(object):
             data_predict.multichannel_output_on()
         else:
             data_predict.multichannel_output_off()
-        print('multichannel {}'.format(data_predict.multichannel))    
+        print('multichannel {}'.format(data_predict.multichannel))
 
 
         for item_nr, item in enumerate(data_predict):

@@ -3,10 +3,7 @@ python:
   - '3.6'
 env:
   - TENSORFLOW_VERSION=2.1.0
-  - TENSORFLOW_VERSION=1.12.0
   - TENSORFLOW_VERSION=1.13.2
-  - TENSORFLOW_VERSION=1.14.0
-  - TENSORFLOW_VERSION=1.15.2
 install:
   - pip install --upgrade pip setuptools
   - pip install tensorflow==$TENSORFLOW_VERSION

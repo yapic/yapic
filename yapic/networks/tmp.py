@@ -1,4 +1,4 @@
-import keras
+from tensorflow import keras
 
 filter_size = (3, 3)
 

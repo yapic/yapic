@@ -1,6 +1,8 @@
-import keras.optimizers
-from keras import backend as K
-from keras import metrics
+
+from tensorflow.keras import optimizers, losses
+from tensorflow.keras import backend as K
+from tensorflow.keras import metrics
+from tensorflow import keras
 import logging
 
 
@@ -37,7 +39,7 @@ def correct_mean(y):
 
 
 def corr_categ_crsentropy(y_true, y_pred):
-    return keras.losses.categorical_crossentropy(y_true,
+    return losses.categorical_crossentropy(y_true,
                                                  y_pred) * correct_mean(y_true)
 
 def compile_model(network, learning_rate=1e-3, momentum=0.9):
@@ -50,7 +52,7 @@ def compile_model(network, learning_rate=1e-3, momentum=0.9):
         return metrics.categorical_accuracy(y_true,
                                             y_pred) * correct_mean(y_true)
 
-    optimize = keras.optimizers.SGD(lr=learning_rate,
+    optimize = optimizers.SGD(lr=learning_rate,
                                     momentum=momentum,
                                     nesterov=True)
     network.compile(optimizer=optimize,

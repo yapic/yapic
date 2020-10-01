@@ -1,4 +1,4 @@
-import keras
+from tensorflow import keras
 
 
 def build_network(N_classes, input_size_czxy):
