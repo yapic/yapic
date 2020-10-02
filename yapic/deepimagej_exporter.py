@@ -56,7 +56,8 @@ class DeepimagejExporter(object):
                              credit='n.a',
                              version='n.a',
                              reference='n/a',
-                             size='small'):
+                             size='small',
+                             applymodel=True):
 
         self._reshape_unet_2d(size=size)
         self._update_metadata(author=author,
@@ -72,20 +73,22 @@ class DeepimagejExporter(object):
         shutil.copyfile(os.path.join(self.template_dir, 'preprocessing.txt'),
                         os.path.join(self.save_path, 'preprocessing.txt'))
 
-        self.apply_model('local')
+        if applymodel:
+            self.apply_model('local')
+        shutil.copyfile(self.example_image_path,
+                        os.path.join(self.save_path, 'exampleImage.tiff'))
 
     def apply_model(self, normalization_mode):
 
         self.s.set_normalization(normalization_mode)
         self.s.predict(multichannel=True)
 
-        result_img_name =  os.path.basename(self.example_image_path)
+        result_img_name = os.path.basename(self.example_image_path)
         save_path = os.path.join(self.save_path,
                                  result_img_name)
         new_save_path = save_path.replace(result_img_name, 'resultImage.tiff')
         os.rename(save_path, new_save_path)
-        shutil.copyfile(self.example_image_path,
-                        os.path.join(self.save_path, 'exampleImage.tiff'))
+
 
 
 

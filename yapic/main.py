@@ -63,6 +63,7 @@ Deploy Options:
   --credit=CREDIT         [default: n/a]
   --mdversion=MDVERSION   Model version [default: n/a]
   --reference=REFERENCE   Publication reference of model [default: n/a]
+  --skip-predict          Skip computation of prediction image
 
 
 """
@@ -91,7 +92,8 @@ def main(args):
 
     if args['deploy']:
         output_path = args['<output_path>']
-        
+        predict_example_image = not args['--skip-predict']
+
         assert os.path.isfile(model_name)
 
         exp = DeepimagejExporter(model_name,
@@ -103,7 +105,8 @@ def main(args):
             url=args['--url'],
             credit=args['--credit'],
             reference=args['--reference'],
-            size=args['--size'])
+            size=args['--size'],
+            applymodel=predict_example_image)
         return
 
     norm_string = args['--normalize']
