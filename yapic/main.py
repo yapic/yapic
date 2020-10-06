@@ -21,7 +21,7 @@ Usage:
                           Examples: "path/to/my_ilastik_project.ilp",
                                     "path/to/my_label_images/*.tif"
   <output_path>           Path to directory to store prediction resuts
-                          (prediction mode) or exported model (deplot mode).
+                          (prediction mode) or exported model (deploy mode).
 
 Options:
   -n --normalize=NORM     Set pixel normalization scope [default: local]
