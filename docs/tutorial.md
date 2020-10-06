@@ -1,4 +1,4 @@
-# YAPiC Installation and Preparation of Training Data
+# Installation and Preparation of Training Data
 
 
 1. Install YAPiC as explained [here](index.html)
@@ -93,7 +93,23 @@
    * The best performing model (the model with the lowest validation loss)
      is repeatedly saved as *model.h5*.  
 
-1. Apply your model to the images
-   ```
-   yapic predict model.h5 "path/to/leaves_example_data/*.tif" path/to/results
-   ```   
+
+
+# Apply your model
+
+You have two options how to apply your model: Either you can run your model on a
+set of tif images by using YAPiC command line tool (the one you used for training)
+or you can export your model to run it in ImageJ/Fiji by using [DeepimageJ plugin](https://deepimagej.github.io/deepimagej/). We tested YAPiC trained models with DeepimageJ versions 1.0.1. and 1.2.0.
+
+## Apply model using YAPiC command line tool
+Apply your model to the images
+```
+yapic predict model.h5 "path/to/leaves_example_data/*.tif" path/to/results
+```
+Predictions will be saved as 32 bit tif images in `path/to/results`.
+
+## Apply model in Fiji using DeepImageJ plugin
+To be able to load the model into DeepImageJ, you have to convert it with YAPiC's deploy option. To be able to **export YAPiC models to ImageJ** ([DeepImageJ Plugin version 1.0.1 and 1.2](https://deepimagej.github.io/deepimagej/)), you have use Tensorflow version **1.13.1**.
+```
+yapic deploy model.h5
+```
