@@ -1,3 +1,6 @@
+# YAPiC Installation and Preparation of Training Data
+
+
 1. Install YAPiC as explained [here](index.html)
 
 1. The command line tool ```yapic``` should be available now:
@@ -53,9 +56,12 @@
 
 1. Save your updated Ilastik project: ```Project>>Save Project...```
 
+
+# Model Training
+
 1. Now you can start a training session with *YAPiC* command line tool:
    ```
-   yapic train unet_2d "path/to/leaves_example_data/*.tif" path/to/leaves_example_data/leaf_labels.ilp -e 500 --gpu=0
+   yapic train unet_2d "path/to/leaves_example_data/*.tif" path/to/leaves_example_data/leaf_labels.ilp -e 500 -v 0 --gpu=0
    ```   
 
    * ```unet_2d``` defines the type of deep learning model to train. We choose the
@@ -65,6 +71,8 @@
    * Next, we have to define the label data source. In our case the ilastik project file ```path/to/leaves_example_data/leaf_labels.ilp```    
    * The optional argument ```e``` defines the number of training epochs, i.e. the
      length of the training process.
+  * The optional argument ```v``` defines the fration of the validation dataset.
+     The default is 0.2. Here we set it to 0, because we have a small amount of labels.   
    * If you have multiple GPU cards available, you can select a specific GPU
      with the optional ```--gpu``` argument.
    * Use ```yapic --help``` to get an overview about all arguments.  

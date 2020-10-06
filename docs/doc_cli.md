@@ -10,6 +10,12 @@ yapic train <network> <image_path> <label_path> [options]
 yapic predict <network> <image_path> <output_path> [options]
 ```
 
+## Deployment: Export to DeepImageJ
+```
+yapic deploy <network> <image_path> <output_path> [options]
+```
+
+
 ## Parameters
 
 ### network
