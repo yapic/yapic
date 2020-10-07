@@ -8,12 +8,20 @@ YAPiC is developed by the
 [Core Reseach Facilities](https://www.dzne.de/forschung/core-facilities/)
 of the [DZNE](https://www.dzne.de/en)
 (German Center for Neurodegenerative Diseases).
-[CLI Documentation](doc_cli.html)
-[CLI Documentation](tutorial.html)
+
+
+* #### [Getting Started I: Train Your First Model](tutorial.html)
+* #### [Getting Started II: Apply your model in Fiji](tutorial_deepimagej.html)
+* #### [Documentation](doc_cli.html)
+
 
 ## What is YAPiC for?
 
-With YAPiC you can make your own customzied filter (we call it *model* or *classifier*) to enhance a certain structure of your choice.
+With YAPiC you can make your own customized filter (we call it *model* or *classifier*) to enhance a certain structure of your choice with a simple python based command line interface, installable with pip:
+
+`$ yapic train unet_2d "path/to/my/images/*.tif" path/to/my/labels.ilp`
+
+`$ yapic predict my_trained_model.h5 path/to/results/`
 
 We can, e.g train a model for detection of oak leafs in color images, and use this oak leaf model to filter out all image regions that are not covered by oak leaves:
 
