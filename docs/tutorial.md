@@ -1,4 +1,7 @@
-# Installation and Preparation of Training Data
+# Tutorial Part I: Train Your First Model with YAPiC
+
+
+## Installation and Preparation of Training Data
 
 
 1. Install YAPiC as explained [here](index.html)
@@ -12,7 +15,7 @@
    It contains following files:
    ```
    leaves_example_data/
-   ├── leaf_labels.ilp
+   ├── leaf_labels_ilastik133.ilp
    ├── leaves_1.tif
    ├── leaves_2.tif
    ├── leaves_3.tif
@@ -30,11 +33,11 @@
    The *ilp* file is a so called *ilastik Project File* and contains training  labels.
    Next, we will have a look at the labels.
 
-1. For looking at the label data, download and install [Ilastik](https://ilastik.org)
+1. For looking at the label data, download and install [Ilastik](https://ilastik.org). We created the label data with Ilastik version 1.3.3.
 
 1. Launch Ilastik and open the ilastik project *leaf_labels.ilp*
 
-   ![](img/tutorial_ilastik_screenshot.png "purkinje cell classifier example")
+   ![](img/tutorial_ilastik_screenshot.png "ilastik screenshot leaf labels")
 
    You see manually drawn labels for the *leaves_7.tif* image. There are labels
    for 6 different classes: 5 leaf types and the backgound class (red).
@@ -57,11 +60,11 @@
 1. Save your updated Ilastik project: ```Project>>Save Project...```
 
 
-# Model Training
+## Model Training
 
 1. Now you can start a training session with *YAPiC* command line tool:
    ```
-   yapic train unet_2d "path/to/leaves_example_data/*.tif" path/to/leaves_example_data/leaf_labels.ilp -e 500 -v 0 --gpu=0
+   yapic train unet_2d "path/to/leaves_example_data/*.tif" path/to/leaves_example_data/leaf_labels_ilastik133.ilp -e 500 -v 0 --gpu=0
    ```   
 
    * ```unet_2d``` defines the type of deep learning model to train. We choose the
@@ -95,21 +98,19 @@
 
 
 
-# Apply your model
+## Apply your model
 
 You have two options how to apply your model: Either you can run your model on a
 set of tif images by using YAPiC command line tool (the one you used for training)
 or you can export your model to run it in ImageJ/Fiji by using [DeepimageJ plugin](https://deepimagej.github.io/deepimagej/). We tested YAPiC trained models with DeepimageJ versions 1.0.1. and 1.2.0.
 
-## Apply model using YAPiC command line tool
+### Apply model using YAPiC command line tool
 Apply your model to the images
 ```
 yapic predict model.h5 "path/to/leaves_example_data/*.tif" path/to/results
 ```
 Predictions will be saved as 32 bit tif images in `path/to/results`.
 
-## Apply model in Fiji using DeepImageJ plugin
-To be able to load the model into DeepImageJ, you have to convert it with YAPiC's deploy option. To be able to **export YAPiC models to ImageJ** ([DeepImageJ Plugin version 1.0.1 and 1.2](https://deepimagej.github.io/deepimagej/)), you have use Tensorflow version **1.13.1**.
-```
-yapic deploy model.h5
-```
+### Apply model in Fiji using DeepImageJ plugin
+
+Go to [part II](tutorial_deepimagej.html) for learning how to use you custom made leaf classifier in Fiji by using [DeepImageJ plugin](https://deepimagej.github.io/deepimagej/).
