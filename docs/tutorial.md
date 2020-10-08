@@ -64,7 +64,7 @@
 
 1. Now you can start a training session with *YAPiC* command line tool:
    ```
-   yapic train unet_2d "path/to/leaves_example_data/*.tif" path/to/leaves_example_data/leaf_labels_ilastik133.ilp -e 500 -v 0 --gpu=0
+   yapic train unet_2d "path/to/leaves_example_data/*.tif" path/to/leaves_example_data/leaf_labels_ilastik133.ilp -e 800 --gpu=0
    ```   
 
    * ```unet_2d``` defines the type of deep learning model to train. We choose the
@@ -74,8 +74,6 @@
    * Next, we have to define the label data source. In our case the ilastik project file ```path/to/leaves_example_data/leaf_labels.ilp```    
    * The optional argument ```e``` defines the number of training epochs, i.e. the
      length of the training process.
-  * The optional argument ```v``` defines the fration of the validation dataset.
-     The default is 0.2. Here we set it to 0, because we have a small amount of labels.   
    * If you have multiple GPU cards available, you can select a specific GPU
      with the optional ```--gpu``` argument.
    * Use ```yapic --help``` to get an overview about all arguments.  
@@ -94,12 +92,20 @@
    ```
    * Training progress is also logged to *loss.csv*.
    * The best performing model (the model with the lowest validation loss)
-     is repeatedly saved as *model.h5*.  
+     is repeatedly saved as *model.h5*.
+
+  The *loss* of training data and validation data is continuously written to *loss.csv* file. You can open this file in any spreadsheet software (e.g. MS Excel) and plot *loss* and *validation_loss*:
+  ![](img/tutorial_loss_screenshot.png)
+  You see that the model initially learns to predict the data (the loss decreases). But from time to time, the curve falls back to a higher loss and training process starts again. You can also see, that training loss tends to be a bit lower than validation loss (overfitting).
+
+  Please note that at the end of the 500 interations the validation loss is higher than some iterations earlier. YAPiC only stores the best performing model parameters, i.e. the model with lowest validation loss over the whole training period. 
 
 
 
 ## Apply your model
 
+After the training process, the *model.h5* file contains the best performing model,
+i.e. the model with best performance on the validation dataset.
 You have two options how to apply your model: Either you can run your model on a
 set of tif images by using YAPiC command line tool (the one you used for training)
 or you can export your model to run it in ImageJ/Fiji by using [DeepimageJ plugin](https://deepimagej.github.io/deepimagej/). We tested YAPiC trained models with DeepimageJ versions 1.0.1. and 1.2.0.
@@ -110,6 +116,10 @@ Apply your model to the images
 yapic predict model.h5 "path/to/leaves_example_data/*.tif" path/to/results
 ```
 Predictions will be saved as 32 bit tif images in `path/to/results`.
+
+You can open the result files in Fiji. Each channel represents one class (i.e. one of 5 leaf types or background).
+
+![](img/tutorial_screenshot_fiji_leaves_probmap.png "leaf probability map prediction result")
 
 ### Apply model in Fiji using DeepImageJ plugin
 
