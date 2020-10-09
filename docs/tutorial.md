@@ -11,8 +11,7 @@
    yapic --help
    ```
 
-1. Download and unzip [leaf example data](example_data/leaves_example_data.zip).
-   It contains following files:
+1. Download and unzip [leaf example data](example_data/leaves_example_data.zip). It contains following files:
    ```
    leaves_example_data/
    ├── leaf_labels_ilastik133.ilp
@@ -24,38 +23,25 @@
    ├── leaves_6.tif
    └── leaves_7.tif
    ```
-   The *tif* files are RGB images containing photographs of different leaf types.
-   The images were saved with (Fiji)[https://fiji.sc]. Make sure to always
-   convert your pixel images with Fiji. Large image series can be conveniently
-   converted with Fiji by using
-   [batch processing](https://imagej.net/Batch_Processing).
+   The *tif* files are RGB images containing photographs of different leaf types.The images were saved with [Fiji](https://fiji.sc). Make sure to always convert your pixel images with Fiji. Large image series can be conveniently converted with Fiji by using [batch processing](https://imagej.net/Batch_Processing).
 
-   The *ilp* file is a so called *ilastik Project File* and contains training  labels.
-   Next, we will have a look at the labels.
+   The *ilp* file is a so called *ilastik Project File* and contains training  labels. Next, we will have a look at the labels.
 
 1. For looking at the label data, download and install [Ilastik](https://ilastik.org). We created the label data with Ilastik version 1.3.3.
 
-1. Launch Ilastik and open the ilastik project *leaf_labels.ilp*
+1. Launch Ilastik and open the ilastik project *leaf_labels_ilastik133.ilp*
 
    ![](img/tutorial_ilastik_screenshot.png "ilastik screenshot leaf labels")
 
-   You see manually drawn labels for the *leaves_7.tif* image. There are labels
-   for 6 different classes: 5 leaf types and the backgound class (red).
-   In *current view* you can select one of the other images.
+   You see manually drawn labels for the *leaves_7.tif* image. There are labels for 6 different classes: 5 leaf types and the backgound class (red). In *current view* you can select one of the other images.
 
-   Ilastik comes with built in functionality for classifier training and pixel classification. It is very convenient to use and much faster than the deep-learing based classificaton of YAPiC. However this leaf
-   classification task, can not be solved with Ilastik's built in classification.
-   For this reason, we use Ilastik in this case just as a tool for labeling
-   and will train a classifier with YAPiC.
+   >Ilastik comes with built in functionality for classifier training and pixel classification. It is very convenient to use and much faster than the deep-learing based classificaton of YAPiC. However this leaf classification task, can not be solved with Ilastik's built in classification. For this reason, we use Ilastik in this case just as a tool for labeling and will train a classifier with YAPiC.
 
 1. Add some more training data.
 
    ![](img/tutorial_ilastik_screenshot_brush.png "label tools in tutorial_ilastik_screenshot")
 
-   Choose some other images with less labels and use the brush to paint
-   more image regions. The more labels you have, the better will be your
-   training result. Amount of labels should be more or less balanced between
-   all classes.
+   Choose some other images with less labels and use the brush to paint more image regions. The more labels you have, the better will be your training result. Amount of labels should be more or less balanced between all classes.
 
 1. Save your updated Ilastik project: ```Project>>Save Project...```
 
@@ -67,10 +53,9 @@
    yapic train unet_2d "path/to/leaves_example_data/*.tif" path/to/leaves_example_data/leaf_labels_ilastik133.ilp -e 800 --gpu=0
    ```   
 
-   * ```unet_2d``` defines the type of deep learning model to train. We choose the
+   * `unet_2d` defines the type of deep learning model to train. We choose the
     original U-Net architecture as described in [this paper](https://arxiv.org/pdf/1505.04597.pdf).
-   * Next, we define the pixel data source with a wildcard
-     With wildcards you have to use quotation marks.
+   * Next, we define the pixel data source with a wildcard. With wildcards you have to use quotation marks.
    * Next, we have to define the label data source. In our case the ilastik project file ```path/to/leaves_example_data/leaf_labels.ilp```    
    * The optional argument ```e``` defines the number of training epochs, i.e. the
      length of the training process.
@@ -78,8 +63,7 @@
      with the optional ```--gpu``` argument.
    * Use ```yapic --help``` to get an overview about all arguments.  
 
-1. Training progress can be observed via command line output. Training 2500
-   epochs will take several hours.
+1. Training progress can be observed via command line output. Training 2500 epochs will take several hours.
    ```
    Epoch 5/500
    50/50 [==============================] - 63s 1s/step - loss: 1.7317 - accuracy:    5.3919 - val_loss: 1.6949 - val_accuracy: 3.7496
@@ -91,24 +75,19 @@
    17/50 [=========>....................] - ETA: 27s - loss: 1.7165 - accuracy:    5.5103
    ```
    * Training progress is also logged to *loss.csv*.
-   * The best performing model (the model with the lowest validation loss)
-     is repeatedly saved as *model.h5*.
+   * The best performing model (the model with the lowest validation loss) is repeatedly saved as *model.h5*.
 
   The *loss* of training data and validation data is continuously written to *loss.csv* file. You can open this file in any spreadsheet software (e.g. MS Excel) and plot *loss* and *validation_loss*:
   ![](img/tutorial_loss_screenshot.png)
-  You see that the model initially learns to predict the data (the loss decreases). But from time to time, the curve falls back to a higher loss and training process starts again. You can also see, that training loss tends to be a bit lower than validation loss (overfitting).
+  You see that the model initially learns to predict the data (the loss decreases). But from time to time, the curve falls back to a higher loss and training process starts again. You can also see, that training loss tends to be a bit lower than validation loss. The shape of the loss curve is very dependent on the dataset you process.
 
-  Please note that at the end of the 500 interations the validation loss is higher than some iterations earlier. YAPiC only stores the best performing model parameters, i.e. the model with lowest validation loss over the whole training period. 
+  Please note that at the end of the 500 interations the validation loss is higher than some iterations earlier. YAPiC only stores the best performing model parameters, i.e. the model with lowest validation loss over the whole training period.
 
 
 
 ## Apply your model
 
-After the training process, the *model.h5* file contains the best performing model,
-i.e. the model with best performance on the validation dataset.
-You have two options how to apply your model: Either you can run your model on a
-set of tif images by using YAPiC command line tool (the one you used for training)
-or you can export your model to run it in ImageJ/Fiji by using [DeepimageJ plugin](https://deepimagej.github.io/deepimagej/). We tested YAPiC trained models with DeepimageJ versions 1.0.1. and 1.2.0.
+After the training process, the *model.h5* file contains the best performing model, i.e. the model with best performance on the validation dataset. You have two options how to apply your model: Either you can run your model on a set of tif images by using YAPiC command line tool (the one you used for training) or you can export your model to run it in ImageJ/Fiji by using [DeepimageJ plugin](https://deepimagej.github.io/deepimagej/). We tested YAPiC trained models with DeepimageJ versions 1.0.1. and 1.2.0.
 
 ### Apply model using YAPiC command line tool
 Apply your model to the images

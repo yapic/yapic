@@ -30,7 +30,7 @@ Options:
                           (e.g. 'global_0+255' for 8-bit images and 'global_0+65535'
                           for 16-bit images)
                           Choose 'off' to deactivate.
-  --cpu                   Train using the CPU (not recommended).
+  --cpu                   Use the CPU (not recommended for training).
   --gpu=VISIBLE_DEVICES   If you wanrt to use specific gpus. To use gpu 0,
                           set '0'. To use gpus 2 and 3, set '2,3'
   -h --help               Show this screen.
@@ -58,12 +58,13 @@ Deploy Options:
                           RAM. There are three options:
                           'small' (112 x 112 pixels), 'middle' (224 x 224 pixels),
                           'large' (368 x 368 pixels) [default: middle]
+  --skip-predict          Skip computation of prediction image.
   --author=AUTHOR         Name of the model's authors [default: n/a]
   --url=URL               Url to model publication [default: http://]
   --credit=CREDIT         [default: n/a]
   --mdversion=MDVERSION   Model version [default: n/a]
   --reference=REFERENCE   Publication reference of model [default: n/a]
-  --skip-predict          Skip computation of prediction image
+
 
 
 """
