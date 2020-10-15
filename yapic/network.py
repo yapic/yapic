@@ -31,30 +31,27 @@ def count_labels(y):
     return K.sum(K.cast(K.any(K.not_equal(y, 0), axis=-1), dtype=K.floatx()))
 
 
-
 def correct_mean(y):
     return K.prod(K.cast(K.shape(y)[:-1], dtype=K.floatx())) / count_labels(y)
 
 
-
-
 def corr_categ_crsentropy(y_true, y_pred):
     return losses.categorical_crossentropy(y_true,
-                                                 y_pred) * correct_mean(y_true)
+                                           y_pred) * correct_mean(y_true)
+
 
 def compile_model(network, learning_rate=1e-3, momentum=0.9):
     '''
     Compiles the network
     '''
 
-
     def accuracy(y_true, y_pred):
         return metrics.categorical_accuracy(y_true,
                                             y_pred) * correct_mean(y_true)
 
     optimize = optimizers.SGD(lr=learning_rate,
-                                    momentum=momentum,
-                                    nesterov=True)
+                              momentum=momentum,
+                              nesterov=True)
     network.compile(optimizer=optimize,
                     loss=corr_categ_crsentropy,
                     metrics=[accuracy])
@@ -84,6 +81,8 @@ def load_keras_model(filepath):
     except ValueError:
             model = keras.models.load_model(
                 filepath,
-                custom_objects={'corrected_categorical_crossentropy': corr_categ_crsentropy})
+                custom_objects={
+                    'corrected_categorical_crossentropy':
+                        corr_categ_crsentropy})
 
     return model

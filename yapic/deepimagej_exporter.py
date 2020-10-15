@@ -89,10 +89,6 @@ class DeepimagejExporter(object):
         new_save_path = save_path.replace(result_img_name, 'resultImage.tiff')
         os.rename(save_path, new_save_path)
 
-
-
-
-
     def _is_model_unet_2d(self):
         return self.s.model.name == 'unet_2d'
         # return self.s.model.count_params() == 32424323
@@ -222,7 +218,9 @@ class DeepimagejExporter(object):
                         outputs={'output': model.output})
 
         signature_def_map = {
-            tf.saved_model.signature_constants.DEFAULT_SERVING_SIGNATURE_DEF_KEY: signature}
+            tf.saved_model
+              .signature_constants
+              .DEFAULT_SERVING_SIGNATURE_DEF_KEY: signature}
 
         builder.add_meta_graph_and_variables(
             K.get_session(),

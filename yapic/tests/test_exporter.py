@@ -122,15 +122,7 @@ def train_test_model_convnet():
 
 class TestDeepimagejExporter(TestCase):
 
-
-    #@pytest.mark.slow
     def setUp(self):
-
-        #delete test artifacts
-        # savepath = os.path.join(
-        #     base_path,
-        #     '../test_data/tmp')
-        # shutil.rmtree(savepath, ignore_errors=True)
 
         model_path = train_test_model_unet_2d_1channel_3classes()
         print('saved unet_2d as {}'.format(model_path))
