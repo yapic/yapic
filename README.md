@@ -2,11 +2,8 @@
 
 ![DZNE](docs/img/DZNE_CMYK_E.png)<!-- .element height="50%" width="50%" -->
 
-YAPiC is developed by the
-[Image and Data Analysis Facility](https://www.dzne.de/forschung/core-facilities/image-and-data-analysisfacility/),
-[Core Reseach Facilities](https://www.dzne.de/forschung/core-facilities/)
-of the [DZNE](https://www.dzne.de/en)
-(German Center for Neurodegenerative Diseases).
+YAPiC is developed by
+[Image and Data Analysis Facility](https://www.dzne.de/forschung/core-facilities/image-and-data-analysisfacility/), [Core Reseach Facilities](https://www.dzne.de/forschung/core-facilities/), [DZNE](https://www.dzne.de/en) (German Center for Neurodegenerative Diseases).
 
 
 # YAPiC - Yet Another Pixel Classifier (based on deep learning)
