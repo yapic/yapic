@@ -1,13 +1,10 @@
 from unittest import TestCase
-from yapic_io.ilastik_connector import IlastikConnector
-from yapic_io.dataset import Dataset
 from yapic.session import Session
 import os
 import skimage
 import numpy as np
 import pytest
 import shutil
-import logging
 
 base_path = os.path.dirname(__file__)
 os.environ['CUDA_VISIBLE_DEVICES'] = ''
@@ -57,12 +54,6 @@ class TestSessionMethods(TestCase):
         assert t.data.global_norm_minmax == (0, 255)
 
     def test_set_normalization_if_no_data(self):
-        img_path = os.path.join(
-            base_path,
-            '../test_data/shapes/pixels/*')
-        label_path = os.path.join(
-            base_path,
-            '../test_data/shapes/labels.ilp')
 
         t = Session()
         # t.load_training_data(img_path, label_path)
@@ -70,7 +61,6 @@ class TestSessionMethods(TestCase):
         t.set_normalization('local')
 
     def test_load_model(self):
-
 
         os.environ['CUDA_VISIBLE_DEVICES'] = ''
         img_path = os.path.join(
@@ -149,7 +139,6 @@ class TestEnd2End(TestCase):
         assert 'pixels_2_class_3.tif' in artifacts
 
         shutil.rmtree(savepath)
-
 
     @pytest.mark.slow
     def test_shape_data(self):

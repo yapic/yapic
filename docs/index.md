@@ -3,19 +3,24 @@ layout: default
 ---
 ![DZNE](img/DZNE_CMYK_E.png)<!-- .element height="40%" width="40%" -->
 
-YAPiC is developed by the
-[Image and Data Analysis Facility](https://www.dzne.de/forschung/core-facilities/image-and-data-analysisfacility/),
-[Core Reseach Facilities](https://www.dzne.de/forschung/core-facilities/)
-of the [DZNE](https://www.dzne.de/en)
-(German Center for Neurodegenerative Diseases).
-[CLI Documentation](doc_cli.html)
-[CLI Documentation](tutorial.html)
+YAPiC is developed by the [Image and Data Analysis Facility](https://www.dzne.de/forschung/core-facilities/image-and-data-analysisfacility/),
+[Core Reseach Facilities](https://www.dzne.de/forschung/core-facilities/) of the [DZNE](https://www.dzne.de/en)(German Center for Neurodegenerative Diseases).
+
+
+* #### [Getting Started I: Train Your First Model](tutorial.html)
+* #### [Getting Started II: Apply your model in Fiji](tutorial_deepimagej.html)
+* #### [Documentation](doc_cli.html)
+
 
 ## What is YAPiC for?
 
-With YAPiC you can make your own customzied filter (we call it *model* or *classifier*) to enhance a certain structure of your choice.
+With YAPiC you can make your own customized filter (also called *model* or *classifier*) to enhance a certain structure of your choice with a simple python based command line interface, installable with pip:
 
-We can, e.g train a model for detection of oak leafs in color images, and use this oak leaf model to filter out all image regions that are not covered by oak leaves:
+`$ yapic train unet_2d "path/to/my/images/*.tif" path/to/my/labels.ilp`
+
+`$ yapic predict my_trained_model.h5 path/to/results/`
+
+You can, e.g train a model for detection of oak leafs in color images, and use this oak leaf model to filter out all image regions that are not covered by oak leaves:
 
 ![](img/oak_example.png "oak leaf classifier example")
 
@@ -69,6 +74,49 @@ DIC images.
   a few hours by one single person.  
 * Simple command line and programming interface (Python).
 
+## How to install
+
+### Linux
+
+* Install [Python 3.6.](https://www.python.org/downloads/)
+
+* Update *pip* and *setuptools*
+  ```
+  pip install --upgrade pip setuptools
+  ```
+
+* Install [Tensorflow](https://www.tensorflow.org/)
+
+  * We strongly recommend to install a Tensorflow version with GPU support.  
+    CPU is too slow for model training.
+  * Please read [Tensorflow installation instructions](https://www.tensorflow.org/install/gpu) to set up CUDA drivers, cuDNN etc. correctly.
+  * Supported **Tensorflow versions** are **1.15** and **2.1**.
+  * To be able to **export YAPiC models to ImageJ** ([DeepImageJ Plugin version 1.2](https://deepimagej.github.io/deepimagej/)), you have to install
+    Tensorflow version **1.15**.
+    ```
+    pip install tensorflow-gpu==1.15
+    ```
+    **Hint**: You can make different [virtual environments](https://docs.python.org/3.6/library/venv.html) with different Tensorflow versions for model training and ImageJ export.
+    * You can train your model with an environment where```tensorflow==2.1``` is installed. If you have a very CUDA driver, this may increase training speed compared to older Tensorflow versions.
+    * For exporting the model to ImageJ, you can switch to an environment with ```tensorflow==1.15``` (GPU support is not necessary for just exporting the model).     
+
+
+* Install YAPiC
+
+```
+pip install yapic
+```
+
+
+### Windows and Mac
+
+YAPiC is currently only supported on Linux. It runs in principle on Mac OS,
+but installing Tensorflow with GPU support in currently [not that straightforward
+on Mac OS](https://docs.anaconda.com/anaconda/user-guide/tasks/tensorflow/).
+We may release Docker images in the future to run YAPiC easily in Windows and
+Mac workstations.
+
+On Windows you may use the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about) and install CUDA drivers, Tensoerflow and YAPiC on a Ubuntu subsystem.
 
 
 ## How to use it
@@ -84,10 +132,21 @@ yapic train unet_2d "path/to/my/images/*.tif" path/to/my/labels.ilp
 yapic predict my_trained_model.h5 path/to/results/
 ```
 
-> Get hands on YAPiC with the **[tutorial](tutorial.html)**.
+* Get hands on YAPiC with the **[tutorial](tutorial.html)**.
+* Go to [CLI Documentation](doc_cli.html) for more details.
 
-> Go to [CLI Documentation](doc_cli.html) for more details.
+#### Apply your trained model in Imagej/Fiji
 
+Once you have trained a model, you can convert the model with YAPiC to use it
+with the [DeepImageJ](https://deepimagej.github.io/deepimagej/) plugin of [ImageJ/Fiji](https://fiji.sc).
+
+```
+yapic deploy my_trained_model.h5 path/to/example/image.tif path/to/my/deepimagej_model
+```
+For deployment to DeepimageJ you have to use Tensorflow version 1.13.1 (see installation instructions below)
+
+* Get hands on YAPiC with the **[tutorial](tutorial.html)**.
+* Go to [CLI Documentation](doc_cli.html) for more details.
 
 ### Python API
 
@@ -131,26 +190,6 @@ t.predict() # applies the classfier to all images in img_path
 > Try it out with the [leaves example dataset](example_data/leaves_example_data.zip)
 
 
-## How to install
-
-### Linux
-
-* Install [Python 3.6.](https://www.python.org/downloads/)
-
-* Install YAPiC
-
-```
-pip install yapic
-```
-
-
-### Windows and Mac
-
-YAPiC is currently only supported on Linux. It runs in principle on Mac OS,
-but installing Tensorflow with GPU support in currently [not that straightforward
-on Mac OS](https://docs.anaconda.com/anaconda/user-guide/tasks/tensorflow/).
-We may release Docker images in the future to run YAPiC easily in Windows and
-Mac workstations.
 
 
 ## Hardware Recommendations

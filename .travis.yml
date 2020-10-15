@@ -1,11 +1,17 @@
 language: python
 python:
-- '3.6'
+  - '3.6'
+env:
+  - TENSORFLOW_VERSION=2.1.0
+  - TENSORFLOW_VERSION=1.13.2
+  - TENSORFLOW_VERSION=1.15
 install:
-- pip install .
-- pip install -U pytest
+  - pip install --upgrade pip setuptools
+  - pip install tensorflow==$TENSORFLOW_VERSION
+  - pip install .
+  - pip install -U pytest
 script:
-- pytest -s -v -m "not slow"
+  - pytest -s -v -m "not slow"
 deploy:
   provider: pypi
   user: cmohl

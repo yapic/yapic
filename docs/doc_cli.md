@@ -10,6 +10,12 @@ yapic train <network> <image_path> <label_path> [options]
 yapic predict <network> <image_path> <output_path> [options]
 ```
 
+## Deployment: Export to DeepImageJ
+```
+yapic deploy <network> <image_path> <output_path> [options]
+```
+
+
 ## Parameters
 
 ### network
@@ -28,8 +34,25 @@ Either a model file in h5 format to use a pretrained model or specific string to
 * Use ```path/to/my/pretrained_model.h5``` to continue training of a    
   pretrained keras model.
 
+* Only `unet_2d` models can be deployed to DeepImageJ.  
+
 
 ### image_path
+
+Path to image files. You can use wildcards, e.g. `my_data/*.tif`. In deploy mode, define one specific *tif* image file as example image.
+
+#### Input image format
+YAPic supports *tif* and *tiff* files
+* RGB images
+* Multichannel images
+* Z-stacks
+
+Especially in case of multidimensional images:  Make sure to always
+convert your pixel images with [Fiji](https://fiji.sc) before using YAPiC.
+Large amounts of image data can be conveniently converted with Fiji by using
+[batch processing](https://imagej.net/Batch_Processing).
+
+#### *train* and *predict* mode
 
 Define a folder with *tiff* or *tif* images
 ```
@@ -43,16 +66,13 @@ or a wildcard
 
 Don't forget double quotes in case of wildcards!
 
-##### Input image format
-YAPic supports *tif* and *tiff* files
-* RGB images
-* Multichannel images
-* Z-stacks
+#### *deploy* mode
 
-Especially in case of multidimensional images:  Make sure to always
-convert your pixel images with [Fiji](https://fiji.sc) before using YAPiC.
-Large amounts of image data can be conveniently converted with Fiji by using
-[batch processing](https://imagej.net/Batch_Processing).
+```
+path/to/a/single/example_image.tif
+```
+The example image is packed into the DeepImageJ bundled model. If you share your model with others, they can easily apply the model within DeepImageJ on this test image.
+
 
 ### label_path
 
@@ -192,3 +212,28 @@ Equalize label weights to promote influcence of less frequent labels.
 ###  --csvfile=LOSSDATA
 
 Path to csv file for training loss data [default: ```loss.csv```].
+
+## Deploy options
+
+###  -s --size=Modelsize
+
+Size of the network to be exported.
+
+Large networks are applied faster in DeepImageJ, but consume more RAM. There are three options:
+
+* `small` (112 x 112 pixels)
+* `middle` (224 x 224 pixels),
+* `large` (368 x 368 pixels) [default: middle]
+
+## --skip-predict
+Skip computation of prediction image.
+By default, the model is applied to the example image and the resulting probability map is packed into the DeepImageJ Bundled model. You can skip this to make deployment process faster.
+
+### Metadata
+There are several optional parameters to add metadata to the model (e.g. author information). This is of particular interest if you would like to publish the model on the [model repository](https://deepimagej.github.io/deepimagej/models.html).
+
+* `--author=AUTHOR`: Name of the model's authors [default: n/a]
+* `--url=URL`: Url to model publication [default: http://]
+* `--credit=CREDIT`: [default: n/a]
+* `--mdversion=MDVERSION`: Model version [default: n/a]
+* `--reference=REFERENCE`: Publication reference of model [default: n/a]

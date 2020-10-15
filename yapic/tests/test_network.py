@@ -1,9 +1,9 @@
 from unittest import TestCase
 import yapic.network as netw
-import pytest
 import os
 
 os.environ['CUDA_VISIBLE_DEVICES'] = ''
+
 
 class TestNetwork(TestCase):
 
