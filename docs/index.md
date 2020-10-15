@@ -3,8 +3,7 @@ layout: default
 ---
 ![DZNE](img/DZNE_CMYK_E.png)<!-- .element height="40%" width="40%" -->
 
-YAPiC is developed by the [Image and Data Analysis Facility](https://www.dzne.de/forschung/core-facilities/image-and-data-analysisfacility/),
-[Core Reseach Facilities](https://www.dzne.de/forschung/core-facilities/) of the [DZNE](https://www.dzne.de/en)(German Center for Neurodegenerative Diseases).
+YAPiC is developed by [Image and Data Analysis Facility](https://www.dzne.de/forschung/core-facilities/image-and-data-analysisfacility/), [Core Reseach Facilities](https://www.dzne.de/forschung/core-facilities/) of [DZNE](https://www.dzne.de/en)(German Center for Neurodegenerative Diseases).
 
 
 * #### [Getting Started I: Train Your First Model](tutorial.html)
@@ -51,13 +50,8 @@ However, YAPiC is a very generally applicable tool and can be applied to very di
 
 ## Why YAPiC?
 
-Pixel classification in YAPiC is based on deep learning with
-*fully convolutional neural networks*.
-Development of YAPiC started in 2015, when Ronneberger et al. presented a
-[U-shaped fully convolutional neural network](https://arxiv.org/pdf/1505.04597.pdf) that was capable of solving
-highly challenging pixel classification tasks in bio images, such as
-tumor classification in histological slides or cell segmentation in brightfield
-DIC images.
+Pixel classification in YAPiC is based on deep learning wit *fully convolutional neural networks*.
+Development of YAPiC started in 2015, when Ronneberger et al. presented a [U-shaped fully convolutional neural network](https://arxiv.org/pdf/1505.04597.pdf) that was capable of solving highly challenging pixel classification tasks in bio images, such as tumor classification in histological slides or cell segmentation in brightfield DIC images.
 
 >YAPiC was designed to make this new kind of AI powered pixel
 >classification simply applicable,
@@ -66,12 +60,9 @@ DIC images.
 *Simply applicable* means here in detail:
 
 * Easy to install.
-* Working out of the box with 3D multichannel images saved with
-  [Fiji](https://fiji.sc).
-* Easy collection of label data by utilizing the great
-  [Ilastik](https://ilastik.org) user interface.
-* Support of sparse labels. From our experience, labels can be collected within
-  a few hours by one single person.  
+* Working out of the box with 3D multichannel images saved with [Fiji](https://fiji.sc).
+* Easy collection of label data by utilizing the great [Ilastik](https://ilastik.org) user interface.
+* Support of sparse labels. From our experience, labels can be collected within a few hours by one single person.  
 * Simple command line and programming interface (Python).
 
 ## How to install
@@ -87,8 +78,7 @@ DIC images.
 
 * Install [Tensorflow](https://www.tensorflow.org/)
 
-  * We strongly recommend to install a Tensorflow version with GPU support.  
-    CPU is too slow for model training.
+  * We strongly recommend to install a Tensorflow version with GPU support. CPU is too slow for model training.
   * Please read [Tensorflow installation instructions](https://www.tensorflow.org/install/gpu) to set up CUDA drivers, cuDNN etc. correctly.
   * Supported **Tensorflow versions** are **1.15** and **2.1**.
   * To be able to **export YAPiC models to ImageJ** ([DeepImageJ Plugin version 1.2](https://deepimagej.github.io/deepimagej/)), you have to install
@@ -110,11 +100,7 @@ pip install yapic
 
 ### Windows and Mac
 
-YAPiC is currently only supported on Linux. It runs in principle on Mac OS,
-but installing Tensorflow with GPU support in currently [not that straightforward
-on Mac OS](https://docs.anaconda.com/anaconda/user-guide/tasks/tensorflow/).
-We may release Docker images in the future to run YAPiC easily in Windows and
-Mac workstations.
+YAPiC is currently only supported on Linux. It runs in principle on Mac OS, but installing Tensorflow with GPU support in currently [not that straightforward on Mac OS](https://docs.anaconda.com/anaconda/user-guide/tasks/tensorflow/). We may release Docker images in the future to run YAPiC easily in Windows and Mac workstations.
 
 On Windows you may use the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about) and install CUDA drivers, Tensoerflow and YAPiC on a Ubuntu subsystem.
 
@@ -137,8 +123,7 @@ yapic predict my_trained_model.h5 path/to/results/
 
 #### Apply your trained model in Imagej/Fiji
 
-Once you have trained a model, you can convert the model with YAPiC to use it
-with the [DeepImageJ](https://deepimagej.github.io/deepimagej/) plugin of [ImageJ/Fiji](https://fiji.sc).
+Once you have trained a model, you can convert the model with YAPiC to use it with the [DeepImageJ](https://deepimagej.github.io/deepimagej/) plugin of [ImageJ/Fiji](https://fiji.sc).
 
 ```
 yapic deploy my_trained_model.h5 path/to/example/image.tif path/to/my/deepimagej_model
@@ -194,22 +179,13 @@ t.predict() # applies the classfier to all images in img_path
 
 ## Hardware Recommendations
 
-YAPiC is designed to run on dedicated hardware. In production, it
-should not run on your everyday-work notebook, but on a dedicated workstation or a
-server. The reason is, that training a model requires long time (multiple hours
-to multiple days) and a lot of computing power. Running these processes in the
-background on your notebook while e.g. writing E-Mails is not feasible. Moreover, you will need powerful GPU hardware that is normally not available on office notebooks.   
+YAPiC is designed to run on dedicated hardware. In production, it should not run on your everyday-work notebook, but on a dedicated workstation or a server. The reason is, that training a model requires long time (multiple hours
+to multiple days) and a lot of computing power. Running these processes in the background on your notebook while e.g. writing E-Mails is not feasible. Moreover, you will need powerful GPU hardware that is normally not available on office notebooks.   
 
 
-* Using fast SSD hard drives (PCIe SSDs) for storing training data may increase
-  training speed, compared to conventional hard drives. Have a look at the [GPU requirements for Tensorflow](https://www.tensorflow.org/install/gpu)
-* From our expericence you can have already quite good performance with NVIDIA Geforce
-  boards (mainly intended for gaming). These are cheaper than professional
-  NVIDIA Tesla GPUs.
-* GPU RAM requirements: RAM of your GPU hardware is often a bottleneck and depends the specific project. RAM requirements depend on the number of classes you want to train
-  and if you use a 2D network or 3D network. Some recommendations, based on our
-  personal experience:
-
+* Using fast SSD hard drives (PCIe SSDs) for storing training data may increase training speed, compared to conventional hard drives. Have a look at the [GPU requirements for Tensorflow](https://www.tensorflow.org/install/gpu)
+* From our expericence you can have already quite good performance with NVIDIA Geforce boards (mainly intended for gaming). These are cheaper than professional NVIDIA Tesla GPUs.
+* GPU RAM requirements: RAM of your GPU hardware is often a bottleneck and depends the specific project. RAM requirements depend on the number of classes you want to train and if you use a 2D network or 3D network. Some recommendations, based on our personal experience:
   * For training a *unet_2D* with two classes (foreground, background), 5 GB
     RAM on your GPU is sufficient.
   * For training a *unet_multi_z* with five z-layers and two classes, 11 GB RAM
