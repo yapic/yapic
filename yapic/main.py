@@ -16,7 +16,8 @@ Usage:
   <image_path>            Path to image files. You can use wildcards, e.g.
                           "my_data/*.tif". In deploy mode, define one specific
                           tif image file (as example image).
-  <label_path>            Path to label files. Either tif or ilp (Ilastik project file).
+  <label_path>            Path to label files. Either tif or ilp (Ilastik
+                          project file).
                           Wildcards are supported.
                           Examples: "path/to/my_ilastik_project.ilp",
                                     "path/to/my_label_images/*.tif"
@@ -25,10 +26,10 @@ Usage:
 
 Options:
   -n --normalize=NORM     Set pixel normalization scope [default: local]
-                          For minibatch-wise normalization choose 'local_z_score' or 'local'.
-                          For global normalization use global_<min>+<max>
-                          (e.g. 'global_0+255' for 8-bit images and 'global_0+65535'
-                          for 16-bit images)
+                          For minibatch-wise normalization choose
+                          'local_z_score' or 'local'. For global normalization
+                          use global_<min>+<max> (e.g. 'global_0+255' for 8-bit
+                          images and 'global_0+65535' for 16-bit images)
                           Choose 'off' to deactivate.
   --cpu                   Use the CPU (not recommended for training).
   --gpu=VISIBLE_DEVICES   If you wanrt to use specific gpus. To use gpu 0,
@@ -40,12 +41,16 @@ Train Options:
   -e --epochs=MAX_EPOCHS  Maximum number of epochs to train [default: 5000].
   -a --augment=AUGMENT    Set augmentation method for training [default: flip]
                           Choose 'flip' and/or 'rotate' and/or 'shear'.
-                          Use '+' to specify multiple augmentations (e.g. flip+rotate).
-  -v --valfraction=VAL    Fraction of images to be used for validation [default: 0.2].
+                          Use '+' to specify multiple augmentations
+                          (e.g. flip+rotate).
+  -v --valfraction=VAL    Fraction of images to be used for validation
+                          [default: 0.2].
   -f --file=CLASSIFER     Path to trained model [default: model.h5].
   --steps=STEPS           Steps per epoch [default: 50].
-  --equalize              Equalize label weights to promote less frequent labels.
-  --csvfile=LOSSDATA      Path to csv file for training loss data [default: loss.csv].
+  --equalize              Equalize label weights to promote less frequent
+                          labels.
+  --csvfile=LOSSDATA      Path to csv file for training loss data
+                          [default: loss.csv].
 
 Predict Options:
   --split                 Save prediction images of different classes into
@@ -56,7 +61,8 @@ Deploy Options:
   -s --size=MODELSIZE     Size of the network to be exported. Large networks
                           are applied faster in DeepImageJ, but consume more
                           RAM. There are three options:
-                          'small' (112 x 112 pixels), 'middle' (224 x 224 pixels),
+                          'small' (112 x 112 pixels),
+                          'middle' (224 x 224 pixels),
                           'large' (368 x 368 pixels) [default: middle]
   --skip-predict          Skip computation of prediction image.
   --author=AUTHOR         Name of the model's authors [default: n/a]

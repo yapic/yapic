@@ -12,6 +12,7 @@ from tensorflow.python.framework.tensor_shape import Dimension
 import logging
 logger = logging.getLogger(__name__)
 
+
 class Session(object):
     '''
     A session is used for training a model with a connected dataset (pixels
@@ -40,7 +41,6 @@ class Session(object):
         self.output_tile_size_zxy = None
         self.padding_zxy = None
 
-
     def load_training_data(self, image_path, label_path):
         '''
         Connect to a training dataset.
@@ -59,8 +59,6 @@ class Session(object):
         msg = '\n\nImport taining dataset:\n{}\n'.format(
             self.dataset.pixel_connector.__repr__())
         sys.stdout.write(msg)
-
-
 
     def load_prediction_data(self, image_path, save_path):
         '''
@@ -263,8 +261,7 @@ class Session(object):
             data_predict.multichannel_output_on()
         else:
             data_predict.multichannel_output_off()
-        print('multichannel {}'.format(data_predict.multichannel))
-
+        print('multichannel output: {}'.format(data_predict.multichannel))
 
         for item_nr, item in enumerate(data_predict):
             msg = ('Writing probability map tile'
