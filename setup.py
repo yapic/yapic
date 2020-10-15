@@ -29,8 +29,8 @@ setup(name='yapic',
       long_description=readme(),
       url='https://yapic.github.io/yapic/',
       author='Manuel Schoelling, Christoph Moehl',
-      author_email=('manuel.schoelling@gmx.de, ')
-                   ('christoph.oliver.moehl@gmail.com'),
+      author_email=('manuel.schoelling@gmx.de, '
+                    'christoph.oliver.moehl@gmail.com'),
       packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
       zip_safe=False,
       install_requires=reqs,
