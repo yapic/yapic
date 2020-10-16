@@ -8,23 +8,9 @@ run_fast_tests:
     - export GIT_SSL_NO_VERIFY=1
     - pip install Cython
     - cd ${CI_PROJECT_DIR}
-    - pip install -e .
-    - pip install tensorflow
+    - pip install --upgrade pip setuptools
+    - pip install tensorflow==1.15
+    - pip install .
     - pip install -U pytest
     - pytest -s -v -m "not slow"
   tags: [docker]
-
-# run_slow_tests:
-#   image: tensorflow/tensorflow:latest-py3
-#   stage: test
-#
-#   script:
-#     - apt-get update
-#     - apt-get --yes install git
-#     - export GIT_SSL_NO_VERIFY=1
-#     - pip install Cython
-#     - cd ${CI_PROJECT_DIR}
-#     - pip install -e .
-#     - pip install -U pytest
-#     - pytest -s -v -m "slow"
-#   tags: [docker]
