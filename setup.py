@@ -10,7 +10,7 @@ except ModuleNotFoundError:
     raise ModuleNotFoundError(msg)
 
 
-reqs = ['yapic_io>=0.1.0',
+reqs = ['yapic_io>=0.1.2',
         'docopt>=0.6.2',
         'numpy>=1.15.4']
 
