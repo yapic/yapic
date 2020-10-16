@@ -102,4 +102,4 @@ You can open the result files in Fiji. Each channel represents one class (i.e. o
 
 ### Apply model in Fiji using DeepImageJ plugin
 
-Go to [part II](tutorial_deepimagej.html) for learning how to use you custom made leaf classifier in Fiji by using [DeepImageJ plugin](https://deepimagej.github.io/deepimagej/).
+Go to [part II](tutorial_deepimagej.html) for learning how to use you custom made leaf classifier in Fiji by using DeepImageJ plugin.
