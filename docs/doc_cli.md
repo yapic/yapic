@@ -23,16 +23,10 @@ yapic deploy <network> <image_path> <output_path> [options]
 Either a model file in h5 format to use a pretrained model or specific string to initialize a new model.
 
 * Choose ```unet_2d``` or ```unet_multi_z``` to initialize a new model.
-    * ```unet_2d```: The original U-Net network as described by
-      [Ronneberger et al.](https://arxiv.org/pdf/1505.04597.pdf) with
-      zxy size of 1x572x572. You can train 2D images as well as 3D multichannel data with this model (e.g. z-stacks asquired with a confocal microscope). However, the model will be trained with
-      single 2D slices of your 3D data.
-    * ```unet_multi_z```: Combination of 5 ```unet_2d``` models to  
-      process 3D data. It takes 5 z-slices as input to predict the
-      slice in the middle.
+    * ```unet_2d```: The original U-Net network as described by [Ronneberger et al.](https://arxiv.org/pdf/1505.04597.pdf) with zxy size of 1x572x572. You can train 2D images as well as 3D multichannel data with this model (e.g. z-stacks asquired with a confocal microscope). However, the model will be trained with single 2D slices of your 3D data.
+    * ```unet_multi_z```: Combination of 5 ```unet_2d``` models to process 3D data. It takes 5 z-slices as input to predict the slice in the middle.
 
-* Use ```path/to/my/pretrained_model.h5``` to continue training of a    
-  pretrained keras model.
+* Use ```path/to/my/pretrained_model.h5``` to continue training of a pretrained keras model.
 
 * Only `unet_2d` models can be deployed to DeepImageJ.  
 
@@ -47,10 +41,7 @@ YAPic supports *tif* and *tiff* files
 * Multichannel images
 * Z-stacks
 
-Especially in case of multidimensional images:  Make sure to always
-convert your pixel images with [Fiji](https://fiji.sc) before using YAPiC.
-Large amounts of image data can be conveniently converted with Fiji by using
-[batch processing](https://imagej.net/Batch_Processing).
+Especially in case of multidimensional images:  Make sure to always convert your pixel images with [Fiji](https://fiji.sc) before using YAPiC. Large amounts of image data can be conveniently converted with Fiji by using [batch processing](https://imagej.net/Batch_Processing).
 
 #### *train* and *predict* mode
 
@@ -90,14 +81,11 @@ path/to/my/labelfiles/
 ```
 
 ##### Ilastik Project Files
-The images in associated with your Ilastik project have to be identical with
-the *tif* images you define in the *image_path* argument.
+The images in associated with your Ilastik project have to be identical with the *tif* images you define in the *image_path* argument.
 
 ##### Label masks in *tif* format
 
-* The label image have to have identical dimension in z, x and y as the corresponding
-  pixel images. They always have one channel.
-  Pixel integer values define the class labels:
+* The label image have to have identical dimension in z, x and y as the corresponding pixel images. They always have one channel. Pixel integer values define the class labels:
   * 0: no label
   * 1: class 1
   * 2: class 2
@@ -105,11 +93,9 @@ the *tif* images you define in the *image_path* argument.
 
   etc.
 
-* The label images have to have identical or similar names to the original pixel   
-  images defined in *image_path*.
+* The label images have to have identical or similar names to the original pixel images defined in *image_path*.
 
-  This works well: Pixel and label images are located in different folders and have
-  identical names:
+  This works well: Pixel and label images are located in different folders and have identical names:
 
    ```
    pixel_image_data/
@@ -125,8 +111,7 @@ the *tif* images you define in the *image_path* argument.
    └── leaves_4.tif
    ```
 
-  This works also: Pixel and label images are located in different folders and have
-  similar names:
+  This works also: Pixel and label images are located in different folders and have similar names:
 
    ```
    pixel_image_data/
@@ -141,10 +126,7 @@ the *tif* images you define in the *image_path* argument.
    ├── leaves_3_labels.tif
    └── leaves_4_labels.tif
    ```  
-Especially in case of multidimensional images:  Make sure to always
-convert your label masks in *tif* format with [Fiji](https://fiji.sc) before using YAPiC.
-Large amounts of image data can be conveniently converted with Fiji by using
-[batch processing](https://imagej.net/Batch_Processing).   
+Especially in case of multidimensional images:  Make sure to always convert your label masks in *tif* format with [Fiji](https://fiji.sc) before using YAPiC. Large amounts of image data can be conveniently converted with Fiji by using [batch processing](https://imagej.net/Batch_Processing).   
 
 
 ## Optional parameters
@@ -192,8 +174,7 @@ Set augmentation method for training [default: ```flip```].
 
 ###  -v --valfraction=VAL
 
-Fraction of images to be used for validation [default: ```0.2```] between
-0 and 1.
+Fraction of images to be used for validation [default: ```0.2```] between 0 and 1.
 
 
 ###  -f --file=CLASSIFER
