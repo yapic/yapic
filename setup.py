@@ -24,7 +24,7 @@ def readme():
 ns = os.environ.get('CI_PROJECT_NAMESPACE', 'idaf')
 
 setup(name='yapic',
-      version='1.2.0',
+      version='1.2.1',
       description='Yet another Pixel Classifier (based on deep learning)',
       long_description=readme(),
       url='https://yapic.github.io/yapic/',
@@ -32,6 +32,7 @@ setup(name='yapic',
       author_email=('manuel.schoelling@gmx.de, '
                     'christoph.oliver.moehl@gmail.com'),
       packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
+      include_package_data=True,
       zip_safe=False,
       install_requires=reqs,
       test_suite='nose.collector',

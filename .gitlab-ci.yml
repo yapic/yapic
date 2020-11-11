@@ -6,7 +6,6 @@ run_fast_tests:
     - apt-get update
     - apt-get --yes install git
     - export GIT_SSL_NO_VERIFY=1
-    - pip install Cython
     - cd ${CI_PROJECT_DIR}
     - pip install --upgrade pip setuptools
     - pip install tensorflow==1.15
@@ -14,3 +13,21 @@ run_fast_tests:
     - pip install -U pytest
     - pytest -s -v -m "not slow"
   tags: [docker]
+
+run_tutorialdata_end2end:
+  image: python:3.6
+  tags: [docker]
+  only:
+    - schedules
+  script:
+    - mkdir data
+    - mkdir predictions
+    - cp ${CI_PROJECT_DIR}/docs/example_data/leaves_example_data.zip .
+    - unzip leaves_example_data.zip -d data/.
+    - pip install --upgrade pip setuptools
+    - pip install tensorflow==1.15
+    - pip install yapic
+    - yapic --help
+    - yapic train unet_2d "data/*.tif" data/leaf_labels_ilastik133.ilp -v 0 --epochs=2 --steps=3
+    - yapic predict model.h5 "data/*.tif" predictions
+    - yapic deploy model.h5 data/leaves_1.tif myDeepImageJModel
