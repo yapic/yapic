@@ -48,7 +48,7 @@ class DeepimagejExporter(object):
 
         self.template_dir = os.path.join(
             os.path.dirname(__file__),
-            '../templates/deepimagej101')
+            'templates/deepimagej101')
 
     def export_as_deepimagej(self,
                              author='n/a',
