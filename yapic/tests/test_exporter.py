@@ -412,6 +412,41 @@ class TestDeepimagejExporter(TestCase):
             reference='Name et al. 2020',
             size='small')
 
+    def test_export_as_deepimagej_without_apply(self):
+        # 1 channel 2 classes
+
+        tf_version = [int(num) for num in tf.__version__.split('.')]
+
+        if tf_version[0] != 1:
+            # deepimagej supports only tensorflow version 1
+            return
+
+        example_image_path = os.path.abspath(os.path.join(
+            base_path,
+            '../test_data/shapes/pixels/pixels_1.tiff'))
+        save_path = os.path.abspath(os.path.join(
+            base_path,
+            '../test_data/tmp/my_packaged_u_net'))
+        model_path = os.path.join(
+            base_path,
+            '../test_data/tmp/model_unet_2d_1channel_2classes.h5')
+        print('model_path: {}'.format(model_path))
+
+        exp = DeepimagejExporter(model_path,
+                                 save_path,
+                                 example_image_path)
+
+        shutil.rmtree(save_path, ignore_errors=True)
+        exp.export_as_deepimagej(
+            author='Some Name',
+            version='1.0.0',
+            url='https://my-site.org',
+            credit='some other names',
+            reference='Name et al. 2020',
+            size='small',
+            applymodel=False)
+
+
     @pytest.mark.slow
     def test_apply_model(self):
 
