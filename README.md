@@ -24,9 +24,9 @@ We can, e.g train a model for detection of oak leafs in color images, and use th
   or to no leafs at all are mostly suppressed, they appear dark in the output image.
 * Pixels that belong to oak leafs are enhanced, they appear bright in the output image.
 
-The output image is also called a *pobability map*, because the intensity of each pixel corresponds to the probability of the pixel belonging to an oak leave region.
+The output image is also called a *probability map*, because the intensity of each pixel corresponds to the probability of the pixel belonging to an oak leave region.
 
-You can train a model for almost any structure you are interested in, for example to detect a certain cell type ist histological micrographs (here: purkinje cells of the human brain):
+You can train a model for almost any structure you are interested in, for example to detect a certain cell type in histological micrographs (here: purkinje cells of the human brain):
 
 ![](docs/img/histo_example.png "purkinje cell classifier example")
 *Histology data provided by Oliver Kaut (University Clinic Bonn, Dept. of Neurology)*
