@@ -15,27 +15,29 @@ YAPiC is developed by [Image and Data Analysis Facility](https://www.dzne.de/for
 
 With YAPiC you can make your own customized filter (also called *model* or *classifier*) to enhance a certain structure of your choice with a simple python based command line interface, installable with pip:
 
-`$ yapic train unet_2d "path/to/my/images/*.tif" path/to/my/labels.ilp`
+```
+$ yapic train unet_2d "path/to/my/images/*.tif" path/to/my/labels.ilp
 
-`$ yapic predict my_trained_model.h5 path/to/results/`
+$ yapic predict my_trained_model.h5 path/to/results/
+```
 
-You can, e.g train a model for detection of oak leafs in color images, and use this oak leaf model to filter out all image regions that are not covered by oak leaves:
+You can, e.g., train a model for detection of oak leaves in color images, and use this oak leaf model to filter out all image regions that are not covered by oak leaves:
 
 ![](img/oak_example.png "oak leaf classifier example")
 
 * Pixels that belong to other leaf types
-  or to no leafs at all are mostly suppressed, they appear dark in the output image.
-* Pixels that belong to oak leafs are enhanced, they appear bright in the output image.
+  or to no leaves at all are mostly suppressed, they appear dark in the output image.
+* Pixels that belong to oak leaves are enhanced, they appear bright in the output image.
 
-The output image is also called a *pobability map*, because the intensity of each pixel corresponds to the probability of the pixel belonging to an oak leave region.
+The output image is also called a *probability map*, because the intensity of each pixel corresponds to the probability of the pixel belonging to an oak leaf region.
 
-You can train a model for almost any structure you are interested in, for example to detect a certain cell type ist histological micrographs (here: purkinje cells of the human brain):
+You can train a model for almost any structure you are interested in, for example to detect a certain cell type in histological micrographs (here: purkinje cells of the human brain):
 
 ![](img/histo_example.png "purkinje cell classifier example")
 *Histology data provided by Oliver Kaut (University Clinic Bonn, Dept. of Neurology)*
 
 We have used YAPiC for analyzing various microscopy image data. Our experiments are mainly related to neurobiology, cell biology, histopathology  and drug discovery (high content screening).
-However, YAPiC is a very generally applicable tool and can be applied to very different domains. It could be used for detecting e.g. forest regions in satellite images, clouds in landscape photographs or fried eggs in food photography.
+However, YAPiC is a very generally applicable tool and can be applied to very different domains. It could be used for detecting, e.g., forest regions in satellite images, clouds in landscape photographs or fried eggs in food photography.
 
 
 ## Examples
@@ -50,7 +52,7 @@ However, YAPiC is a very generally applicable tool and can be applied to very di
 
 ## Why YAPiC?
 
-Pixel classification in YAPiC is based on deep learning wit *fully convolutional neural networks*.
+Pixel classification in YAPiC is based on deep learning with *fully convolutional neural networks*.
 Development of YAPiC started in 2015, when Ronneberger et al. presented a [U-shaped fully convolutional neural network](https://arxiv.org/pdf/1505.04597.pdf) that was capable of solving highly challenging pixel classification tasks in bio images, such as tumor classification in histological slides or cell segmentation in brightfield DIC images.
 
 >YAPiC was designed to make this new kind of AI powered pixel
@@ -87,7 +89,7 @@ Development of YAPiC started in 2015, when Ronneberger et al. presented a [U-sha
     pip install tensorflow-gpu==1.15
     ```
     **Hint**: You can make different [virtual environments](https://docs.python.org/3.6/library/venv.html) with different Tensorflow versions for model training and ImageJ export.
-    * You can train your model with an environment where```tensorflow==2.1``` is installed. If you have a very CUDA driver, this may increase training speed compared to older Tensorflow versions.
+    * You can train your model with an environment where```tensorflow==2.1``` is installed. If you have a very new CUDA driver, this may increase training speed compared to older Tensorflow versions.
     * For exporting the model to ImageJ, you can switch to an environment with ```tensorflow==1.15``` (GPU support is not necessary for just exporting the model).     
 
 
@@ -100,7 +102,7 @@ pip install yapic
 
 ### Windows and Mac
 
-YAPiC is currently only supported on Linux. It runs in principle on Mac OS, but installing Tensorflow with GPU support in currently [not that straightforward on Mac OS](https://docs.anaconda.com/anaconda/user-guide/tasks/tensorflow/). We may release Docker images in the future to run YAPiC easily in Windows and Mac workstations.
+YAPiC is currently only supported on Linux. It runs, in principle, on Mac OS, but installing Tensorflow with GPU support in currently [not that straightforward on Mac OS](https://docs.anaconda.com/anaconda/user-guide/tasks/tensorflow/). We may release Docker images in the future to run YAPiC easily in Windows and Mac workstations.
 
 On Windows you may use the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about) and install CUDA drivers, Tensoerflow and YAPiC on a Ubuntu subsystem.
 
@@ -183,7 +185,7 @@ YAPiC is designed to run on dedicated hardware. In production, it should not run
 to multiple days) and a lot of computing power. Running these processes in the background on your notebook while e.g. writing E-Mails is not feasible. Moreover, you will need powerful GPU hardware that is normally not available on office notebooks.   
 
 
-* Using fast SSD hard drives (PCIe SSDs) for storing training data may increase training speed, compared to conventional hard drives. Have a look at the [GPU requirements for Tensorflow](https://www.tensorflow.org/install/gpu)
+* Using fast SSD hard drives (PCIe SSDs) for storing training data may increase training speed, compared to conventional hard drives. Have a look at the [GPU requirements for Tensorflow](https://www.tensorflow.org/install/gpu).
 * From our expericence you can have already quite good performance with NVIDIA Geforce boards (mainly intended for gaming). These are cheaper than professional NVIDIA Tesla GPUs.
 * GPU RAM requirements: RAM of your GPU hardware is often a bottleneck and depends the specific project. RAM requirements depend on the number of classes you want to train and if you use a 2D network or 3D network. Some recommendations, based on our personal experience:
   * For training a *unet_2D* with two classes (foreground, background), 5 GB
