@@ -1,6 +1,6 @@
 language: python
 python:
-  - '3.6'
+  - '3.7'
 env:
   - TENSORFLOW_VERSION=2.1.0
   - TENSORFLOW_VERSION=1.13.2
