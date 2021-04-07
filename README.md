@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/yapic/yapic.svg?branch=master)](https://travis-ci.com/yapic/yapic)
+[![PyPI](https://img.shields.io/pypi/v/yapic.svg?color=green)](https://pypi.org/project/yapic/)
 
 ![DZNE](docs/img/DZNE_CMYK_E.png)<!-- .element height="50%" width="50%" -->
 
