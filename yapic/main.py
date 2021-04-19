@@ -78,6 +78,7 @@ from docopt import docopt
 
 import os
 import sys
+import h5py
 from yapic.session import Session
 from yapic.deepimagej_exporter import DeepimagejExporter
 
@@ -158,6 +159,10 @@ def main(args):
                 steps_per_epoch=steps_per_epoch,
                 log_filename=log_filename,
                 model_filename=model_export_filename)
+        
+        f = h5py.File(model_export_filename, 'r+')
+        lbl_map_list = [[key, val] for key, val in s.lbl_map.items()]
+        f.create_dataset('lbl_map', data=lbl_map_list)
 
     if args['predict']:
         output_path = args['<output_path>']

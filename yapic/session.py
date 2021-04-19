@@ -31,6 +31,9 @@ class Session(object):
     def __init__(self):
 
         self.dataset = None
+        
+        self.lbl_map = None
+        
         self.model = None
         self.data = None
         self.data_val = None
@@ -53,8 +56,11 @@ class Session(object):
             Path to folder with label tiff images or path to ilastik project
             file (.ilp file).
         '''
-
-        self.dataset = Dataset(io_connector(image_path, label_path))
+        
+        _connector = io_connector(image_path, label_path)
+        self.lbl_map = _connector.labelvalue_mapping[0]
+        
+        self.dataset = Dataset(_connector)
 
         msg = '\n\nImport taining dataset:\n{}\n'.format(
             self.dataset.pixel_connector.__repr__())
