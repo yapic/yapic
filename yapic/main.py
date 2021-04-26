@@ -81,6 +81,7 @@ import sys
 import h5py
 from yapic.session import Session
 from yapic.deepimagej_exporter import DeepimagejExporter
+from yapic.version import __version__ as package_version
 
 import logging
 logger = logging.getLogger(__name__)
@@ -177,7 +178,7 @@ def main(args):
 
 
 def entry_point():
-    arguments = docopt(__doc__, version='YAPiC 0.1.0')
+    arguments = docopt(__doc__, version=f"YAPiC {package_version}")
     res = main(arguments)
     sys.exit(res)
 
