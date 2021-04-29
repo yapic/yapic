@@ -1,5 +1,6 @@
 import os
 from setuptools import setup, find_packages
+from yapic.version import __version__
 
 try:
     import tensorflow as tf
@@ -24,7 +25,7 @@ def readme():
 ns = os.environ.get('CI_PROJECT_NAMESPACE', 'idaf')
 
 setup(name='yapic',
-      version='1.2.4',
+      version=__version__,
       description='Yet another Pixel Classifier (based on deep learning)',
       long_description=readme(),
       url='https://yapic.github.io/yapic/',
