@@ -28,6 +28,7 @@ setup(name='yapic',
       version=__version__,
       description='Yet another Pixel Classifier (based on deep learning)',
       long_description=readme(),
+      long_description_content_type='text/markdown',
       url='https://yapic.github.io/yapic/',
       author='Manuel Schoelling, Christoph Moehl',
       author_email=('manuel.schoelling@gmx.de, '
