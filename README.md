@@ -1,7 +1,8 @@
 [![Build Status](https://travis-ci.com/yapic/yapic.svg?branch=master)](https://travis-ci.com/yapic/yapic)
 [![PyPI](https://img.shields.io/pypi/v/yapic.svg?color=green)](https://pypi.org/project/yapic/)
 
-![DZNE](docs/img/DZNE_CMYK_E.png)<!-- .element height="50%" width="50%" -->
+<!-- full url is needed for images to be rendered on pypi -->
+![DZNE](https://raw.githubusercontent.com/yapic/yapic/master/docs/img/DZNE_CMYK_E.png)<!-- .element height="50%" width="50%" -->
 
 YAPiC is developed by
 [Image and Data Analysis Facility](https://www.dzne.de/forschung/core-facilities/image-and-data-analysisfacility/), [Core Reseach Facilities](https://www.dzne.de/forschung/core-facilities/), [DZNE](https://www.dzne.de/en) (German Center for Neurodegenerative Diseases).
@@ -19,7 +20,7 @@ With YAPiC you can make your own customzied filter (we call it *model* or *class
 
 We can, e.g train a model for detection of oak leafs in color images, and use this oak leaf model to filter out all image regions that are not covered by oak leaves:
 
-![](docs/img/oak_example.png "oak leaf classifier example")
+![](https://raw.githubusercontent.com/yapic/yapic/master/docs/img/oak_example.png "oak leaf classifier example")
 
 * Pixels that belong to other leaf types
   or to no leafs at all are mostly suppressed, they appear dark in the output image.
@@ -29,7 +30,7 @@ The output image is also called a *probability map*, because the intensity of ea
 
 You can train a model for almost any structure you are interested in, for example to detect a certain cell type in histological micrographs (here: purkinje cells of the human brain):
 
-![](docs/img/histo_example.png "purkinje cell classifier example")
+![](https://raw.githubusercontent.com/yapic/yapic/master/docs/img/histo_example.png "purkinje cell classifier example")
 *Histology data provided by Oliver Kaut (University Clinic Bonn, Dept. of Neurology)*
 
 We have used YAPiC for analyzing various microscopy image data. Our experiments are mainly related to neurobiology, cell biology, histopathology  and drug discovery (high content screening).
