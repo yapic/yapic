@@ -1,10 +1,9 @@
 language: python
 python:
-  - '3.7'
+  - '3.8'
 env:
-  - TENSORFLOW_VERSION=2.1.0
-  - TENSORFLOW_VERSION=1.13.2
-  - TENSORFLOW_VERSION=1.15
+  - TENSORFLOW_VERSION=2.4.2
+
 install:
   - pip install --upgrade pip setuptools
   - pip install tensorflow==$TENSORFLOW_VERSION
