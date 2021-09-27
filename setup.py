@@ -1,20 +1,34 @@
 import os
+from subprocess import Popen, PIPE
+from distutils import spawn
+import platform
 from setuptools import setup, find_packages
 from yapic.version import __version__
-
-try:
-    import tensorflow as tf
-except ModuleNotFoundError:
-    msg = ('You have to install tensorflow or tensorflow-gpu version '
-           '1.12, 1.13, 1.14, 1.15 or 2.1'
-           'before installing YAPiC')
-    raise ModuleNotFoundError(msg)
-
 
 reqs = ['yapic_io>=0.1.2',
         'docopt>=0.6.2',
         'numpy>=1.15.4']
 
+def check_for_gpu():
+    if platform.system() == 'Windows':
+        nvidia_smi = spawn.find_executable('nvidia-smi')
+        if nvidia_smi is None:
+            nvidia_smi = f"{os.environ['systemdrive']}\\Program Files\\NVIDIA Corporation\\NVSMI\\nvidia-smi.exe"
+    else:
+        nvidia_smi = 'nvidia-smi'
+    
+    try:
+        with Popen([nvidia_smi, '-L'], stdout=PIPE) as proc:
+            isGPU = bool(proc.stdout.read())
+    except:
+        isGPU = False
+    return isGPU
+
+USE_GPU_VERSION = check_for_gpu()
+if USE_GPU_VERSION:
+    reqs.append('tensorflow-gpu==2.4.2')
+else:
+    reqs.append('tensorflow==2.4.2')
 
 def readme():
     README_md = os.path.join(os.path.dirname(__file__), 'README.md')

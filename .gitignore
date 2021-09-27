@@ -24,3 +24,6 @@ yapic/tests/__pycache__/
 # Temporary test files
 yapic/test_data/tmp/
 test_data/
+
+# VS code
+.vscode/
