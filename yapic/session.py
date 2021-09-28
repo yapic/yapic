@@ -174,8 +174,9 @@ class Session(object):
         valfraction : float
             Approximate fraction of validation data. Has to be between 0 and 1.
         '''
-        msg = ('\nConfiuring validation dataset '
-               '({} validation data, {} training data)').format(
+        msg = ('\nConfiguring validation dataset '
+               '({} validation data, {} training data). '
+               'This takes a few minutes...').format(
                    valfraction,
                    1 - valfraction)
         sys.stdout.write(msg)
