@@ -26,9 +26,9 @@ def check_for_gpu():
 
 USE_GPU_VERSION = check_for_gpu()
 if USE_GPU_VERSION:
-    reqs.append('tensorflow-gpu==2.4.2')
+    reqs.append('tensorflow-gpu')
 else:
-    reqs.append('tensorflow==2.4.2')
+    reqs.append('tensorflow')
 
 def readme():
     README_md = os.path.join(os.path.dirname(__file__), 'README.md')
