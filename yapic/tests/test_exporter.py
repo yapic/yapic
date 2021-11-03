@@ -15,7 +15,7 @@ def train_test_model_unet_2d_1channel_3classes():
         '../test_data/shapes/pixels/*')
     label_path = os.path.join(
         base_path,
-        '../test_data/shapes/labels.ilp')
+        '../test_data/shapes/labels.h5')
     savepath = os.path.join(
         base_path,
         '../test_data/tmp')
@@ -43,7 +43,7 @@ def train_test_model_unet_2d_1channel_2classes():
         '../test_data/shapes/pixels/*')
     label_path = os.path.join(
         base_path,
-        '../test_data/shapes/labels_2classes.ilp')
+        '../test_data/shapes/labels_2classes.h5')
     savepath = os.path.join(
         base_path,
         '../test_data/tmp')
@@ -71,7 +71,7 @@ def train_test_model_unet_2d_3channels_2classes():
         '../test_data/shapes/pixels_rgb/*')
     label_path = os.path.join(
         base_path,
-        '../test_data/shapes/labels_2classes.ilp')
+        '../test_data/shapes/labels_2classes.h5')
     savepath = os.path.join(
         base_path,
         '../test_data/tmp')
@@ -99,7 +99,7 @@ def train_test_model_convnet():
         '../test_data/shapes/pixels/*')
     label_path = os.path.join(
         base_path,
-        '../test_data/shapes/labels.ilp')
+        '../test_data/shapes/labels.h5')
     savepath = os.path.join(
         base_path,
         '../test_data/tmp')
@@ -172,31 +172,6 @@ class TestDeepimagejExporter(TestCase):
                                  save_path,
                                  example_image_path)
         assert exp._is_model_unet_2d()
-
-    @pytest.mark.slow
-    def test_reshape_unet_2d_1channel_3classes(self):
-
-        example_image_path = os.path.abspath(os.path.join(
-            base_path,
-            '../test_data/shapes/pixels/pixels_1.tiff'))
-
-        save_path = os.path.abspath(os.path.join(
-            base_path,
-            '../test_data/tmp/exported_model'))
-
-        model_path = os.path.join(
-            base_path,
-            '../test_data/tmp/model_unet_2d_1channel_3classes.h5')
-
-        print('model_path: {}'.format(model_path))
-
-        exp = DeepimagejExporter(model_path,
-                                 save_path,
-                                 example_image_path)
-
-        exp._reshape_unet_2d(size='small')
-        assert exp.model_reshaped.input_shape == (None, 112, 112, 1)
-        assert exp.model_reshaped.output_shape == (None, 112, 112, 3)
 
     @pytest.mark.slow
     def test_reshape_unet_2d_1channel_2classes(self):
