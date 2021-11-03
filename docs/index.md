@@ -82,7 +82,7 @@ Development of YAPiC started in 2015, when Ronneberger et al. presented a [U-sha
 
   * We strongly recommend to install a Tensorflow version with GPU support. CPU is too slow for model training.
   * Please read [Tensorflow installation instructions](https://www.tensorflow.org/install/gpu) to set up CUDA drivers, cuDNN etc. correctly.
-  * Supported **Tensorflow versions** are **1.15** and **2.1**.
+  * The support for **Tensorflow 1** is discontinued. We only support **Tensorflow 2**.
   * To be able to **export YAPiC models to ImageJ** ([DeepImageJ Plugin version 1.2](https://deepimagej.github.io/deepimagej/)), you have to install
     Tensorflow version **1.15**.
     ```
