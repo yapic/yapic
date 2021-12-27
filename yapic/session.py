@@ -43,8 +43,9 @@ class Session(object):
 
         self.output_tile_size_zxy = None
         self.padding_zxy = None
+        self.batch_size = None
 
-    def load_training_data(self, image_path, label_path):
+    def load_training_data(self, image_path, label_path, batch_size):
         '''
         Connect to a training dataset.
 
@@ -61,6 +62,10 @@ class Session(object):
         self.lbl_map = _connector.labelvalue_mapping[0]
         
         self.dataset = Dataset(_connector)
+        if batch_size is None:
+            self.batch_size = len(self.dataset.label_values())
+        else:
+            self.batch_size = batch_size
 
         msg = '\n\nImport taining dataset:\n{}\n'.format(
             self.dataset.pixel_connector.__repr__())
@@ -158,7 +163,8 @@ class Session(object):
         self.data_val = None
         self.data = TrainingBatch(self.dataset,
                                   output_tile_size_zxy,
-                                  padding_zxy=padding_zxy)
+                                  padding_zxy=padding_zxy,
+                                  batch_size=self.batch_size)
         self.data.set_normalize_mode('local')
         self.data.set_pixel_dimension_order('bzxyc')
         next(self.data)

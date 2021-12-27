@@ -51,6 +51,7 @@ Train Options:
                           labels.
   --csvfile=LOSSDATA      Path to csv file for training loss data
                           [default: loss.csv].
+  --batchsize             Size of training batch.
 
 Predict Options:
   --split                 Save prediction images of different classes into
@@ -130,8 +131,12 @@ def main(args):
         log_filename = args['--csvfile']
         model_export_filename = args['--file']
         valfraction = float(args['--valfraction'])
+        if args['--batchsize']:
+            batch_size = int(args['--batchsize'])
+        else:
+            batch_size = None
 
-        s.load_training_data(image_path, label_path)
+        s.load_training_data(image_path, label_path, batch_size)
 
         models_available = ['unet_2d',
                             'unet_multi_z',
