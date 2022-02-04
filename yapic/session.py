@@ -71,7 +71,7 @@ class Session(object):
             self.dataset.pixel_connector.__repr__())
         sys.stdout.write(msg)
 
-    def load_prediction_data(self, image_path, save_path):
+    def load_prediction_data(self, image_path, save_path, batch_size=2):
         '''
         Connect to a prediction dataset.
 
@@ -86,6 +86,7 @@ class Session(object):
         self.dataset = Dataset(io_connector(image_path,
                                             '/tmp/this_should_not_exist',
                                             savepath=save_path))
+        self.batch_size = batch_size
         msg = '\n\nImport dataset for prediction:\n{}\n'.format(
             self.dataset.pixel_connector.__repr__())
         sys.stdout.write(msg)
