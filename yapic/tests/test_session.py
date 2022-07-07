@@ -177,16 +177,16 @@ class TestEnd2End(TestCase):
                 shape = 'triangles'
 
             filename = os.path.join(
-                                savepath,
-                                'pixels_{}_class_{}.tif'.format(image_nr,
-                                                                class_nr))
+                savepath,
+                'pixels_{}_class_{}.tif'.format(image_nr,
+                                                class_nr))
             print(filename)
             prediction_img = np.squeeze(imread(filename))
             filename = os.path.join(
-                                    savepath,
-                                    '../shapes/val/{}_{}.tiff'.format(
-                                        shape,
-                                        image_nr))
+                savepath,
+                '../shapes/val/{}_{}.tiff'.format(
+                    shape,
+                    image_nr))
             print(filename)
             val_img = np.squeeze(skimage.io.imread(filename))
             return prediction_img, val_img
