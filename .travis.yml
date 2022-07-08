@@ -2,13 +2,14 @@ language: python
 python:
   - '3.8'
 env:
-  - TENSORFLOW_VERSION=2.8.0
+  - TENSORFLOW_VERSION=2.4.1
 
 install:
   - pip install --upgrade pip setuptools
   - pip install tensorflow==$TENSORFLOW_VERSION
   - pip install .
   - pip install -U pytest
+  - pip install pytest-console-scripts
 script:
   - pytest -s -v -m "not slow"
 deploy:
