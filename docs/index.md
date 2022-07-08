@@ -95,8 +95,13 @@ Development of YAPiC started in 2015, when Ronneberger et al. presented a [U-sha
 
 * Install YAPiC
 
+
+We recommend to install legacy YAPiC version which supports Ilastik label files. The current YAPiC version does not support Ilastik any more. Instead a label and prediction workflow with *napari* is supported. However the *napari* workflow for labelliing, YAPiC model training and prediction has not been documented so far. 
+The tutorials you finde here in the documentations work only with `yapic_io<=0.2.3` and `yapic<=1.2.4`. 
 ```
-pip install yapic
+pip install tensorflow==2.4.1 # you may use other tensorflow versions regarding to your hardware
+pip install yapic_io==0.2.3 # last version supporting Ilastik label files
+pip install yapic==1.2.4 # newer yapic versions require yapic_io>0.2.3
 ```
 
 

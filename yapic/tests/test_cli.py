@@ -14,7 +14,7 @@ def leaves_example_data_path(tmp_path):
         zip_ref.extractall(tmp_path)
     return tmp_path
 
-
+@pytest.mark.skip('ilp label files are not supported in current version')
 def test_leafexample_train(leaves_example_data_path, script_runner: ScriptRunner):
     # "'{}/*.tif'".format(str(leaves_example_data_path))
     image_path = str(leaves_example_data_path)
