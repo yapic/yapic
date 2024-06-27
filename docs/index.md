@@ -191,7 +191,7 @@ to multiple days) and a lot of computing power. Running these processes in the b
 
 
 * Using fast SSD hard drives (PCIe SSDs) for storing training data may increase training speed, compared to conventional hard drives. Have a look at the [GPU requirements for Tensorflow](https://www.tensorflow.org/install/gpu).
-* From our expericence you can have already quite good performance with NVIDIA Geforce boards (mainly intended for gaming). These are cheaper than professional NVIDIA Tesla GPUs.
+* From our experience you can have already quite good performance with NVIDIA Geforce boards (mainly intended for gaming). These are cheaper than professional NVIDIA Tesla GPUs.
 * GPU RAM requirements: RAM of your GPU hardware is often a bottleneck and depends the specific project. RAM requirements depend on the number of classes you want to train and if you use a 2D network or 3D network. Some recommendations, based on our personal experience:
   * For training a *unet_2D* with two classes (foreground, background), 5 GB
     RAM on your GPU is sufficient.
